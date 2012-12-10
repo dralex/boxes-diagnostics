@@ -1,0 +1,7 @@
+<RCC>
+  <qresource prefix="Icons" >
+    <file>images/book.png</file>
+    <file>images/empty-box.png</file>
+    <file>images/full-box.png</file>
+  </qresource>
+</RCC>
