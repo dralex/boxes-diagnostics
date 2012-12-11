@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>NewTestDialog</class>
+ <widget class="QDialog" name="NewTestDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>501</width>
+    <height>426</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Новая диагностика</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="diagn.qrc">
+    <normaloff>:/Icons/images/full-box.png</normaloff>:/Icons/images/full-box.png</iconset>
+  </property>
+  <layout class="QGridLayout" name="gridLayout_3">
+   <item row="0" column="0">
+    <widget class="QGroupBox" name="groupBox">
+     <property name="title">
+      <string>Участник диагностики</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout">
+      <item row="0" column="0">
+       <layout class="QVBoxLayout" name="verticalLayout_2">
+        <item>
+         <widget class="QLabel" name="label">
+          <property name="text">
+           <string>Школа</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_3">
+          <property name="text">
+           <string>Класс</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_2">
+          <property name="text">
+           <string>Имя и Фамилия</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item row="0" column="1">
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <item>
+         <widget class="QLineEdit" name="schoolEdit"/>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="classEdit"/>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="nameEdit"/>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="QGroupBox" name="groupBox_2">
+     <property name="title">
+      <string>Уровень владения компьютером</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_2">
+      <item row="0" column="0">
+       <widget class="QLabel" name="label_4">
+        <property name="text">
+         <string>Кратко опишите свой уровень владения компьютером, как часто работаете, для чего обычно используете компьютер:</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignJustify|Qt::AlignVCenter</set>
+        </property>
+        <property name="wordWrap">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QTextEdit" name="expEdit"/>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="2" column="0">
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QDialogButtonBox" name="buttonBox">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="standardButtons">
+        <set>QDialogButtonBox::Ok</set>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <tabstops>
+  <tabstop>schoolEdit</tabstop>
+  <tabstop>classEdit</tabstop>
+  <tabstop>nameEdit</tabstop>
+  <tabstop>expEdit</tabstop>
+  <tabstop>buttonBox</tabstop>
+ </tabstops>
+ <resources>
+  <include location="diagn.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>accepted()</signal>
+   <receiver>NewTestDialog</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>248</x>
+     <y>254</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>157</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>classEdit</sender>
+   <signal>textChanged(QString)</signal>
+   <receiver>NewTestDialog</receiver>
+   <slot>slotTextChanged(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>317</x>
+     <y>84</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>250</x>
+     <y>212</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>nameEdit</sender>
+   <signal>textChanged(QString)</signal>
+   <receiver>NewTestDialog</receiver>
+   <slot>slotTextChanged(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>317</x>
+     <y>119</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>250</x>
+     <y>212</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>schoolEdit</sender>
+   <signal>textChanged(QString)</signal>
+   <receiver>NewTestDialog</receiver>
+   <slot>slotTextChanged(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>317</x>
+     <y>49</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>250</x>
+     <y>212</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>expEdit</sender>
+   <signal>textChanged()</signal>
+   <receiver>NewTestDialog</receiver>
+   <slot>slotBigTextChanged()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>254</x>
+     <y>294</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>250</x>
+     <y>212</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>slotTextChanged(QString)</slot>
+  <slot>slotBigTextChanged()</slot>
+ </slots>
+</ui>
