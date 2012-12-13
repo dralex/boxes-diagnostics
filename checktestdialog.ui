@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>CheckTestDialog</class>
+ <widget class="QDialog" name="CheckTestDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>552</width>
+    <height>322</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Подсчет числа операций</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="diagn.qrc">
+    <normaloff>:/Icons/images/full-box.png</normaloff>:/Icons/images/full-box.png</iconset>
+  </property>
+  <layout class="QGridLayout" name="gridLayout_3">
+   <item row="0" column="0">
+    <widget class="QLabel" name="operationLabel">
+     <property name="text">
+      <string>Найдите следующую книгу за меньшее число операций:</string>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="QFrame" name="frame">
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <layout class="QGridLayout" name="gridLayout">
+      <item row="0" column="0">
+       <widget class="QLabel" name="bookLabel">
+        <property name="text">
+         <string/>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="2" column="0">
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <item>
+      <widget class="QLabel" name="currentBoxLabelText">
+       <property name="text">
+        <string>Вы сейчас работаете с:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="currentBoxLabel">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="text">
+        <string>Ящик ааа</string>
+       </property>
+       <property name="wordWrap">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="3" column="0">
+    <layout class="QGridLayout" name="gridLayout_2">
+     <item row="0" column="1">
+      <widget class="QPushButton" name="closeButton">
+       <property name="text">
+        <string>Закрыть ящик</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <layout class="QHBoxLayout" name="horizontalLayout_3">
+       <item>
+        <widget class="QPushButton" name="firstButton">
+         <property name="text">
+          <string>|&lt;</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="beforeButton_2">
+         <property name="text">
+          <string>&lt;</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item row="1" column="1">
+      <widget class="QLabel" name="currentLabel">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="text">
+        <string>Книга ААА</string>
+       </property>
+       <property name="wordWrap">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="2">
+      <layout class="QHBoxLayout" name="horizontalLayout_4">
+       <item>
+        <widget class="QPushButton" name="afterButton">
+         <property name="text">
+          <string>&gt;</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="lastButton">
+         <property name="text">
+          <string>&gt;|</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item row="2" column="1">
+      <widget class="QPushButton" name="openButton">
+       <property name="text">
+        <string>Открыть ящик</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="4" column="0">
+    <widget class="QLabel" name="operationLabel_3">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="text">
+      <string>Каждый переход между ящиками и книгами, а также открытие ящика затрачивает 1 операцию.</string>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="0">
+    <widget class="QLabel" name="operationsLabel">
+     <property name="text">
+      <string>Число затраченных операций: </string>
+     </property>
+    </widget>
+   </item>
+   <item row="6" column="0">
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QPushButton" name="againButton">
+       <property name="text">
+        <string>Начать заново</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="okButton">
+       <property name="text">
+        <string>Готово</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <resources>
+  <include location="diagn.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>okButton</sender>
+   <signal>clicked()</signal>
+   <receiver>CheckTestDialog</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>430</x>
+     <y>228</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>241</x>
+     <y>126</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>againButton</sender>
+   <signal>clicked()</signal>
+   <receiver>CheckTestDialog</receiver>
+   <slot>slotRestart()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>74</x>
+     <y>297</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>241</x>
+     <y>160</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>firstButton</sender>
+   <signal>clicked()</signal>
+   <receiver>CheckTestDialog</receiver>
+   <slot>slotBefore()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>52</x>
+     <y>156</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>241</x>
+     <y>160</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>lastButton</sender>
+   <signal>clicked()</signal>
+   <receiver>CheckTestDialog</receiver>
+   <slot>slotAfter()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>430</x>
+     <y>156</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>241</x>
+     <y>160</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>openButton</sender>
+   <signal>clicked()</signal>
+   <receiver>CheckTestDialog</receiver>
+   <slot>slotOpen()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>241</x>
+     <y>191</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>241</x>
+     <y>160</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>closeButton</sender>
+   <signal>clicked()</signal>
+   <receiver>CheckTestDialog</receiver>
+   <slot>slotClose()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>241</x>
+     <y>121</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>241</x>
+     <y>160</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>firstButton</sender>
+   <signal>clicked()</signal>
+   <receiver>CheckTestDialog</receiver>
+   <slot>slotFirst()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>53</x>
+     <y>156</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>275</x>
+     <y>160</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>lastButton</sender>
+   <signal>clicked()</signal>
+   <receiver>CheckTestDialog</receiver>
+   <slot>slotLast()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>498</x>
+     <y>156</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>275</x>
+     <y>160</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>slotOpen()</slot>
+  <slot>slotClose()</slot>
+  <slot>slotBefore()</slot>
+  <slot>slotAfter()</slot>
+  <slot>slotRestart()</slot>
+  <slot>slotFirst()</slot>
+  <slot>slotLast()</slot>
+ </slots>
+</ui>
