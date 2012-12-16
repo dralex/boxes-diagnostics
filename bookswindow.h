@@ -28,6 +28,7 @@
 #include <QGridLayout>
 #include <QListView>
 #include <QDrag>
+#include <QCursor>
 
 #include "bookitem.h"
 #include "bookmodel.h"
@@ -61,6 +62,7 @@ protected:
 		drag->setMimeData(m->mimeData(indexes));
 		BookItem* item = m->indexToItem(current);
 		drag->setPixmap(m->getItemIcon(item).pixmap(32, 32));
+		drag->setDragCursor(QCursor(Qt::ClosedHandCursor).pixmap(), Qt::MoveAction);
 		drag->exec(Qt::MoveAction);
 	}
 };

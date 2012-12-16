@@ -10,3 +10,4 @@ RESOURCES = diagn.qrc
 win32 {
     RC_FILE = diagn.rc
 }
+
