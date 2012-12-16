@@ -235,7 +235,7 @@ void DiagnosticsWindow::slotRename()
 void DiagnosticsWindow::slotFinishEditing()
 {
 	if(yesNoDialog(QString::fromUtf8("Предупреждение"),
-				   QString::fromUtf8("Перейти ко следующей части диагностики?"))) {
+				   QString::fromUtf8("Перейти к следующей части диагностики?"))) {
 		secondPart();		
 	}
 }

@@ -27,9 +27,43 @@
 #include <QMdiSubWindow>
 #include <QGridLayout>
 #include <QListView>
+#include <QDrag>
 
 #include "bookitem.h"
 #include "bookmodel.h"
+
+class BooksView: public QListView {
+Q_OBJECT
+public:
+	BooksView(QWidget* parent): QListView(parent) {
+		setViewMode(QListView::ListMode);
+		setFlow(QListView::TopToBottom);
+		setResizeMode(QListView::Adjust);
+		setWrapping(true);
+		setDragEnabled(true);
+		setAcceptDrops(true);
+		setDropIndicatorShown(true);
+		setDragDropMode(QAbstractItemView::DragDrop);
+		setDefaultDropAction(Qt::MoveAction);
+		setEditTriggers(QAbstractItemView::SelectedClicked);
+//	setSelectionMode(QAbstractItemView::MultiSelection);
+//	setMovement(QListView::Free);		
+	}
+	
+protected:
+
+	void startDrag(Qt::DropActions) {
+		QDrag* drag = new QDrag(this);
+		QModelIndexList indexes;
+		QModelIndex current = currentIndex();
+		indexes.append(current);
+		BookModel* m = reinterpret_cast<BookModel*>(model());
+		drag->setMimeData(m->mimeData(indexes));
+		BookItem* item = m->indexToItem(current);
+		drag->setPixmap(m->getItemIcon(item).pixmap(32, 32));
+		drag->exec(Qt::MoveAction);
+	}
+};
 
 class BooksWindow: public QMdiSubWindow {
 Q_OBJECT

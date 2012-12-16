@@ -30,20 +30,7 @@ BooksWindow::BooksWindow(BookModel* m,
 	QMdiSubWindow(parent), model(m)
 {
 	setAttribute(Qt::WA_DeleteOnClose);
-	booksView = new QListView(this);
-	booksView->setViewMode(QListView::ListMode);
-	booksView->setFlow(QListView::TopToBottom);
-	booksView->setResizeMode(QListView::Adjust);
-	booksView->setWrapping(true);
-	booksView->setDragEnabled(true);
-	booksView->setAcceptDrops(true);
-	booksView->setDropIndicatorShown(true);
-	booksView->setDragDropMode(QAbstractItemView::DragDrop);
-	booksView->setDefaultDropAction(Qt::MoveAction);
-	booksView->setEditTriggers(QAbstractItemView::SelectedClicked);
-//	booksView->setSelectionMode(QAbstractItemView::MultiSelection);
-//	booksView->setMovement(QListView::Free);
-
+	booksView = new BooksView(this);
 	setWidget(booksView);
 	
 	BookItem* item = model->indexToItem(index);
