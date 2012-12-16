@@ -1,0 +1,12 @@
+POST /diagn/server/pushresults.cgi HTTP/1.0
+Host: eduscen.ru
+Content-type: application/octet-stream
+Content-length: 66
+
+AppVersion: 1.1.1
+LocalTime: 22
+Comments:
+blah-blah
+111
+222
+
