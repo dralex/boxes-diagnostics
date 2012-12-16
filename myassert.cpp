@@ -26,11 +26,5 @@
 
 void criticalMessage(const QString& message)
 {
-/*	QObject o;
-	QMessageBox::critical(0, o.tr("Программа диагностики", "Dialog titles"),
-						  o.tr("Возникла непредвиденная ошибка\n"
-							   "%1\n"
-							   "Программа будет закрыта.", "Warning messages").arg(message));
-							   QApplication::exit(1);	*/
 	throw message;
 }

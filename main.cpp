@@ -23,20 +23,51 @@
 
 #include <QMessageBox>
 #include "diagn-window.h"
+#include <QApplication>
 
-int main(int argc, char *argv[])
+void printMessage(const QString& msg = "")
 {
-	QApplication app(argc, argv);
-	try {
-		DiagnosticsWindow win;
-		win.show();
-		int res = app.exec();
-		return res;
-	} catch(const QString& error) {
+	if(!msg.isEmpty()) {
 		QMessageBox::critical(0, QString::fromUtf8("Диагностика работы за компьютером"),
-							  QString::fromUtf8("Ошибка при загрузке программы диагностики: %1").arg(error));
-	} catch(...) {
+							  QString::fromUtf8("Ошибка при загрузке программы диагностики: %1").arg(msg));	
+	} else {
 		QMessageBox::critical(0, QString::fromUtf8("Диагностика работы за компьютером"),
 							  QString::fromUtf8("Неизвестная ошибка при загрузке программы диагностики."));
 	}
+}
+
+class DashboardApplication: public QApplication {
+public:
+	DashboardApplication(int & argc, char ** argv):
+		QApplication(argc, argv) 
+		{}
+	virtual bool notify(QObject * receiver, QEvent * e)
+		{
+			try {
+				return QApplication::notify(receiver, e);
+			} catch(const QString& error) {
+				printMessage(error);
+				quit();
+			} catch(...) {
+				printMessage();
+				quit();
+			}
+			return false;
+		}
+};
+
+int main(int argc, char *argv[])
+{
+	DashboardApplication app(argc, argv);
+	try {
+		DiagnosticsWindow win;
+		win.showMaximized();
+		int res = app.exec();
+		return res;
+	} catch(const QString& error) {
+		printMessage(error);
+	} catch(...) {
+		printMessage();
+	}
+	return 1;
 }

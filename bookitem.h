@@ -32,7 +32,7 @@ class BookItem {
 public:
 	BookItem();
 	BookItem(BookItem* parent, const QString& boxLabel);
-	BookItem(BookItem* parent, const BookDescription& bd);
+	BookItem(BookItem* parent, const BookDescription& bd, const QString& uid = QString(""));
 	~BookItem();
 
 	bool isRoot() const { return parent_item == NULL; }
@@ -46,12 +46,15 @@ public:
 	int findChildID(const QString& id) const;
 
 	void setBooks(const BooksList& list);
+	void appendBooks(const QMap<QString, BookDescription>& books);
 	void makeSubBox(const QString& label);
 	void rename(const QString& n) { label = n; }
 	void removeChild(int row);
 	void addChild(BookItem* child);
+	void moveChild(int old_index, int new_index);
 
 	const QString& getLabel() const { return label; }
+	const QString& getID() const { return id; }
 	const BookDescription& getBookDescr() const { return book_descr; }
 
 	static QString		path_separator;
@@ -62,7 +65,7 @@ private:
 	void removeAllChildren();
 	QString generateID();
 
-	bool 				box;
+	bool 				root, box;
 	QString 			label, id;
 	BookDescription 	book_descr;
 	BookItem*			parent_item;

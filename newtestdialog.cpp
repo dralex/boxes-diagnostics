@@ -1,6 +1,6 @@
 /*****************************************************************************
  * 
- * ReflectDiagn book window for the Books diagnostics.
+ * New test parameters dialog for the Books diagnostics.
  * 
  * Author: Alexey Fedoseev <aleksey@fedoseev.net>
  * 
@@ -52,7 +52,6 @@ void NewTestDialog::slotTextChanged(QString)
 void NewTestDialog::slotBigTextChanged()
 {
 	buttonBox->setEnabled(!schoolEdit->text().isEmpty() &&
-						  !classEdit->text().isEmpty() &&
 						  !nameEdit->text().isEmpty() &&
 						  !expEdit->toPlainText().isEmpty());
 }

@@ -3,5 +3,11 @@
     <file>images/book.png</file>
     <file>images/empty-box.png</file>
     <file>images/full-box.png</file>
+    <file>images/new-test.png</file>
+    <file>images/ok.png</file>
+    <file>images/info.png</file>
+    <file>images/question.png</file>
+    <file>images/delete.png</file>
+    <file>images/rename.png</file>
   </qresource>
 </RCC>

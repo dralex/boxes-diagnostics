@@ -46,6 +46,7 @@ public slots:
 	void slotAfter();
 	void slotFirst();
 	void slotLast();
+	void slotAddBox();
 
 private:
 	void updateControls();
@@ -55,7 +56,7 @@ private:
 	BookDescription search_book;
 	unsigned int	operations;
 	QModelIndex		current_index;
-	QIcon			fullboxIcon, emptyboxIcon, bookIcon; 
+	QModelIndex		parent_index;
 };
 
 #endif

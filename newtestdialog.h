@@ -1,6 +1,6 @@
 /*****************************************************************************
  * 
- * ReflectDiagn book window for the Books diagnostics.
+ * New test parameters dialog for the Books diagnostics.
  * 
  * Author: Alexey Fedoseev <aleksey@fedoseev.net>
  * 

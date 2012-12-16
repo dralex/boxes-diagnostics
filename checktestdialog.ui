@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>552</width>
-    <height>322</height>
+    <width>558</width>
+    <height>486</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -37,7 +37,7 @@
       <enum>QFrame::Raised</enum>
      </property>
      <layout class="QGridLayout" name="gridLayout">
-      <item row="0" column="0">
+      <item row="1" column="0">
        <widget class="QLabel" name="bookLabel">
         <property name="text">
          <string/>
@@ -55,7 +55,20 @@
      <item>
       <widget class="QLabel" name="currentBoxLabelText">
        <property name="text">
-        <string>Вы сейчас работаете с:</string>
+        <string>Вы сейчас работаете с</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="currentBoxIcon">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="text">
+        <string>Иконка</string>
        </property>
       </widget>
      </item>
@@ -78,6 +91,56 @@
     </layout>
    </item>
    <item row="3" column="0">
+    <layout class="QHBoxLayout" name="horizontalLayout_5">
+     <item>
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>Содержимое:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer_2">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="addBoxButton">
+       <property name="text">
+        <string>Добавить ящик</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="4" column="0">
+    <widget class="QListView" name="bookView">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="editTriggers">
+      <set>QAbstractItemView::NoEditTriggers</set>
+     </property>
+     <property name="selectionMode">
+      <enum>QAbstractItemView::SingleSelection</enum>
+     </property>
+     <property name="selectionBehavior">
+      <enum>QAbstractItemView::SelectRows</enum>
+     </property>
+     <property name="resizeMode">
+      <enum>QListView::Adjust</enum>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="0">
     <layout class="QGridLayout" name="gridLayout_2">
      <item row="0" column="1">
       <widget class="QPushButton" name="closeButton">
@@ -96,7 +159,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="beforeButton_2">
+        <widget class="QPushButton" name="beforeButton">
          <property name="text">
           <string>&lt;</string>
          </property>
@@ -105,20 +168,40 @@
       </layout>
      </item>
      <item row="1" column="1">
-      <widget class="QLabel" name="currentLabel">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="text">
-        <string>Книга ААА</string>
-       </property>
-       <property name="wordWrap">
-        <bool>true</bool>
-       </property>
-      </widget>
+      <layout class="QHBoxLayout" name="horizontalLayout_7">
+       <item>
+        <widget class="QLabel" name="currentIcon">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="text">
+          <string>Книга ААА</string>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="currentLabel">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="text">
+          <string>Книга ААА</string>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </item>
      <item row="1" column="2">
       <layout class="QHBoxLayout" name="horizontalLayout_4">
@@ -147,7 +230,7 @@
      </item>
     </layout>
    </item>
-   <item row="4" column="0">
+   <item row="6" column="0">
     <widget class="QLabel" name="operationLabel_3">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
@@ -156,21 +239,38 @@
       </sizepolicy>
      </property>
      <property name="text">
-      <string>Каждый переход между ящиками и книгами, а также открытие ящика затрачивает 1 операцию.</string>
+      <string>Каждый переход между ящиками и книгами, а также открытие или добавление ящика затрачивает 1 операцию.</string>
      </property>
      <property name="wordWrap">
       <bool>true</bool>
      </property>
     </widget>
    </item>
-   <item row="5" column="0">
-    <widget class="QLabel" name="operationsLabel">
-     <property name="text">
-      <string>Число затраченных операций: </string>
-     </property>
-    </widget>
+   <item row="7" column="0">
+    <layout class="QHBoxLayout" name="horizontalLayout_6">
+     <item>
+      <widget class="QLabel" name="operationsLabel">
+       <property name="text">
+        <string>Число затраченных операций: </string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="operationsCountLabel">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="text">
+        <string>0</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </item>
-   <item row="6" column="0">
+   <item row="8" column="0">
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
       <widget class="QPushButton" name="againButton">
@@ -240,30 +340,14 @@
    </hints>
   </connection>
   <connection>
-   <sender>firstButton</sender>
-   <signal>clicked()</signal>
-   <receiver>CheckTestDialog</receiver>
-   <slot>slotBefore()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>52</x>
-     <y>156</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>241</x>
-     <y>160</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>lastButton</sender>
+   <sender>afterButton</sender>
    <signal>clicked()</signal>
    <receiver>CheckTestDialog</receiver>
    <slot>slotAfter()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>430</x>
-     <y>156</y>
+     <x>407</x>
+     <y>301</y>
     </hint>
     <hint type="destinationlabel">
      <x>241</x>
@@ -335,6 +419,38 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>addBoxButton</sender>
+   <signal>clicked()</signal>
+   <receiver>CheckTestDialog</receiver>
+   <slot>slotAddBox()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>473</x>
+     <y>121</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>275</x>
+     <y>234</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>beforeButton</sender>
+   <signal>clicked()</signal>
+   <receiver>CheckTestDialog</receiver>
+   <slot>slotBefore()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>144</x>
+     <y>301</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>275</x>
+     <y>234</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>slotOpen()</slot>
@@ -344,5 +460,6 @@
   <slot>slotRestart()</slot>
   <slot>slotFirst()</slot>
   <slot>slotLast()</slot>
+  <slot>slotAddBox()</slot>
  </slots>
 </ui>

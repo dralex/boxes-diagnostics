@@ -21,6 +21,7 @@
  *
  ******************************************************************************/
 
+#include <QMap>
 #include "bookitem.h"
 #include "myassert.h"
 
@@ -31,6 +32,7 @@ BookItem::BookItem()
 	box = false;
 	parent_item = NULL;
 	label = "";
+	id = "";
 }
 
 BookItem::BookItem(BookItem* parent, const QString& boxLabel)
@@ -42,13 +44,20 @@ BookItem::BookItem(BookItem* parent, const QString& boxLabel)
 	id = generateID();
 }
 
-BookItem::BookItem(BookItem* parent, const BookDescription& bd)
+BookItem::BookItem(BookItem* parent, const BookDescription& bd, const QString& uid)
 {
 	box = false;
 	parent_item = parent;
 	MY_ASSERT(parent);
-	label = bd.author + " - " + bd.title;
-	id = generateID();
+	QStringList name;
+	name.append(bd.author_name);
+	name.append(bd.author_surname);
+	label = name.join(" ") + " - " + bd.title;
+	if(uid.isEmpty()) {
+		id = generateID();
+	} else {
+		id = uid;
+	}
 	book_descr = bd;
 }
 
@@ -104,10 +113,19 @@ BookItem* BookItem::child(int index)
 
 void BookItem::setBooks(const BooksList& list)
 {
+	MY_ASSERT(isRoot());
 	removeAllChildren();
-
 	foreach(BookDescription bd, list) {
 		children.append(new BookItem(this, bd));
+	}
+}
+
+void BookItem::appendBooks(const QMap<QString, BookDescription>& books)
+{
+	MY_ASSERT(isRoot());
+	foreach(QString uid, books.keys()) {
+		const BookDescription& bd = books[uid];
+		children.append(new BookItem(this, bd, uid));
 	}
 }
 
@@ -125,7 +143,7 @@ int BookItem::findChildID(const QString& id) const
 
 void BookItem::makeSubBox(const QString& label)
 {
-	children.append(new BookItem(this, label));
+	children.insert(0, new BookItem(this, label));
 }
 
 void BookItem::removeChild(int row)
@@ -139,13 +157,28 @@ void BookItem::addChild(BookItem* child)
 	children.append(child);
 }
 
+void BookItem::moveChild(int old_index, int new_index)
+{
+	BookItem* child = children.at(old_index);	
+	children.insert(new_index, child);
+	if(old_index < new_index) {				
+		children.removeAt(old_index);
+	} else {		
+		children.removeAt(old_index + 1);
+	}
+}
+
 QString BookItem::constructPath() const
 {
-	if(parent_item == NULL) {
+	if(isRoot()) {
 		return path_separator;
 	} else {
 		MY_ASSERT(parent_item);
-		return parent_item->constructPath() + path_separator + id;
+		if(parent_item->isRoot()) {
+			return path_separator + id;
+		} else {
+			return parent_item->constructPath() + path_separator + id;
+		}
 	}
 }
 

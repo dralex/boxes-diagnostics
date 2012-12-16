@@ -37,14 +37,16 @@ public:
 	// CORE FUNCTIONALITY
 	void reset();
 	void setBooks(const BooksList& list);
+	void appendBooks(const QMap<QString, BookDescription>& books);
 
 	void newBox(const QString& path, const QString& label);	
 	void rename(const QString& path, const QString& newlabel);
 	void move(const QString& srcpath, const QString& destpath);
+	void insert(const QString& srcpath, int oldrow, int newrow);
 	void remove(const QString& box);
 
 	// DATA REPRESENTATION
-	QVariant data(const QModelIndex &index, int role) const;
+	QVariant data(const QModelIndex &index, int role) const;	
 	Qt::ItemFlags flags(const QModelIndex &index) const;
 	bool hasIndex(int row, int column, const QModelIndex & parent = QModelIndex()) const;
 	QModelIndex index(int row, int column, const QModelIndex &parent = QModelIndex()) const;
@@ -56,12 +58,15 @@ public:
 
 	const QIcon& getItemIcon(const BookItem* item) const;
 
+	// EDITING
+	bool setData(const QModelIndex & index, const QVariant & value, int role = Qt::EditRole);
+
 	// DRAG & DROP
 	Qt::DropActions supportedDropActions() const;
-/*	bool dropMimeData(const QMimeData *data,
+	bool dropMimeData(const QMimeData *data,
 					  Qt::DropAction action, int row, int column, const QModelIndex &parent);
 	QMimeData* mimeData(const QModelIndexList &indexes) const;
-	QStringList mimeTypes() const;*/
+	QStringList mimeTypes() const;
 
 	// INDEXES
 	QModelIndex rootIndex() const;
@@ -78,11 +83,14 @@ signals:
 	void dataChanged(const QModelIndex & topLeft, const QModelIndex & bottomRight);
 	void modelAboutToBeReset();
 	void modelReset();
+	void boxMoved(const QString& from_path, const QString& to_path);
+	void boxRenamed(const QString& path, const QString& label);
 
 private:
-	void removeRowsRecursively(QModelIndex parent);
+	void removeRowsRecursively(QModelIndex parent, QMap<QString, BookDescription>& books);
 	
 	BookItem*	root;
+	QString		diagnMimeType;
 	QIcon		emptyBoxIcon, fullBoxIcon, bookIcon;
 };
 

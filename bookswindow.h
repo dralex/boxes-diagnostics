@@ -32,13 +32,33 @@
 #include "bookmodel.h"
 
 class BooksWindow: public QMdiSubWindow {
+Q_OBJECT
 public:
 	BooksWindow(BookModel* model, 
 				QModelIndex index,
 				QWidget* parent = 0);
 
+	QModelIndex selectedIndex() const;
+	QModelIndex rootIndex() const { return booksView->rootIndex(); }
+	QString rootPath() const { return root; }
+	void modifyRoot(const QString& newRoot);
+	void modifyLabel(const QString& label);
+	void editSelected();
+
+signals:
+	void rootWindowClosed();
+	void boxClicked(QModelIndex box);
+
+protected slots:
+	void slotDoubleClicked(const QModelIndex& index);
+
+protected:
+	void closeEvent(QCloseEvent *event);
+
 private:
+	BookModel* model;
 	QListView* booksView;
+	QString root;
 };
 
 #endif

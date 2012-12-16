@@ -24,15 +24,25 @@
 #include "bookswindow.h"
 #include "myassert.h"
 
-BooksWindow::BooksWindow(BookModel* model, 
+BooksWindow::BooksWindow(BookModel* m, 
 						 QModelIndex index,
 						 QWidget* parent):
-	QMdiSubWindow(parent)
+	QMdiSubWindow(parent), model(m)
 {
+	setAttribute(Qt::WA_DeleteOnClose);
 	booksView = new QListView(this);
-	booksView->setViewMode(QListView::IconMode);
+	booksView->setViewMode(QListView::ListMode);
+	booksView->setFlow(QListView::TopToBottom);
+	booksView->setResizeMode(QListView::Adjust);
 	booksView->setWrapping(true);
-	booksView->setMovement(QListView::Free);
+	booksView->setDragEnabled(true);
+	booksView->setAcceptDrops(true);
+	booksView->setDropIndicatorShown(true);
+	booksView->setDragDropMode(QAbstractItemView::DragDrop);
+	booksView->setDefaultDropAction(Qt::MoveAction);
+	booksView->setEditTriggers(QAbstractItemView::SelectedClicked);
+//	booksView->setSelectionMode(QAbstractItemView::MultiSelection);
+//	booksView->setMovement(QListView::Free);
 
 	setWidget(booksView);
 	
@@ -43,9 +53,51 @@ BooksWindow::BooksWindow(BookModel* model,
 		setWindowTitle(QString::fromUtf8("Библиотека"));
 	} else {
 		MY_ASSERT(item->isBox());
-		setWindowTitle(QString::fromUtf8("Коробка: ") + item->getLabel());
+		setWindowTitle(QString::fromUtf8("Ящик: ") + item->getLabel());
 	}
-
+	root = model->indexToPath(index);
 	booksView->setModel(model);
 	booksView->setRootIndex(index);
+	connect(booksView, SIGNAL(doubleClicked(const QModelIndex&)), this, SLOT(slotDoubleClicked(const QModelIndex&)));
+	booksView->resize(sizeHint());
+}
+
+void BooksWindow::closeEvent(QCloseEvent* )
+{
+	if (root == BookItem::path_separator) {
+		emit rootWindowClosed();
+	}
+}
+
+void BooksWindow::slotDoubleClicked(const QModelIndex& index)
+{
+	if(!index.isValid()) return ;
+	BookItem* item = model->indexToItem(index);
+	MY_ASSERT(item);
+	if(item->isBox()) {
+		emit boxClicked(index);
+	}
+}
+
+void BooksWindow::modifyRoot(const QString& newRoot)
+{
+	root = newRoot;
+	QModelIndex index = model->pathToIndex(root);
+	MY_ASSERT(index.isValid());
+	booksView->setRootIndex(index);
+}
+
+void BooksWindow::modifyLabel(const QString& label)
+{
+	setWindowTitle(QString::fromUtf8("Ящик: ") + label);
+}
+
+QModelIndex BooksWindow::selectedIndex() const
+{
+	return booksView->currentIndex();
+}
+
+void BooksWindow::editSelected()
+{
+	booksView->edit(booksView->currentIndex());
 }

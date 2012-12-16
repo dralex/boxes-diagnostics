@@ -28,14 +28,41 @@
 #include "ui_diagn-window.h"
 #include "bookmodel.h"
 #include "bookswindow.h"
+#include "newtestdialog.h"
 
 class DiagnosticsWindow: public QMainWindow, public Ui::DiagnosticsWindow {
+Q_OBJECT
 public:
 	DiagnosticsWindow(QWidget* parent = 0);
+	virtual void showMaximized();
+
+public slots:
+	void slotNewTest();
+	void slotNewBox();
+	void slotFinishEditing();
+	void slotHelp();
+	void slotDeleteBox();
+	void slotRename();
+
+protected slots:
+	void slotRootClosed();
+	void boxClicked(QModelIndex box);
+	void boxMoved(const QString& from, const QString& to);
+	void boxRenamed(const QString& path, const QString& label);
+
+signals:
+	void startNewTest();
 
 private:
-	BookModel* model;
-	BooksWindow* rootWindow;
+	void createWindow(QModelIndex root);
+	void secondPart();
+	bool yesNoDialog(const QString& title, const QString& text);
+	BooksList loadBooks();
+
+	static const char* booksFile;
+	BookModel* model;	
+	bool firsttest;
+	TestParticipant testpart;
 };
 
 #endif

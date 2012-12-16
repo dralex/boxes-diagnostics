@@ -28,8 +28,15 @@
 #include <QList>
 
 struct BookDescription {
-	QString author;
+	QString author_name;
+	QString author_surname;
 	QString title;
+
+	bool operator==(const BookDescription& b) const {
+		return (author_name == b.author_name &&
+				author_surname == b.author_surname &&
+				title == b.title);
+	}
 };
 
 typedef QList<BookDescription> BooksList;
