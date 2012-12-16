@@ -29,11 +29,12 @@
 #include "bookmodel.h"
 #include "bookswindow.h"
 #include "newtestdialog.h"
+#include "config.h"
 
 class DiagnosticsWindow: public QMainWindow, public Ui::DiagnosticsWindow {
 Q_OBJECT
 public:
-	DiagnosticsWindow(QWidget* parent = 0);
+	DiagnosticsWindow(Logger& l, QWidget* parent = 0);
 	virtual void showMaximized();
 
 public slots:
@@ -42,27 +43,52 @@ public slots:
 	void slotFinishEditing();
 	void slotHelp();
 	void slotDeleteBox();
-	void slotRename();
+	void slotRename();	
 
 protected slots:
 	void slotRootClosed();
 	void boxClicked(QModelIndex box);
 	void boxMoved(const QString& from, const QString& to);
 	void boxRenamed(const QString& path, const QString& label);
+	void slotSaveResults();
 
 signals:
 	void startNewTest();
 
-private:
-	void createWindow(QModelIndex root);
-	void secondPart();
-	bool yesNoDialog(const QString& title, const QString& text);
-	BooksList loadBooks();
+protected:
+	void closeEvent(QCloseEvent* event);
 
-	static const char* booksFile;
+private:
+	bool finishTest();
+	void secondPart();
+	void createWindow(QModelIndex root);
+	bool yesNoDialog(const QString& title, const QString& text);
+	QString helpText();
+	void showSearchResults(unsigned int seares, unsigned int addres, unsigned int seares2 = 0);
+	bool sendResults();
+
+	static const char* configFile;
+	Config config;
 	BookModel* model;	
-	bool firsttest;
+	int testnumber;
 	TestParticipant testpart;
+	Logger& logger;
+
+	struct TestTiming {
+		unsigned int start;
+		unsigned int edit1end;
+		unsigned int search1end;
+		unsigned int search2end;
+		unsigned int add1end;
+		unsigned int edit2end;
+		unsigned int search3end;
+		unsigned int add2end;
+
+		TestTiming()
+			{
+				start = edit1end = search1end = search2end = add1end = edit2end = search3end = add2end = 0;
+			}
+	} timing;
 };
 
 #endif

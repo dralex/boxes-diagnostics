@@ -157,6 +157,12 @@ void BookItem::addChild(BookItem* child)
 	children.append(child);
 }
 
+void BookItem::insertChild(int index, BookItem* child)
+{
+	child->parent_item = this;
+	children.insert(index, child);
+}
+
 void BookItem::moveChild(int old_index, int new_index)
 {
 	BookItem* child = children.at(old_index);	

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>558</width>
-    <height>486</height>
+    <width>675</width>
+    <height>525</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -26,28 +26,6 @@
      <property name="wordWrap">
       <bool>true</bool>
      </property>
-    </widget>
-   </item>
-   <item row="1" column="0">
-    <widget class="QFrame" name="frame">
-     <property name="frameShape">
-      <enum>QFrame::StyledPanel</enum>
-     </property>
-     <property name="frameShadow">
-      <enum>QFrame::Raised</enum>
-     </property>
-     <layout class="QGridLayout" name="gridLayout">
-      <item row="1" column="0">
-       <widget class="QLabel" name="bookLabel">
-        <property name="text">
-         <string/>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
-      </item>
-     </layout>
     </widget>
    </item>
    <item row="2" column="0">
@@ -90,17 +68,79 @@
      </item>
     </layout>
    </item>
-   <item row="3" column="0">
-    <layout class="QHBoxLayout" name="horizontalLayout_5">
+   <item row="1" column="0">
+    <widget class="QFrame" name="frame">
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <layout class="QGridLayout" name="gridLayout">
+      <item row="1" column="0">
+       <widget class="QLabel" name="bookLabel">
+        <property name="text">
+         <string/>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="7" column="0">
+    <widget class="QLabel" name="operationLabel_3">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="text">
+      <string>Каждый переход между ящиками и книгами, а также открытие или добавление ящика затрачивает 1 операцию.</string>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="8" column="0">
+    <layout class="QHBoxLayout" name="horizontalLayout_6">
      <item>
-      <widget class="QLabel" name="label">
+      <widget class="QLabel" name="operationsLabel">
        <property name="text">
-        <string>Содержимое:</string>
+        <string>Число затраченных операций: </string>
        </property>
       </widget>
      </item>
      <item>
-      <spacer name="horizontalSpacer_2">
+      <widget class="QLabel" name="operationsCountLabel">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="text">
+        <string>0</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="9" column="0">
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QPushButton" name="againButton">
+       <property name="text">
+        <string>Начать заново</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
@@ -113,34 +153,29 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="addBoxButton">
+      <widget class="QLabel" name="addLabel">
        <property name="text">
-        <string>Добавить ящик</string>
+        <string>Добавить книгу:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="okButton">
+       <property name="text">
+        <string>Готово</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="ok2Button">
+       <property name="text">
+        <string>после выбранной</string>
        </property>
       </widget>
      </item>
     </layout>
    </item>
-   <item row="4" column="0">
-    <widget class="QListView" name="bookView">
-     <property name="enabled">
-      <bool>false</bool>
-     </property>
-     <property name="editTriggers">
-      <set>QAbstractItemView::NoEditTriggers</set>
-     </property>
-     <property name="selectionMode">
-      <enum>QAbstractItemView::SingleSelection</enum>
-     </property>
-     <property name="selectionBehavior">
-      <enum>QAbstractItemView::SelectRows</enum>
-     </property>
-     <property name="resizeMode">
-      <enum>QListView::Adjust</enum>
-     </property>
-    </widget>
-   </item>
-   <item row="5" column="0">
+   <item row="6" column="0">
     <layout class="QGridLayout" name="gridLayout_2">
      <item row="0" column="1">
       <widget class="QPushButton" name="closeButton">
@@ -178,7 +213,7 @@
           </sizepolicy>
          </property>
          <property name="text">
-          <string>Книга ААА</string>
+          <string>Книга иконка</string>
          </property>
          <property name="wordWrap">
           <bool>true</bool>
@@ -230,57 +265,17 @@
      </item>
     </layout>
    </item>
-   <item row="6" column="0">
-    <widget class="QLabel" name="operationLabel_3">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="text">
-      <string>Каждый переход между ящиками и книгами, а также открытие или добавление ящика затрачивает 1 операцию.</string>
-     </property>
-     <property name="wordWrap">
-      <bool>true</bool>
-     </property>
-    </widget>
-   </item>
-   <item row="7" column="0">
-    <layout class="QHBoxLayout" name="horizontalLayout_6">
+   <item row="3" column="0">
+    <layout class="QHBoxLayout" name="horizontalLayout_5">
      <item>
-      <widget class="QLabel" name="operationsLabel">
+      <widget class="QLabel" name="label">
        <property name="text">
-        <string>Число затраченных операций: </string>
+        <string>Содержимое:</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="operationsCountLabel">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="text">
-        <string>0</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </item>
-   <item row="8" column="0">
-    <layout class="QHBoxLayout" name="horizontalLayout">
-     <item>
-      <widget class="QPushButton" name="againButton">
-       <property name="text">
-        <string>Начать заново</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <spacer name="horizontalSpacer">
+      <spacer name="horizontalSpacer_2">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
@@ -293,16 +288,49 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="okButton">
+      <widget class="QPushButton" name="addBoxButton">
        <property name="text">
-        <string>Готово</string>
+        <string>Добавить новый ящик</string>
        </property>
       </widget>
      </item>
     </layout>
    </item>
+   <item row="4" column="0">
+    <widget class="ReadOnlyView" name="bookView">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="editTriggers">
+      <set>QAbstractItemView::NoEditTriggers</set>
+     </property>
+     <property name="selectionMode">
+      <enum>QAbstractItemView::SingleSelection</enum>
+     </property>
+     <property name="selectionBehavior">
+      <enum>QAbstractItemView::SelectRows</enum>
+     </property>
+     <property name="resizeMode">
+      <enum>QListView::Adjust</enum>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="0">
+    <widget class="QLabel" name="label_2">
+     <property name="text">
+      <string>Текущий элемент библиотеки:</string>
+     </property>
+    </widget>
+   </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>ReadOnlyView</class>
+   <extends>QListView</extends>
+   <header>readonlyview.h</header>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="diagn.qrc"/>
  </resources>
@@ -311,7 +339,7 @@
    <sender>okButton</sender>
    <signal>clicked()</signal>
    <receiver>CheckTestDialog</receiver>
-   <slot>accept()</slot>
+   <slot>slotOK()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>430</x>
@@ -451,6 +479,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>ok2Button</sender>
+   <signal>clicked()</signal>
+   <receiver>CheckTestDialog</receiver>
+   <slot>slotOK2()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>588</x>
+     <y>500</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>337</x>
+     <y>262</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>slotOpen()</slot>
@@ -461,5 +505,7 @@
   <slot>slotFirst()</slot>
   <slot>slotLast()</slot>
   <slot>slotAddBox()</slot>
+  <slot>slotOK()</slot>
+  <slot>slotOK2()</slot>
  </slots>
 </ui>

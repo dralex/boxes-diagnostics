@@ -27,11 +27,12 @@
 #include <QAbstractListModel>
 #include <QIcon>
 #include "bookitem.h"
+#include "logger.h"
 
 class BookModel: public QAbstractItemModel {
 Q_OBJECT
 public:
-	BookModel(QObject *parent);
+	BookModel(Logger& logger, QObject *parent);
 	~BookModel();
 
 	// CORE FUNCTIONALITY
@@ -40,6 +41,7 @@ public:
 	void appendBooks(const QMap<QString, BookDescription>& books);
 
 	void newBox(const QString& path, const QString& label);	
+	void newBook(const QString& path, int row, const BookDescription& book);
 	void rename(const QString& path, const QString& newlabel);
 	void move(const QString& srcpath, const QString& destpath);
 	void insert(const QString& srcpath, int oldrow, int newrow);
@@ -79,6 +81,10 @@ public:
 	const BookItem* pathToItem(const QString& path) const;
 	QString indexToPath(const QModelIndex& index) const;
 
+	// LOGGING
+
+	void dump();
+
 signals:
 	void dataChanged(const QModelIndex & topLeft, const QModelIndex & bottomRight);
 	void modelAboutToBeReset();
@@ -88,10 +94,12 @@ signals:
 
 private:
 	void removeRowsRecursively(QModelIndex parent, QMap<QString, BookDescription>& books);
-	
+	void dumpRecursively(BookItem* root, const QString& indent);
+
 	BookItem*	root;
 	QString		diagnMimeType;
 	QIcon		emptyBoxIcon, fullBoxIcon, bookIcon;
+	Logger&		logger;
 };
 
 #endif

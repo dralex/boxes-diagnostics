@@ -51,7 +51,6 @@ void NewTestDialog::slotTextChanged(QString)
 
 void NewTestDialog::slotBigTextChanged()
 {
-	buttonBox->setEnabled(!schoolEdit->text().isEmpty() &&
-						  !nameEdit->text().isEmpty() &&
+	buttonBox->setEnabled(!nameEdit->text().isEmpty() &&
 						  !expEdit->toPlainText().isEmpty());
 }

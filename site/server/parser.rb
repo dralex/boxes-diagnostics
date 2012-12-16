@@ -21,12 +21,17 @@ def parse_buffer(buffer)
 		  :search2oper => nil,
 		  :add2duration => nil,
 		  :add2oper => nil,
+		  :search3duration => nil,
+		  :search3oper => nil,
 		  :editlog => nil,
+		  :editdump => nil,
 		  :searchlog => nil,
 		  :addlog => nil,
 		  :edit2log => nil,
+		  :edit2dump => nil,
 		  :search2log => nil,
 		  :add2log => nil,
+		  :search3log => nil,
 		  :comments => nil}
 	current_text = nil
 	buffer.each_line { |line|
@@ -62,6 +67,10 @@ def parse_buffer(buffer)
 			result[:search2duration] = $1.to_i
 		elsif line =~ /^Search2Operations: (.*)$/
 			result[:search2oper] = $1.to_i
+		elsif line =~ /^Search3Duration: (.*)$/
+			result[:search3duration] = $1.to_i
+		elsif line =~ /^Search3Operations: (.*)$/
+			result[:search3oper] = $1.to_i
 		elsif line =~ /^Add2Duration: (.*)$/
 			result[:add2duration] = $1.to_i
 		elsif line =~ /^Add2Operations: (.*)$/
@@ -69,6 +78,9 @@ def parse_buffer(buffer)
 		elsif line == 'EditLog:'
 			result[:editlog] = ''
 			current_text = :editlog
+		elsif line == 'EditDump:'
+			result[:editdump] = ''
+			current_text = :editdump
 		elsif line == 'SearchLog:'
 			result[:searchlog] = ''
 			current_text = :searchlog
@@ -78,12 +90,18 @@ def parse_buffer(buffer)
 		elsif line == 'Edit2Log:'
 			result[:edit2log] = ''
 			current_text = :edit2log
+		elsif line == 'Edit2Dump:'
+			result[:edit2dump] = ''
+			current_text = :edit2dump
 		elsif line == 'Search2Log:'
 			result[:search2log] = ''
 			current_text = :search2log
 		elsif line == 'Add2Log:'
 			result[:add2log] = ''
 			current_text = :add2log
+		elsif line == 'Search3Log:'
+			result[:search3log] = ''
+			current_text = :search3log
 		elsif line == 'Comments:'
 			result[:comments] = ''
 			current_text = :comments

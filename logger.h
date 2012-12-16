@@ -1,6 +1,6 @@
 /*****************************************************************************
  * 
- * Base definitions for the Books diagnostics.
+ * Test result logger.
  * 
  * Author: Alexey Fedoseev <aleksey@fedoseev.net>
  * 
@@ -21,28 +21,24 @@
  *
  ******************************************************************************/
 
-#ifndef BOOK_HEADER
-#define BOOK_HEADER
+#ifndef LOGGER_HEADER
+#define LOGGER_HEADER
 
-#include <QString>
-#include <QList>
+#include <QFile>
 
-struct BookDescription {
-	QString author_name;
-	QString author_surname;
-	QString title;
+class Logger {
+public:
+	Logger(const QString& logfile);
+	
+	QString logFile() const { return logfile; }
+	QString logPath() const { return logpath; }
+	void write(const QString& s);
+	QByteArray closeAndRead();
 
-	QString toString() const {
-		return author_name + ":" + author_surname + ":" + title;
-	}
-
-	bool operator==(const BookDescription& b) const {
-		return (author_name == b.author_name &&
-				author_surname == b.author_surname &&
-				title == b.title);
-	}
+private:
+	QString logfile;
+	QString logpath;
+	QFile	file;
 };
-
-typedef QList<BookDescription> BooksList;
 
 #endif

@@ -22,8 +22,11 @@
  ******************************************************************************/
 
 #include <QMessageBox>
-#include "diagn-window.h"
 #include <QApplication>
+#include <QDateTime>
+#include "diagn-window.h"
+
+const char* version = "1.0";
 
 void printMessage(const QString& msg = "")
 {
@@ -59,8 +62,18 @@ public:
 int main(int argc, char *argv[])
 {
 	DashboardApplication app(argc, argv);
+	qsrand(QDateTime::currentDateTime().toTime_t());	
 	try {
-		DiagnosticsWindow win;
+		Logger logger(QString("diagn-%1%2.log").arg(QDateTime::currentDateTime().toTime_t()).arg(qrand() % 10000));
+		logger.write(QString("AppVersion: %1").arg(version));
+#ifdef Q_WS_WIN
+		logger.write("SysInfo: MS Windows");
+#elsif defined(Q_WS_MAC)
+		logger.write("SysInfo: Mac OS X");
+#else
+		logger.write("SysInfo: Linux");
+#endif
+		DiagnosticsWindow win(logger);
 		win.showMaximized();
 		int res = app.exec();
 		return res;

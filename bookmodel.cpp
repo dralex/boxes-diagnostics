@@ -29,8 +29,8 @@
 #include "myassert.h"
 #include <QDebug>
 
-BookModel::BookModel(QObject *parent):
-	QAbstractItemModel(parent)
+BookModel::BookModel(Logger& l, QObject *parent):
+	QAbstractItemModel(parent), logger(l)
 																	
 {
 	root = new BookItem();	
@@ -299,6 +299,17 @@ void BookModel::newBox(const QString& parentdir, const QString& name)
 	endInsertRows();
 }
 
+void BookModel::newBook(const QString& parentdir, int row, const BookDescription& book)
+{
+	QModelIndex theindex = pathToIndex(parentdir);
+	BookItem* parent = indexToItem(theindex);
+	MY_ASSERT(parent);
+	MY_ASSERT(row >= 0 && row <= parent->childCount());
+	beginInsertRows(theindex, row, 0);
+	parent->insertChild(row, new BookItem(parent, book));
+	endInsertRows();
+}
+
 void BookModel::rename(const QString& path, const QString& name)
 {
 	QModelIndex theindex = pathToIndex(path);
@@ -492,4 +503,34 @@ QMimeData* BookModel::mimeData(const QModelIndexList &indexes) const
 	}
 	mimeData->setData(diagnMimeType, encodedData);	
 	return mimeData;	
+}
+
+void BookModel::dump()
+{
+	dumpRecursively(root, "");
+}
+
+void BookModel::dumpRecursively(BookItem* root, const QString& indent)
+{
+	QString type;
+	QString descr;
+	QString label;
+	if(root->isRoot()) {
+		type = "Root";
+	} else if(root->isBox()) {
+		type = "B";
+		label = root->getLabel();
+	} else {
+		type = "F";
+		const BookDescription& bd = root->getBookDescr();
+		descr = bd.toString();
+		if((bd.author_name + " " + bd.author_surname + " - " + bd.title) != root->getLabel()) {
+			label = root->getLabel();
+		}
+	}
+	logger.write(QString("%1%2%3{%4}{%5}").arg(indent).arg(type).arg(root->getID()).arg(descr).arg(label));
+	QString newindent = indent + "\t";
+	for(int i = 0; i < root->childCount(); i++) {
+		dumpRecursively(root->child(i), newindent);
+	}
 }

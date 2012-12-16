@@ -34,14 +34,46 @@ CheckTestDialog::CheckTestDialog(BookModel* m,
 	setupUi(this);
 	if(search) {
 		operationLabel->setText(QString::fromUtf8("Найдите следующую книгу, затратив меньшее число операций:"));
+		addLabel->setVisible(false);
+		ok2Button->setVisible(false);
+		addBoxButton->setVisible(false);
 	} else {
 		operationLabel->setText(QString::fromUtf8("Добавьте в библиотеку следующую книгу, затратив меньшее число операций:"));
+		okButton->setText(QString::fromUtf8("до выбранной"));
 	}
-	addBoxButton->setVisible(!search);
 	bookLabel->setText(book.author_name + " " + book.author_surname + " <strong>" + book.title + "</strong>");
 	bookView->setModel(m);
 	slotRestart();
 	resize(sizeHint());
+}
+
+void CheckTestDialog::slotOK()
+{
+	if(!do_search) {
+		int row;
+		if(current_index.isValid()) {
+			row = current_index.row();
+		} else {
+			row = 0;
+		}		
+		model->newBook(model->indexToPath(parent_index), row, search_book);
+		operations++;
+	}
+	accept();
+}
+
+void CheckTestDialog::slotOK2()
+{
+	MY_ASSERT(!do_search);
+	int row;
+	if(current_index.isValid()) {
+		row = current_index.row() + 1;
+	} else {
+		row = 0;
+	}
+	model->newBook(model->indexToPath(parent_index), row, search_book);
+	operations++;
+	accept();
 }
 
 void CheckTestDialog::slotRestart()
@@ -61,6 +93,7 @@ void CheckTestDialog::slotOpen()
 	parent_index = current_index;
 	current_index = model->index(0, 0, current_index);
 	operations++;
+	if(current_index.isValid()) operations++;
 	updateControls();
 }
 
@@ -120,14 +153,13 @@ void CheckTestDialog::updateControls()
 	}	
 
 	bookView->setRootIndex(parent_index);
-	bookView->setCurrentIndex(current_index);
+	bookView->setReallyCurrentIndex(current_index);
 
 	BookItem* current_item = model->indexToItem(current_index);
 	MY_ASSERT(current_item);
 	if(current_index.isValid()) {
 		currentIcon->setPixmap(model->getItemIcon(current_item).pixmap(48, 48));
-		const BookDescription& bd = current_item->getBookDescr();
-		currentLabel->setText(bd.author_name + " " + bd.author_surname + " <strong>" + bd.title + "</strong>");
+		currentLabel->setText(current_item->getLabel());
 	} else {
 		currentIcon->setPixmap(QPixmap());
 		currentLabel->setText(QString::fromUtf8("Ящик пуст"));
@@ -142,5 +174,6 @@ void CheckTestDialog::updateControls()
 	beforeButton->setEnabled(current_index.isValid() && current_index.row() > 0);
 	afterButton->setEnabled(current_index.isValid() && current_index.row() < model->rowCount(parent_index) - 1);
 
-	okButton->setEnabled(!current_item->isBox() && search_book == current_item->getBookDescr());
+	okButton->setEnabled(!do_search ||
+						 (!current_item->isBox() && search_book == current_item->getBookDescr()));
 }

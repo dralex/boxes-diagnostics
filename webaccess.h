@@ -1,6 +1,6 @@
 /*****************************************************************************
  * 
- * Base definitions for the Books diagnostics.
+ * Web server access interface.
  * 
  * Author: Alexey Fedoseev <aleksey@fedoseev.net>
  * 
@@ -21,28 +21,28 @@
  *
  ******************************************************************************/
 
-#ifndef BOOK_HEADER
-#define BOOK_HEADER
+#ifndef WEB_ACCESS_HEADER
+#define WEB_ACCESS_HEADER
 
-#include <QString>
-#include <QList>
+#include <QNetworkAccessManager>
+#include <QEventLoop>
+#include <QUrl>
+#include "logger.h"
 
-struct BookDescription {
-	QString author_name;
-	QString author_surname;
-	QString title;
+class WebAccess: public QObject {
+Q_OBJECT
+public:
+	WebAccess(QObject* parent = 0);
+	bool post(const QUrl& url, Logger& logger);
+										
+protected slots:
+	void requestFinished(QNetworkReply* );
 
-	QString toString() const {
-		return author_name + ":" + author_surname + ":" + title;
-	}
-
-	bool operator==(const BookDescription& b) const {
-		return (author_name == b.author_name &&
-				author_surname == b.author_surname &&
-				title == b.title);
-	}
+private:
+	QNetworkAccessManager 		network;
+	QEventLoop					loop;
+	bool						error;
+	QString						error_string;
 };
-
-typedef QList<BookDescription> BooksList;
 
 #endif

@@ -1,6 +1,6 @@
 /*****************************************************************************
  * 
- * Base definitions for the Books diagnostics.
+ * Configuration file reader.
  * 
  * Author: Alexey Fedoseev <aleksey@fedoseev.net>
  * 
@@ -21,28 +21,34 @@
  *
  ******************************************************************************/
 
-#ifndef BOOK_HEADER
-#define BOOK_HEADER
+#ifndef CONFIG_HEADER
+#define CONFIG_HEADER
 
-#include <QString>
-#include <QList>
+#include <QUrl>
+#include <QSettings>
+#include "book.h"
 
-struct BookDescription {
-	QString author_name;
-	QString author_surname;
-	QString title;
+class Config {
+public:
+	Config(const QString& cfg);
+	
+	BooksList books();
+	int booksNumber();
+	BookDescription searchBook(int stage);
+	BookDescription addBook(int stage);
+	int targetOperations();
 
-	QString toString() const {
-		return author_name + ":" + author_surname + ":" + title;
+	QUrl postAddress();
+
+private:
+	void throwError() {
+		throw QString::fromUtf8("Не доступе файл конфигурации %1").arg(cfgfile);
 	}
+	static bool parseBook(const QString& str, BookDescription& bd);
+	BookDescription bookParameter(const QString& key);
 
-	bool operator==(const BookDescription& b) const {
-		return (author_name == b.author_name &&
-				author_surname == b.author_surname &&
-				title == b.title);
-	}
+	QString cfgfile;
+	QSettings settings;
 };
-
-typedef QList<BookDescription> BooksList;
 
 #endif

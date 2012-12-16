@@ -1,6 +1,6 @@
 /*****************************************************************************
  * 
- * Base definitions for the Books diagnostics.
+ * Read only QListView implementation.
  * 
  * Author: Alexey Fedoseev <aleksey@fedoseev.net>
  * 
@@ -21,28 +21,24 @@
  *
  ******************************************************************************/
 
-#ifndef BOOK_HEADER
-#define BOOK_HEADER
+#include <QDebug>
+#include "readonlyview.h"
 
-#include <QString>
-#include <QList>
+ReadOnlyView::ReadOnlyView(QWidget* parent): QListView(parent)
+{
+}
 
-struct BookDescription {
-	QString author_name;
-	QString author_surname;
-	QString title;
+void ReadOnlyView::setReallyCurrentIndex(QModelIndex ci)
+{
+	current_index = ci;
+	setCurrentIndex(current_index);
+}
 
-	QString toString() const {
-		return author_name + ":" + author_surname + ":" + title;
+void ReadOnlyView::selectionChanged(const QItemSelection & selected, const QItemSelection& deselected)
+{
+	if(selected.contains(current_index)) {
+		QListView::selectionChanged(selected, deselected);
+	} else {
+		setCurrentIndex(current_index);
 	}
-
-	bool operator==(const BookDescription& b) const {
-		return (author_name == b.author_name &&
-				author_surname == b.author_surname &&
-				title == b.title);
-	}
-};
-
-typedef QList<BookDescription> BooksList;
-
-#endif
+}

@@ -53,14 +53,13 @@
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
-   <addaction name="actionNewTest"/>
-   <addaction name="separator"/>
    <addaction name="actionHelp"/>
    <addaction name="actionNewBox"/>
    <addaction name="actionDeleteBox"/>
    <addaction name="actionRename"/>
    <addaction name="separator"/>
    <addaction name="actionFinish"/>
+   <addaction name="separator"/>
   </widget>
   <action name="actionNewBox">
    <property name="icon">

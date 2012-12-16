@@ -52,6 +52,7 @@ public:
 	void removeChild(int row);
 	void addChild(BookItem* child);
 	void moveChild(int old_index, int new_index);
+	void insertChild(int index, BookItem* child);
 
 	const QString& getLabel() const { return label; }
 	const QString& getID() const { return id; }

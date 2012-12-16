@@ -39,6 +39,8 @@ public:
 	unsigned int operationsResult() const { return operations; }
 
 public slots:
+	void slotOK();
+	void slotOK2();
 	void slotRestart();
 	void slotOpen();
 	void slotClose();
