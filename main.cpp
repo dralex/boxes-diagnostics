@@ -68,7 +68,7 @@ int main(int argc, char *argv[])
 		logger.write(QString("AppVersion: %1").arg(version));
 #ifdef Q_WS_WIN
 		logger.write("SysInfo: MS Windows");
-#elsif defined(Q_WS_MAC)
+#elif defined(Q_WS_MAC)
 		logger.write("SysInfo: Mac OS X");
 #else
 		logger.write("SysInfo: Linux");

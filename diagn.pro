@@ -7,3 +7,6 @@ QT += network
 CONFIG += qt release
 FORMS = diagn-window.ui newtestdialog.ui checktestdialog.ui
 RESOURCES = diagn.qrc
+win32 {
+    RC_FILE = diagn.rc
+}
