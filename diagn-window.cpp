@@ -428,7 +428,7 @@ bool DiagnosticsWindow::yesNoDialog(const QString& title, const QString& text)
 QString DiagnosticsWindow::helpText()
 {
 	QString text;
-	if(testnumber == 1) {
+	if(testnumber <= 1) {
 		text = QString::fromUtf8("Необходимо расположить %1 книг по ящикам так,"
 								 " чтобы искомую книгу можно было найти быстрее всего,"
 								 " а добавление еще одной книги не было бы слишком долгим.\n\n"
