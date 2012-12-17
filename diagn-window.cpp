@@ -161,9 +161,9 @@ void DiagnosticsWindow::slotNewTest()
 	logger.write(QString("Name: %1").arg(testpart.name));
 	logger.write(QString("Background: %1").arg(testpart.experience));
 
-	testnumber = 1;
+	slotHelp();
 
-//	slotHelp();
+	testnumber = 1;
 
 	BooksList bl = config.books();
 	if(bl.size() == 0) {
@@ -265,7 +265,10 @@ void DiagnosticsWindow::slotSaveResults()
 
 bool DiagnosticsWindow::finishTest()
 {
-	if(testnumber <= 2 &&
+	if(testnumber == 0) {
+		QApplication::quit();
+		return true;
+	} else if(testnumber <= 2 &&
 	   !yesNoDialog(QString::fromUtf8("Предупреждение"),
 				   QString::fromUtf8("Диагностика еще не завершена. Вы уверены, что хотите закрыть приложение?"))) {
 		return false;

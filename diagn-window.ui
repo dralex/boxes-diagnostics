@@ -115,10 +115,10 @@
      <normaloff>:/Icons/images/delete.png</normaloff>:/Icons/images/delete.png</iconset>
    </property>
    <property name="text">
-    <string>Удалить коробку</string>
+    <string>Удалить ящик</string>
    </property>
    <property name="toolTip">
-    <string>Удалить выбранную коробку</string>
+    <string>Удалить выбранный ящик</string>
    </property>
   </action>
   <action name="actionRename">
