@@ -33,7 +33,11 @@
 #include "checktestdialog.h"
 #include "webaccess.h"
 
+#ifdef Q_WS_X11
+const char* DiagnosticsWindow::configFile = "/etc/reflect-diagn/config.ini";
+#else
 const char* DiagnosticsWindow::configFile = "config.ini";
+#endif
 
 DiagnosticsWindow::DiagnosticsWindow(Logger& l, QWidget* parent):
 	QMainWindow(parent), config(configFile), testnumber(0), logger(l)

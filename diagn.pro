@@ -8,6 +8,8 @@ CONFIG += qt release
 FORMS = diagn-window.ui newtestdialog.ui checktestdialog.ui addboxdialog.ui
 RESOURCES = diagn.qrc
 win32 {
+    TARGET = diagn
     RC_FILE = diagn.rc
+} else {
+    TARGET = reflect-diagn
 }
-
