@@ -63,7 +63,7 @@ void DiagnosticsWindow::secondPart()
 		model->dump();
 
 		logger.write("SearchLog:");
-		CheckTestDialog dialog(model, config.searchBook(1), true, this);
+		CheckTestDialog dialog(logger, model, config.searchBook(1), true, this);
 		if(dialog.exec() != QDialog::Accepted) {
 			logger.write("Search cancelled");
 			if(finishTest()) return ;
@@ -74,7 +74,7 @@ void DiagnosticsWindow::secondPart()
 		logger.write(QString("SearchOperations: %1").arg(search1oper));
 
 		logger.write("Search2Log:");
-		CheckTestDialog dialog2(model, config.searchBook(2), true, this);
+		CheckTestDialog dialog2(logger, model, config.searchBook(2), true, this);
 		if(dialog2.exec() != QDialog::Accepted) {
 			logger.write("Search cancelled");
 			if(finishTest()) return ;
@@ -85,7 +85,7 @@ void DiagnosticsWindow::secondPart()
 		logger.write(QString("Search2Operations: %1").arg(search2oper));
 
 		logger.write("AddLog:");
-		CheckTestDialog dialog3(model, config.addBook(1), false, this);
+		CheckTestDialog dialog3(logger, model, config.addBook(1), false, this);
 		if(dialog3.exec() != QDialog::Accepted) {
 			logger.write("Addition cancelled");
 			if(finishTest()) return ;
@@ -104,12 +104,12 @@ void DiagnosticsWindow::secondPart()
 	} else if(testnumber == 2) {
 
 		timing.edit2end = QDateTime::currentDateTime().toTime_t();
-		logger.write(QString("Edit2Duration: %1").arg(timing.edit2end - timing.start));
+		logger.write(QString("Edit2Duration: %1").arg(timing.edit2end - timing.add1end));
 		logger.write("Edit2Dump:");
 		model->dump();
 
 		logger.write("Search3Log:");
-		CheckTestDialog dialog(model, config.searchBook(3), true, this);
+		CheckTestDialog dialog(logger, model, config.searchBook(3), true, this);
 		if(dialog.exec() != QDialog::Accepted) {
 			logger.write("Search cancelled");
 			if(finishTest()) return ;
@@ -120,7 +120,7 @@ void DiagnosticsWindow::secondPart()
 		logger.write(QString("Search3Operations: %1").arg(search3oper));
 
 		logger.write("Add2Log:");
-		CheckTestDialog dialog2(model, config.addBook(2), false, this);
+		CheckTestDialog dialog2(logger, model, config.addBook(2), false, this);
 		if(dialog2.exec() != QDialog::Accepted) {
 			logger.write("Addition cancelled");
 			if(finishTest()) return ;
@@ -164,6 +164,9 @@ void DiagnosticsWindow::slotNewTest()
 	slotHelp();
 
 	testnumber = 1;
+	timing.start = QDateTime::currentDateTime().toTime_t();	
+	logger.write(QString("LocalTime: %1").arg(timing.start));
+	logger.write("EditLog:");
 
 	BooksList bl = config.books();
 	if(bl.size() == 0) {
@@ -172,9 +175,6 @@ void DiagnosticsWindow::slotNewTest()
 	model->setBooks(bl);
 
 	createWindow(model->rootIndex());
-
-	timing.start = QDateTime::currentDateTime().toTime_t();	
-	logger.write(QString("LocalTime: %1").arg(timing.start));
 }
 
 void DiagnosticsWindow::slotHelp()

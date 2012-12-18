@@ -59,6 +59,7 @@ void WebAccess::requestFinished(QNetworkReply* reply)
 		QByteArray res = reply->readAll();
 		QString result = QString::fromUtf8(res).trimmed();
 		error = result != "OK";
+		error_string = QString("WrongNetworkResult: '%1'").arg(result);
 		loop.exit();
 	}
 }

@@ -21,15 +21,18 @@
  *
  ******************************************************************************/
 
+#include <QDateTime>
 #include "checktestdialog.h"
 #include "myassert.h"
+#include "addboxdialog.h"
 
-CheckTestDialog::CheckTestDialog(BookModel* m,
+CheckTestDialog::CheckTestDialog(Logger& l,
+								 BookModel* m,
 								 const BookDescription& book, 
 								 bool search,
 								 QWidget* parent):
 	QDialog(parent),
-	model(m), do_search(search), search_book(book), operations(0)
+	logger(l), model(m), do_search(search), search_book(book), operations(0), start_time(0)
 {
 	setupUi(this);
 	if(search) {
@@ -57,7 +60,10 @@ void CheckTestDialog::slotOK()
 			row = 0;
 		}		
 		model->newBook(model->indexToPath(parent_index), row, search_book);
-		operations++;
+		logger.write("Inserted before");
+		incrementOperations();
+	} else {
+		logger.write("Found");
 	}
 	accept();
 }
@@ -72,7 +78,8 @@ void CheckTestDialog::slotOK2()
 		row = 0;
 	}
 	model->newBook(model->indexToPath(parent_index), row, search_book);
-	operations++;
+	logger.write("Inserted after");
+	incrementOperations();
 	accept();
 }
 
@@ -84,6 +91,13 @@ void CheckTestDialog::slotRestart()
 	bookLabel->setText(search_book.author_name + " " +
 					   search_book.author_surname + " - " +
 					   search_book.title);
+	if(do_search) {
+		logger.write("Start search") ;
+	} else {
+		logger.write("Start add");
+	}
+	logger.write("O 0");
+	start_time = QDateTime::currentDateTime().toTime_t();
 	updateControls();
 }
 
@@ -92,8 +106,9 @@ void CheckTestDialog::slotOpen()
 	MY_ASSERT(current_index.isValid());
 	parent_index = current_index;
 	current_index = model->index(0, 0, current_index);
-	operations++;
-	if(current_index.isValid()) operations++;
+	logger.write("Open");
+	incrementOperations();
+	if(current_index.isValid()) incrementOperations();
 	updateControls();
 }
 
@@ -102,6 +117,7 @@ void CheckTestDialog::slotClose()
 	MY_ASSERT(parent_index.isValid());
 	current_index = parent_index;
 	parent_index = model->parent(parent_index);
+	logger.write("Close");
 	updateControls();
 }
 
@@ -109,7 +125,8 @@ void CheckTestDialog::slotBefore()
 {
 	int row = current_index.row();
 	current_index = model->index(row - 1, 0, parent_index);
-	operations++;
+	logger.write("<");
+	incrementOperations();
 	updateControls();
 }
 
@@ -117,26 +134,42 @@ void CheckTestDialog::slotAfter()
 {
 	int row = current_index.row();
 	current_index = model->index(row + 1, 0, parent_index);
-	operations++;
+	logger.write(">");
+	incrementOperations();
 	updateControls();
 }
 
 void CheckTestDialog::slotFirst()
 {
 	current_index = model->index(0, 0, parent_index);
+	logger.write("|<");
 	updateControls();
 }
 
 void CheckTestDialog::slotLast()
 {
 	current_index = model->index(model->rowCount(parent_index) - 1, 0, parent_index);
+	logger.write(">|");
 	updateControls();
 }
 
 void CheckTestDialog::slotAddBox()
 {
-	// вызвать диалог по вводу имени и выбору - до или после вставить
-	operations++;
+	AddBoxDialog dialog(this);
+	if(dialog.exec() == QDialog::Accepted) {
+		if(!current_index.isValid()) {
+			model->newBox(model->indexToPath(parent_index), dialog.boxName());	
+		} else {
+			if(dialog.addBefore()) {
+				model->newBox(model->indexToPath(parent_index), dialog.boxName(), current_index.row());
+			} else {
+				model->newBox(model->indexToPath(parent_index), dialog.boxName(), current_index.row() + 1);
+			}
+		}
+		logger.write("Add box");
+		incrementOperations();
+		updateControls();
+	}
 }
 	
 void CheckTestDialog::updateControls()
@@ -158,13 +191,14 @@ void CheckTestDialog::updateControls()
 	BookItem* current_item = model->indexToItem(current_index);
 	MY_ASSERT(current_item);
 	if(current_index.isValid()) {
+		logger.write(QString("Current %1{%2}").arg(current_item->getID()).arg(current_item->getLabel()));
 		currentIcon->setPixmap(model->getItemIcon(current_item).pixmap(48, 48));
 		currentLabel->setText(current_item->getLabel());
 	} else {
+		logger.write("Current empty box");
 		currentIcon->setPixmap(QPixmap());
 		currentLabel->setText(QString::fromUtf8("Ящик пуст"));
 	}
-
 	operationsCountLabel->setText(QString("<strong>%1</strong>").arg(operations));
 
 	closeButton->setEnabled(parent_index.isValid());
@@ -176,4 +210,11 @@ void CheckTestDialog::updateControls()
 
 	okButton->setEnabled(!do_search ||
 						 (!current_item->isBox() && search_book == current_item->getBookDescr()));
+}
+
+void CheckTestDialog::incrementOperations()
+{
+	operations++;
+	unsigned int time_diff = QDateTime::currentDateTime().toTime_t() - start_time;
+	logger.write(QString("O %1 %2").arg(operations).arg(time_diff));
 }

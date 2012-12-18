@@ -1,6 +1,6 @@
 /*****************************************************************************
  * 
- * Checking dialog window for the Books diagnostics.
+ * Add box input dialog
  * 
  * Author: Alexey Fedoseev <aleksey@fedoseev.net>
  * 
@@ -21,48 +21,22 @@
  *
  ******************************************************************************/
 
-#ifndef CHECK_TEST_DIALOG_HEADER
-#define CHECK_TEST_DIALOG_HEADER
+#ifndef ADD_BOX_DIALOG_HEADER
+#define ADD_BOX_DIALOG_HEADER
 
 #include <QDialog>
-#include "ui_checktestdialog.h"
-#include "bookmodel.h"
+#include "ui_addboxdialog.h"
 
-class CheckTestDialog: public QDialog, public Ui::CheckTestDialog {
+class AddBoxDialog: public QDialog, public Ui::AddBoxDialog {
 Q_OBJECT
 public:
-	CheckTestDialog(Logger& logger,
-					BookModel* model,
-					const BookDescription& book, 
-					bool search,
-					QWidget* parent = 0);
+	AddBoxDialog(QWidget* parent = 0);
 
-	unsigned int operationsResult() const { return operations; }
+	QString boxName() const;
+	bool addBefore() const;
 
 public slots:
-	void slotOK();
-	void slotOK2();
-	void slotRestart();
-	void slotOpen();
-	void slotClose();
-	void slotBefore();
-	void slotAfter();
-	void slotFirst();
-	void slotLast();
-	void slotAddBox();
-
-private:
-	void updateControls();
-	void incrementOperations();
-
-	Logger&			logger;
-	BookModel*		model;
-	bool			do_search;
-	BookDescription search_book;
-	unsigned int	operations;
-	QModelIndex		current_index;
-	QModelIndex		parent_index;
-	unsigned int	start_time;
+	void slotNameChanged(QString);
 };
 
 #endif

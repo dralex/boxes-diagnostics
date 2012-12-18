@@ -275,6 +275,12 @@ void BookModel::setBooks(const BooksList& list)
 	root->setBooks(list);
 	endInsertRows();
 	emit dataChanged(index(start, 0, theindex), index(end, 0, theindex));
+	logger.write(QString("Books: %1").arg(list.size()));
+	for(int i = 0; i < root->childCount(); i++) {
+		BookItem* child = root->child(i);
+		MY_ASSERT(child);
+		logger.write(QString(" %1{%2}").arg(child->getID()).arg(child->getBookDescr().toString()));
+	}
 }
 
 void BookModel::appendBooks(const QMap<QString, BookDescription>& books)
@@ -285,18 +291,23 @@ void BookModel::appendBooks(const QMap<QString, BookDescription>& books)
 	beginInsertRows(theindex, start, end);
 	root->appendBooks(books);
 	endInsertRows();
-	emit dataChanged(index(start, 0, theindex), index(end, 0, theindex));	
+	emit dataChanged(index(start, 0, theindex), index(end, 0, theindex));
+	logger.write(QString("Books returned to root: %1").arg(books.size()));
+	foreach(QString id, books.keys()) {
+		logger.write(" " + id);
+	}
 }
 
-void BookModel::newBox(const QString& parentdir, const QString& name)
+void BookModel::newBox(const QString& parentdir, const QString& name, int row)
 {
 	QModelIndex theindex = pathToIndex(parentdir);
 	BookItem* parent = indexToItem(theindex);
 	MY_ASSERT(parent);
 //	int size = parent->childCount();
-	beginInsertRows(theindex, 0, 0);
-	parent->makeSubBox(name);
+	beginInsertRows(theindex, row, 0);
+	BookItem* boxItem = parent->makeSubBox(name, row);
 	endInsertRows();
+	logger.write(QString("New box %1{%2} at %3:%4").arg(boxItem->getID()).arg(name).arg(parent->getID()).arg(row));
 }
 
 void BookModel::newBook(const QString& parentdir, int row, const BookDescription& book)
@@ -306,8 +317,10 @@ void BookModel::newBook(const QString& parentdir, int row, const BookDescription
 	MY_ASSERT(parent);
 	MY_ASSERT(row >= 0 && row <= parent->childCount());
 	beginInsertRows(theindex, row, 0);
-	parent->insertChild(row, new BookItem(parent, book));
+	BookItem* bookItem = new BookItem(parent, book);
+	parent->insertChild(row, bookItem);
 	endInsertRows();
+	logger.write(QString("New book %1{%2} at %3:%4").arg(bookItem->getID()).arg(book.toString()).arg(parent->getID()).arg(row));
 }
 
 void BookModel::rename(const QString& path, const QString& name)
@@ -318,6 +331,7 @@ void BookModel::rename(const QString& path, const QString& name)
 	MY_ASSERT(item);
 	item->rename(name);
 	emit dataChanged(theindex, theindex);
+	logger.write(QString("Rename %1{%2}").arg(item->getID()).arg(name));
 }
 
 void BookModel::move(const QString& srcpath, const QString& destpath)
@@ -346,6 +360,7 @@ void BookModel::move(const QString& srcpath, const QString& destpath)
 	if (item->isBox()) {
 		emit boxMoved(srcpath, destpath + BookItem::path_separator + item->getID());
 	}
+	logger.write(QString("Moved %1->%2").arg(item->getID()).arg(dstitem->getID()));
 }
 
 void BookModel::insert(const QString& srcpath, int oldrow, int newrow)
@@ -358,6 +373,7 @@ void BookModel::insert(const QString& srcpath, int oldrow, int newrow)
 	beginMoveRows(parentindex, oldrow, oldrow, parentindex, newrow);
 	parentitem->moveChild(oldrow, newrow);
 	endMoveRows();
+	logger.write(QString("Reodered %1 %2->%3").arg(parentitem->getID()).arg(oldrow).arg(newrow));
 }
 
 void BookModel::removeRowsRecursively(QModelIndex parent, QMap<QString, BookDescription>& books)
@@ -365,6 +381,7 @@ void BookModel::removeRowsRecursively(QModelIndex parent, QMap<QString, BookDesc
 	for(int i = 0; i < rowCount(parent); i++) {
 		QModelIndex child = index(i, 0, parent);
 		BookItem* item = indexToItem(child);
+		logger.write(QString("Remove recursively %1").arg(item->getID()));
 		if (item->isBox()) {
 			removeRowsRecursively(child, books);
 		} else {
@@ -387,6 +404,7 @@ void BookModel::remove(const QString& path)
 	BookItem* item = indexToItem(srcindex);
 	BookItem* parentitem = indexToItem(parentindex);
 	parentitem->removeChild(remove_index);
+	logger.write(QString("Remove %1").arg(item->getID()));
 	delete item;
 	endRemoveRows();
 	appendBooks(books);

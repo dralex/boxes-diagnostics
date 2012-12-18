@@ -40,7 +40,7 @@ public:
 	void setBooks(const BooksList& list);
 	void appendBooks(const QMap<QString, BookDescription>& books);
 
-	void newBox(const QString& path, const QString& label);	
+	void newBox(const QString& path, const QString& label, int row = 0);	
 	void newBook(const QString& path, int row, const BookDescription& book);
 	void rename(const QString& path, const QString& newlabel);
 	void move(const QString& srcpath, const QString& destpath);

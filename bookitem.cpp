@@ -141,9 +141,11 @@ int BookItem::findChildID(const QString& id) const
 	return -1;
 }
 
-void BookItem::makeSubBox(const QString& label)
+BookItem* BookItem::makeSubBox(const QString& label, int row)
 {
-	children.insert(0, new BookItem(this, label));
+	BookItem* box = new BookItem(this, label);
+	children.insert(row, box);
+	return box;
 }
 
 void BookItem::removeChild(int row)

@@ -47,7 +47,7 @@ public:
 
 	void setBooks(const BooksList& list);
 	void appendBooks(const QMap<QString, BookDescription>& books);
-	void makeSubBox(const QString& label);
+	BookItem* makeSubBox(const QString& label, int row);
 	void rename(const QString& n) { label = n; }
 	void removeChild(int row);
 	void addChild(BookItem* child);
