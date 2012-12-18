@@ -13,6 +13,6 @@ else
 	data = STDIN.read
 	buffer = unzip_buffer(data)
 	r = parse_buffer(buffer)
-	db_insert(r)
-        puts 'OK'
+	db_insert(ENV['REMOTE_ADDR'], r)
+	puts 'OK'
 end

@@ -29,5 +29,6 @@ CREATE TABLE diagn_results (
 	add2log		TEXT,
 	add2oper	SMALLINT,
 	add2duration	SMALLINT,
-	comments	TEXT	
+	comments	TEXT,
+	remoteaddr	VARCHAR(64)		
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
