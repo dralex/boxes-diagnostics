@@ -32,6 +32,10 @@ struct BookDescription {
 	QString author_surname;
 	QString title;
 
+	QString toTextString() const {
+		return author_name + " " + author_surname + " - " + title;
+	}
+
 	QString toString() const {
 		return author_name + ":" + author_surname + ":" + title;
 	}

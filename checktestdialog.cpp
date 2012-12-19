@@ -88,9 +88,7 @@ void CheckTestDialog::slotRestart()
 	operations = 0;
 	parent_index = model->rootIndex();
 	current_index = model->index(0, 0, parent_index);
-	bookLabel->setText(search_book.author_name + " " +
-					   search_book.author_surname + " - " +
-					   search_book.title);
+	bookLabel->setText(search_book.toTextString());
 	if(do_search) {
 		logger.write("Start search") ;
 	} else {

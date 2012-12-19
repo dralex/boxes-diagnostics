@@ -49,10 +49,7 @@ BookItem::BookItem(BookItem* parent, const BookDescription& bd, const QString& u
 	box = false;
 	parent_item = parent;
 	MY_ASSERT(parent);
-	QStringList name;
-	name.append(bd.author_name);
-	name.append(bd.author_surname);
-	label = name.join(" ") + " - " + bd.title;
+	label = bd.toTextString();
 	if(uid.isEmpty()) {
 		id = generateID();
 	} else {

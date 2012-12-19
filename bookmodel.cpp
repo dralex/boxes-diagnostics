@@ -542,7 +542,7 @@ void BookModel::dumpRecursively(BookItem* root, const QString& indent)
 		type = "F";
 		const BookDescription& bd = root->getBookDescr();
 		descr = bd.toString();
-		if((bd.author_name + " " + bd.author_surname + " - " + bd.title) != root->getLabel()) {
+		if((bd.toTextString()) != root->getLabel()) {
 			label = root->getLabel();
 		}
 	}

@@ -170,7 +170,7 @@ void DiagnosticsWindow::slotNewTest()
 	if(bl.size() == 0) {
 		throw QString::fromUtf8("Не удалось найти список книг.");
 	}
-	firstbook = bl.at(0).toString();
+	firstbook = bl.at(0).toTextString();
 
 	slotHelp();
 
