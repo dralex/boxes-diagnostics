@@ -9,5 +9,7 @@
     <file>images/question.png</file>
     <file>images/delete.png</file>
     <file>images/rename.png</file>
+    <file>images/books.png</file>
+    <file>images/boxes.png</file>
   </qresource>
 </RCC>

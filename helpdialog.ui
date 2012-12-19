@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>HelpDialog</class>
+ <widget class="QDialog" name="HelpDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>672</width>
+    <height>646</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Условие задачи</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="diagn.qrc">
+    <normaloff>:/Icons/images/full-box.png</normaloff>:/Icons/images/full-box.png</iconset>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <item>
+      <widget class="QGroupBox" name="groupBox">
+       <property name="title">
+        <string>Задание на диагностику</string>
+       </property>
+       <layout class="QGridLayout" name="gridLayout_3">
+        <property name="verticalSpacing">
+         <number>10</number>
+        </property>
+        <item row="0" column="0">
+         <widget class="QLabel" name="infoLabel">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>&lt;p&gt;В вашем распоряжении %1 книг.&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;img src=&quot;:/Icons/images/books.png&quot;/&gt;&lt;/p&gt;&lt;p&gt;Для каждой книги заданы имя автора и название (например, %2).&lt;/p&gt;&lt;p&gt;Для хранения книг можно использовать ящики. В ящиках можно также хранить другие ящики:&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;img src=&quot;:/Icons/images/boxes.png&quot;/&gt;&lt;/p&gt;&lt;p&gt;В любой ящик может влезть сколько угодно книг или других ящиков. Число ящиков не ограничено.&lt;/p&gt;&lt;p&gt;Необходимо расположить все книги по ящикам так, чтобы библиотекой можно было удоно пользоваться: искомую книгу можно было найти быстрее всего, а добавление еще одной книги не было бы слишком долгим.</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+          </property>
+          <property name="wordWrap">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="actionLabel">
+          <property name="text">
+           <string>&lt;p&gt;&lt;img src=&quot;:/Icons/images/ok.png&quot; align=&quot;left&quot;/&gt;После того, как вы как-то разложите книги, вы сможете проверить, сколько операций вам потребуется на поиск или добавление новой книги. Чем меньше операций вы будете тратить на поиск и добавление книги - тем лучше.</string>
+          </property>
+          <property name="wordWrap">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="okButton">
+       <property name="text">
+        <string>Начать</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <resources>
+  <include location="diagn.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>okButton</sender>
+   <signal>clicked()</signal>
+   <receiver>HelpDialog</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>501</x>
+     <y>364</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>284</x>
+     <y>195</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

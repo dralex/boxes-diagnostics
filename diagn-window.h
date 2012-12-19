@@ -73,6 +73,7 @@ private:
 	int testnumber;
 	TestParticipant testpart;
 	Logger& logger;
+	QString firstbook;
 
 	struct TestTiming {
 		unsigned int start;

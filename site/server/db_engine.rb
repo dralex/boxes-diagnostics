@@ -16,13 +16,15 @@ def db_insert(r_addr, d)
 						'searchduration, addlog, addoper, addduration, edit2log, edit2duration,' +
 						'search2log, search2oper, search2duration, add2log, add2oper, add2duration,' +
 						'comments, search3oper, search3duration, search3log, editdump, edit2dump, ' + 
-						'remoteaddr) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)')
+						'remoteaddr, diagnid) ' +
+						'values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)')
 		req.execute(d[:appversion], d[:sysinfo], d[:localtime], d[:school], d[:class], d[:name],
 					d[:background], d[:editlog], d[:editduration], d[:searchlog], d[:searchoper],
 					d[:searchduration], d[:addlog], d[:addoper], d[:addduration], d[:edit2log],
 					d[:edit2duration], d[:search2log], d[:search2oper], d[:search2duration],
 					d[:add2log], d[:add2oper], d[:add2duration], d[:comments], d[:search3oper],
-					d[:search3duration], d[:search3log], d[:editdump], d[:edit2dump], r_addr)
+					d[:search3duration], d[:search3log], d[:editdump], d[:edit2dump], r_addr,
+					d[:diagnid])
 		c.commit
 	rescue Mysql::Error => e
 		puts e

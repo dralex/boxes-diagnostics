@@ -66,7 +66,7 @@ BooksList Config::books()
 
 int Config::booksNumber()
 {
-	if(!settings.contains("Test/size")) throw QString("Не задан размер списка книг");
+	if(!settings.contains("Test/size")) throw QString::fromUtf8("Не задан размер списка книг");
 	return settings.value("Test/size").toInt();
 }
 

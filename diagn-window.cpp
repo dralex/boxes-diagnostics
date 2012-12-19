@@ -32,6 +32,7 @@
 #include "myassert.h"
 #include "checktestdialog.h"
 #include "webaccess.h"
+#include "helpdialog.h"
 
 #ifdef Q_WS_X11
 const char* DiagnosticsWindow::configFile = "/etc/reflect-diagn/config.ini";
@@ -165,6 +166,12 @@ void DiagnosticsWindow::slotNewTest()
 	logger.write(QString("Name: %1").arg(testpart.name));
 	logger.write(QString("Background: %1").arg(testpart.experience));
 
+	BooksList bl = config.books();
+	if(bl.size() == 0) {
+		throw QString::fromUtf8("Не удалось найти список книг.");
+	}
+	firstbook = bl.at(0).toString();
+
 	slotHelp();
 
 	testnumber = 1;
@@ -172,10 +179,6 @@ void DiagnosticsWindow::slotNewTest()
 	logger.write(QString("LocalTime: %1").arg(timing.start));
 	logger.write("EditLog:");
 
-	BooksList bl = config.books();
-	if(bl.size() == 0) {
-		throw QString::fromUtf8("Не удалось найти список книг.");
-	}
 	model->setBooks(bl);
 
 	createWindow(model->rootIndex());
@@ -183,13 +186,20 @@ void DiagnosticsWindow::slotNewTest()
 
 void DiagnosticsWindow::slotHelp()
 {
-	QMessageBox mb(QMessageBox::NoIcon,
-				   QString::fromUtf8("Условие задачи"),
-				   helpText(),
-				   QMessageBox::NoButton,
-				   this);
-	mb.addButton(QString::fromUtf8("Хорошо"), QMessageBox::AcceptRole);
-	mb.exec();	
+	int t_op = config.targetOperations();
+	QString operstr;
+	if(testnumber > 1) {
+		operstr = QString::fromUtf8("Известно, что можно расположить книги в ящиках "
+									"таким образом, что поиск любой книги будет "
+									"занимать не более <strong>%1</strong> операций, "
+									"а добавление - не более <strong>%2</strong> операций.<br/><br/>").arg(t_op).arg(t_op + 1);
+	}
+	HelpDialog dialog(testnumber,
+					  config.booksNumber(),
+					  firstbook,
+					  operstr,
+					  this);
+	dialog.exec();
 }
 
 void DiagnosticsWindow::slotNewBox()
@@ -432,15 +442,7 @@ bool DiagnosticsWindow::yesNoDialog(const QString& title, const QString& text)
 QString DiagnosticsWindow::helpText()
 {
 	QString text;
-	if(testnumber <= 1) {
-		text = QString::fromUtf8("Необходимо расположить %1 книг по ящикам так,"
-								 " чтобы искомую книгу можно было найти быстрее всего,"
-								 " а добавление еще одной книги не было бы слишком долгим.\n\n"
-								 "Программа позволяет располагать книги в ящиках. Число"
-								 " ящиков не ограниченно.\n\n"
-								 "После того, как вы как-то разложите книги, вы сможете проверить,"
-								 " сколько операций вам потребуется на поиск или добавление новой книги.").arg(config.booksNumber());
-	} else if(testnumber == 2) {
+	if(testnumber == 2) {
 		int t_op = config.targetOperations();
 		text = QString::fromUtf8("Известно, что можно расположить книги в ящиках таким образом, что поиск любой книги будет "
 								 "занимать не более <strong>%1</strong> операций, а добавление - не более <strong>%2</strong> операций.<br/><br/>").arg(t_op).arg(t_op + 1);

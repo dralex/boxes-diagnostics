@@ -24,9 +24,10 @@
 #include <QMessageBox>
 #include <QApplication>
 #include <QDateTime>
+#include <QUuid>
 #include "diagn-window.h"
 
-const char* version = "1.0";
+const char* version = "1.1";
 
 void printMessage(const QString& msg = "")
 {
@@ -64,8 +65,10 @@ int main(int argc, char *argv[])
 	DashboardApplication app(argc, argv);
 	qsrand(QDateTime::currentDateTime().toTime_t());	
 	try {
-		Logger logger(QString("diagn-%1%2.log").arg(QDateTime::currentDateTime().toTime_t()).arg(qrand() % 10000));
+		QString logfile = QString("diagn-%1%2.log").arg(QDateTime::currentDateTime().toTime_t()).arg(qrand() % 10000);
+		Logger logger(logfile);
 		logger.write(QString("AppVersion: %1").arg(version));
+		logger.write(QString("DiagnID: %1 %2").arg(QUuid::createUuid().toString()).arg(logfile));
 #ifdef Q_WS_WIN
 		logger.write("SysInfo: MS Windows");
 #elif defined(Q_WS_MAC)

@@ -32,13 +32,16 @@ def parse_buffer(buffer)
 		  :search2log => nil,
 		  :add2log => nil,
 		  :search3log => nil,
-		  :comments => nil}
+		  :comments => nil,
+		  :diagnid => nil}
 	current_text = nil
 	buffer.each_line { |line|
 		line.strip!
 		next if line.empty?
 		if line =~ /^AppVersion: (.*)$/
 			result[:appversion] = $1
+		elsif line =~ /^DiagnID: (.*)$/
+			result[:diagnid] = $1
 		elsif line =~ /^SysInfo: (.*)$/
 			result[:sysinfo] = $1
 		elsif line =~ /^LocalTime: (.*)$/	
@@ -51,6 +54,7 @@ def parse_buffer(buffer)
 			result[:name] = $1
 		elsif line =~ /^Background: (.*)$/
 			result[:background] = $1
+			current_text = :background
 		elsif line =~ /^EditDuration: (.*)$/
 			result[:editduration] = $1.to_i
 		elsif line =~ /^SearchDuration: (.*)$/
