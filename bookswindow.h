@@ -45,7 +45,9 @@ public:
 		setAcceptDrops(true);
 		setDropIndicatorShown(true);
 		setDragDropMode(QAbstractItemView::DragDrop);
+#if QT_VERSION >= 0x040700
 		setDefaultDropAction(Qt::MoveAction);
+#endif
 		setEditTriggers(QAbstractItemView::SelectedClicked);
 //	setSelectionMode(QAbstractItemView::MultiSelection);
 //	setMovement(QListView::Free);		

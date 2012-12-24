@@ -36,10 +36,19 @@ public:
 	bool post(const QUrl& url, Logger& logger);
 										
 protected slots:
+#if QT_VERSION >= 0x040700
 	void requestFinished(QNetworkReply* );
+#else
+	void requestFinished(int id, bool error);
+#endif
 
 private:
+#if QT_VERSION >= 0x040700
 	QNetworkAccessManager 		network;
+#else
+	int							httpRequestID;
+	QHttp						http;
+#endif
 	QEventLoop					loop;
 	bool						error;
 	QString						error_string;

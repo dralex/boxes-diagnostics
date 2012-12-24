@@ -6,7 +6,12 @@ SOURCES = main.cpp diagn-window.cpp bookswindow.cpp bookitem.cpp bookmodel.cpp m
 TARGET = diagn
 QT += network
 CONFIG += qt release
-FORMS = diagn-window.ui newtestdialog.ui checktestdialog.ui addboxdialog.ui helpdialog.ui
+FORMS = newtestdialog.ui checktestdialog.ui addboxdialog.ui helpdialog.ui
+contains(QT_VERSION, ^4\\.3\\..*) {
+    FORMS += qt-4.3/diagn-window.ui
+} else {
+    FORMS += diagn-window.ui
+}
 RESOURCES = diagn.qrc
 win32 {
     TARGET = diagn
