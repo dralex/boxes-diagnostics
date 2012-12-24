@@ -89,6 +89,7 @@ signals:
 
 protected slots:
 	void slotDoubleClicked(const QModelIndex& index);
+	void slotBoxInserted(const QString& path);
 
 protected:
 	void closeEvent(QCloseEvent *event);

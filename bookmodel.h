@@ -43,7 +43,7 @@ public:
 	void newBox(const QString& path, const QString& label, int row = 0);	
 	void newBook(const QString& path, int row, const BookDescription& book);
 	void rename(const QString& path, const QString& newlabel);
-	void move(const QString& srcpath, const QString& destpath);
+	void move(const QString& srcpath, const QString& destpath, int row);
 	void insert(const QString& srcpath, int oldrow, int newrow);
 	void remove(const QString& box);
 
@@ -91,6 +91,7 @@ signals:
 	void modelReset();
 	void boxMoved(const QString& from_path, const QString& to_path);
 	void boxRenamed(const QString& path, const QString& label);
+	void boxInserted(const QString& path);
 
 private:
 	void removeRowsRecursively(QModelIndex parent, QMap<QString, BookDescription>& books);

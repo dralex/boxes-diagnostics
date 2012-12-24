@@ -34,7 +34,7 @@
 #include "webaccess.h"
 #include "helpdialog.h"
 
-#ifdef Q_WS_X11
+#if defined(Q_WS_X11) && QT_VERSION >= 0x040700
 const char* DiagnosticsWindow::configFile = "/etc/reflect-diagn/config.ini";
 #else
 const char* DiagnosticsWindow::configFile = "config.ini";
@@ -422,7 +422,7 @@ void DiagnosticsWindow::createWindow(QModelIndex root)
 	window->show();
 	if(root == model->rootIndex()) {
 		connect(window, SIGNAL(rootWindowClosed()), this, SLOT(slotRootClosed()));
-		window->resize(QSize(booksArea->width() / 2, booksArea->height()));
+		window->resize(QSize((booksArea->width() * 2) / 3, booksArea->height()));
 	}
 	connect(window, SIGNAL(boxClicked(QModelIndex)), this, SLOT(boxClicked(QModelIndex)));
 }

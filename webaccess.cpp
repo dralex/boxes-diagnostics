@@ -48,6 +48,7 @@ bool WebAccess::post(const QUrl& url, Logger& logger)
 #else
 	if(http.state() != QHttp::Unconnected) http.close();
 	httpRequestID = -1;
+	http.setHost(url.host());
 	QHttpRequestHeader  header;
 	header.setRequest("POST", url.path(), 1, 1);
 	header.setValue("Host", url.host());
@@ -62,7 +63,7 @@ bool WebAccess::post(const QUrl& url, Logger& logger)
 	return !error;
 }
 
-#if QT_VERSION >= 0x040700										
+#if QT_VERSION >= 0x040700
 
 void WebAccess::requestFinished(QNetworkReply* reply)
 {
@@ -86,7 +87,7 @@ void WebAccess::requestFinished(int id, bool e)
 	if(id != httpRequestID) return ;
 	httpRequestID = -1;
 	if(e) {
-		error_string = QString("NetworkError: %1").arg(http->error());
+		error_string = QString("NetworkError: %1").arg(http.error());
 		error = true;			
 	} else {
 		QByteArray res = http.readAll();

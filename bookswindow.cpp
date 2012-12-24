@@ -47,6 +47,8 @@ BooksWindow::BooksWindow(BookModel* m,
 	booksView->setRootIndex(index);
 	connect(booksView, SIGNAL(doubleClicked(const QModelIndex&)), this, SLOT(slotDoubleClicked(const QModelIndex&)));
 	booksView->resize(sizeHint());
+	connect(model, SIGNAL(boxInserted(const QString&)),
+			this, SLOT(slotBoxInserted(const QString&)));
 }
 
 void BooksWindow::closeEvent(QCloseEvent* )
@@ -87,4 +89,13 @@ QModelIndex BooksWindow::selectedIndex() const
 void BooksWindow::editSelected()
 {
 	booksView->edit(booksView->currentIndex());
+}
+
+void BooksWindow::slotBoxInserted(const QString& path)
+{
+	QModelIndex index = model->pathToIndex(path);
+	MY_ASSERT(index.isValid());
+	if (model->indexToPath(model->parent(index)) == root) {
+		booksView->setCurrentIndex(index);
+	}
 }

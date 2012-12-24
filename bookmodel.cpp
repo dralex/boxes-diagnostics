@@ -334,7 +334,7 @@ void BookModel::rename(const QString& path, const QString& name)
 	logger.write(QString("Rename %1{%2}").arg(item->getID()).arg(name));
 }
 
-void BookModel::move(const QString& srcpath, const QString& destpath)
+void BookModel::move(const QString& srcpath, const QString& destpath, int row)
 {
 	QModelIndex srcindex = pathToIndex(srcpath);
 	QModelIndex parentindex = parent(srcindex);	
@@ -342,8 +342,13 @@ void BookModel::move(const QString& srcpath, const QString& destpath)
 
 	MY_ASSERT(srcindex.isValid());
 
-	int remove_index = srcindex.row(),
+	int remove_index = srcindex.row();
+	int add_index;
+	if(row < 0 || row > rowCount(dstindex)) {
 		add_index = rowCount(dstindex);
+	} else {
+		add_index = row;
+	}
 
 	BookItem* item = indexToItem(srcindex);
 	BookItem* parentitem = indexToItem(parentindex);
@@ -354,12 +359,17 @@ void BookModel::move(const QString& srcpath, const QString& destpath)
 	endRemoveRows();
 
 	beginInsertRows(dstindex, add_index, add_index);
-	dstitem->addChild(item);
+	dstitem->insertChild(add_index, item);
 	endInsertRows();
 
 	if (item->isBox()) {
-		emit boxMoved(srcpath, destpath + BookItem::path_separator + item->getID());
+		if(dstitem->isRoot()) {
+			emit boxMoved(srcpath, destpath + item->getID());
+		} else {
+			emit boxMoved(srcpath, destpath + BookItem::path_separator + item->getID());
+		}
 	}
+	emit boxInserted(item->constructPath());
 	logger.write(QString("Moved %1->%2").arg(item->getID()).arg(dstitem->getID()));
 }
 
@@ -369,14 +379,27 @@ void BookModel::insert(const QString& srcpath, int oldrow, int newrow)
 	QModelIndex parentindex = parent(srcindex);
 	MY_ASSERT(srcindex.isValid());
 	MY_ASSERT(srcindex.row() == oldrow);
-	BookItem* parentitem = indexToItem(parentindex);
+#if QT_VERSION >= 0x040700
+	beginMoveRows(parentindex, oldrow, oldrow, parentindex, newrow);
+#else
 	beginRemoveRows(parentindex, oldrow, oldrow);
 	beginInsertRows(parentindex, newrow, newrow);
-//	beginMoveRows(parentindex, oldrow, oldrow, parentindex, newrow);
+#endif
+	BookItem* parentitem = indexToItem(parentindex);
+	MY_ASSERT(parentitem);
+	BookItem* item = indexToItem(srcindex);
+	MY_ASSERT(item);
 	parentitem->moveChild(oldrow, newrow);
-//	endMoveRows();
+#if QT_VERSION >= 0x040700
+	endMoveRows();
+#else
 	endInsertRows();
 	endRemoveRows();
+	emit boxInserted(srcpath);
+#endif
+	if(item->isBox()) {
+		emit boxMoved(srcpath, srcpath);
+	}
 	logger.write(QString("Reodered %1 %2->%3").arg(parentitem->getID()).arg(oldrow).arg(newrow));
 }
 
@@ -497,7 +520,11 @@ bool BookModel::dropMimeData(const QMimeData *data,
 				}
 				
 			} else {
-				move(source_path, target_path);
+				if(row == -1) {
+					move(source_path, target_path, target_item->childCount());
+				} else {
+					move(source_path, target_path, row);
+				}
 			}
 		}
 		return true;
