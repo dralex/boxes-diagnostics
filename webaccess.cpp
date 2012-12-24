@@ -21,8 +21,6 @@
  *
  ******************************************************************************/
 
-#include <QNetworkRequest>
-#include <QNetworkReply>
 #include "webaccess.h"
 
 WebAccess::WebAccess(QObject* parent):

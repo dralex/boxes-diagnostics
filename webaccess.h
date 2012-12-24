@@ -24,7 +24,14 @@
 #ifndef WEB_ACCESS_HEADER
 #define WEB_ACCESS_HEADER
 
-#include <QNetworkAccessManager>
+#include <QtGlobal>
+#if QT_VERSION >= 0x040700
+  #include <QNetworkAccessManager>
+  #include <QNetworkRequest>
+  #include <QNetworkReply>
+#else
+  #include <QHttp>
+#endif
 #include <QEventLoop>
 #include <QUrl>
 #include "logger.h"
@@ -37,7 +44,7 @@ public:
 										
 protected slots:
 #if QT_VERSION >= 0x040700
-	void requestFinished(QNetworkReply* );
+	void requestFinished(QNetworkReply*);
 #else
 	void requestFinished(int id, bool error);
 #endif

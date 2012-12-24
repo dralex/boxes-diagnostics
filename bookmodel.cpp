@@ -370,9 +370,13 @@ void BookModel::insert(const QString& srcpath, int oldrow, int newrow)
 	MY_ASSERT(srcindex.isValid());
 	MY_ASSERT(srcindex.row() == oldrow);
 	BookItem* parentitem = indexToItem(parentindex);
-	beginMoveRows(parentindex, oldrow, oldrow, parentindex, newrow);
+	beginRemoveRows(parentindex, oldrow, oldrow);
+	beginInsertRows(parentindex, newrow, newrow);
+//	beginMoveRows(parentindex, oldrow, oldrow, parentindex, newrow);
 	parentitem->moveChild(oldrow, newrow);
-	endMoveRows();
+//	endMoveRows();
+	endInsertRows();
+	endRemoveRows();
 	logger.write(QString("Reodered %1 %2->%3").arg(parentitem->getID()).arg(oldrow).arg(newrow));
 }
 
