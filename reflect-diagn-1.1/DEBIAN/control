@@ -2,7 +2,7 @@ Package: reflect-diagn
 Priority: optional
 Section: misc
 Version: 1.1
-Architecture: amd64
+Architecture: i386
 Installed-Size: 415
 Homepage: http://www.eduscen.ru/diagn/
 Maintainer: Alexey Fedoseev <aleksey@fedoseev.net>

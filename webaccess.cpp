@@ -26,7 +26,7 @@
 WebAccess::WebAccess(QObject* parent):
 	QObject(parent)
 {
-#if QT_VERSION >= 0x040700
+#if QT_VERSION >= 0x040400
 	connect(&network, SIGNAL(finished(QNetworkReply*)),
 			this, SLOT(requestFinished(QNetworkReply*)));
 #else 
@@ -39,7 +39,7 @@ bool WebAccess::post(const QUrl& url, Logger& logger)
 {
 	error = false;
 	QByteArray postdata = logger.closeAndRead();
-#if QT_VERSION >= 0x040700
+#if QT_VERSION >= 0x040400
 	QNetworkRequest req;
 	req.setUrl(url);
 	req.setHeader(QNetworkRequest::ContentTypeHeader, "application/octet-stream");
@@ -63,7 +63,7 @@ bool WebAccess::post(const QUrl& url, Logger& logger)
 	return !error;
 }
 
-#if QT_VERSION >= 0x040700
+#if QT_VERSION >= 0x040400
 
 void WebAccess::requestFinished(QNetworkReply* reply)
 {

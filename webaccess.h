@@ -25,7 +25,7 @@
 #define WEB_ACCESS_HEADER
 
 #include <QtGlobal>
-#if QT_VERSION >= 0x040700
+#if QT_VERSION >= 0x040400
   #include <QNetworkAccessManager>
   #include <QNetworkRequest>
   #include <QNetworkReply>
@@ -43,14 +43,14 @@ public:
 	bool post(const QUrl& url, Logger& logger);
 										
 protected slots:
-#if QT_VERSION >= 0x040700
+#if QT_VERSION >= 0x040400
 	void requestFinished(QNetworkReply*);
 #else
 	void requestFinished(int id, bool error);
 #endif
 
 private:
-#if QT_VERSION >= 0x040700
+#if QT_VERSION >= 0x040400
 	QNetworkAccessManager 		network;
 #else
 	int							httpRequestID;

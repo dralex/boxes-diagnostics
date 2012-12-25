@@ -34,7 +34,7 @@
 #include "webaccess.h"
 #include "helpdialog.h"
 
-#if defined(Q_WS_X11) && QT_VERSION >= 0x040700
+#if defined(Q_WS_X11) && QT_VERSION >= 0x040600
 const char* DiagnosticsWindow::configFile = "/etc/reflect-diagn/config.ini";
 #else
 const char* DiagnosticsWindow::configFile = "config.ini";
