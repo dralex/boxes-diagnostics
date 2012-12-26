@@ -41,7 +41,10 @@ CheckTestDialog::CheckTestDialog(Logger& l,
 		ok2Button->setVisible(false);
 		addBoxButton->setVisible(false);
 	} else {
-		typeLabel->setText(QString::fromUtf8("<p align=\"center\"><span style=\" font-size:20pt; font-weight:600;\">Добавление новой книги</span></p>"));
+		addLabel->setText(QString::fromUtf8("<span style=\"font-size:14pt; font-weight:600;\">Добавить книгу:</span>"));
+		typeLabel->setText(QString::fromUtf8("<span style=\"font-size:20pt; font-weight:600;\">Добавление новой книги</span>"));
+		actionsLabel->setText(QString::fromUtf8("<span style=\"font-size:14pt; font-weight:600;\">"
+												"Для поиска подходящего места под новую книгу используйте следующие действия:</span>"));
 		operationLabel->setText(QString::fromUtf8("Добавьте в библиотеку следующую книгу, затратив меньшее число операций:"));
 		okButton->setText(QString::fromUtf8("до выбранной"));
 	}
@@ -207,8 +210,11 @@ void CheckTestDialog::updateControls()
 	beforeButton->setEnabled(current_index.isValid() && current_index.row() > 0);
 	afterButton->setEnabled(current_index.isValid() && current_index.row() < model->rowCount(parent_index) - 1);
 
-	okButton->setEnabled(!do_search ||
-						 (!current_item->isBox() && search_book == current_item->getBookDescr()));
+	if(do_search) {
+		bool book_found = !current_item->isBox() && search_book == current_item->getBookDescr();
+		addLabel->setVisible(book_found);
+		okButton->setEnabled(book_found);
+	}
 }
 
 void CheckTestDialog::incrementOperations()

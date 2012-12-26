@@ -118,6 +118,9 @@
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
       <widget class="QPushButton" name="againButton">
+       <property name="toolTip">
+        <string/>
+       </property>
        <property name="text">
         <string>Начать заново</string>
        </property>
@@ -139,7 +142,10 @@
      <item>
       <widget class="QLabel" name="addLabel">
        <property name="text">
-        <string>Добавить книгу:</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;Книга найдена!&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+       <property name="textFormat">
+        <enum>Qt::RichText</enum>
        </property>
       </widget>
      </item>
@@ -163,6 +169,9 @@
     <layout class="QGridLayout" name="gridLayout_2">
      <item row="0" column="1">
       <widget class="QPushButton" name="closeButton">
+       <property name="toolTip">
+        <string>Закрыть текущий ящик</string>
+       </property>
        <property name="text">
         <string>Закрыть ящик</string>
        </property>
@@ -172,6 +181,9 @@
       <layout class="QHBoxLayout" name="horizontalLayout_3">
        <item>
         <widget class="QPushButton" name="firstButton">
+         <property name="toolTip">
+          <string>Перейти к первой книге</string>
+         </property>
          <property name="text">
           <string>|&lt;</string>
          </property>
@@ -179,6 +191,9 @@
        </item>
        <item>
         <widget class="QPushButton" name="beforeButton">
+         <property name="toolTip">
+          <string>Перейти к предыдущей книге</string>
+         </property>
          <property name="text">
           <string>&lt;</string>
          </property>
@@ -232,6 +247,9 @@
       <layout class="QHBoxLayout" name="horizontalLayout_4">
        <item>
         <widget class="QPushButton" name="afterButton">
+         <property name="toolTip">
+          <string>Перейти к следующей книге</string>
+         </property>
          <property name="text">
           <string>&gt;</string>
          </property>
@@ -239,6 +257,9 @@
        </item>
        <item>
         <widget class="QPushButton" name="lastButton">
+         <property name="toolTip">
+          <string>Перейти к последней книге</string>
+         </property>
          <property name="text">
           <string>&gt;|</string>
          </property>
@@ -248,6 +269,9 @@
      </item>
      <item row="2" column="1">
       <widget class="QPushButton" name="openButton">
+       <property name="toolTip">
+        <string>Открыть выбранный ящик</string>
+       </property>
        <property name="text">
         <string>Открыть ящик</string>
        </property>
@@ -322,19 +346,31 @@
     </widget>
    </item>
    <item row="6" column="0">
-    <widget class="QLabel" name="label_2">
+    <widget class="QLabel" name="actionsLabel">
      <property name="text">
-      <string>Переход между элементами библиотеки:</string>
+      <string>&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;Для поиска книги используйте следующие действия:&lt;/span&gt;</string>
+     </property>
+     <property name="textFormat">
+      <enum>Qt::RichText</enum>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
      </property>
     </widget>
    </item>
    <item row="0" column="0">
     <widget class="QLabel" name="typeLabel">
      <property name="text">
-      <string>&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:20pt; font-weight:600;&quot;&gt;Поиск книги&lt;/span&gt;&lt;/p&gt;</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:20pt; font-weight:600;&quot;&gt;Поиск книги&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
      <property name="textFormat">
       <enum>Qt::RichText</enum>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
      </property>
     </widget>
    </item>
