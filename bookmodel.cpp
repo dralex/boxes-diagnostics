@@ -510,15 +510,19 @@ bool BookModel::dropMimeData(const QMimeData *data,
 			MY_ASSERT(parent_item);		
 			QString parent_path = parent_item->constructPath();		
 			if(target_path == parent_path) {
-				if(row == source_item->row() || (row == -1 && source_item->row() == parent_item->childCount() - 1)) {
-//					qDebug() << "Denied. parent: " << parent_path << " target: " << target_path << " same row! ";
-					return false;
-				} if(row == -1) {
-					insert(source_path, source_item->row(), parent_item->childCount());
+				if(row == -1) {
+					if(source_item->row() == parent_item->childCount() - 1) {
+						return false;
+					} else {
+						insert(source_path, source_item->row(), parent_item->childCount());
+					}					
 				} else {
-					insert(source_path, source_item->row(), row);
-				}
-				
+					if(row == source_item->row() || row == source_item->row() + 1) {
+						return false;
+					} else {
+						insert(source_path, source_item->row(), row);
+					}
+				}				
 			} else {
 				if(row == -1) {
 					move(source_path, target_path, target_item->childCount());
