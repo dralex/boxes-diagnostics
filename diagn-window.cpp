@@ -190,7 +190,7 @@ void DiagnosticsWindow::slotHelp()
 	QString operstr;
 	if(testnumber > 1) {
 		operstr = QString::fromUtf8("Известно, что можно расположить книги в ящиках "
-									"таким образом, что поиск любой книги будет "
+									"таким образом, что поиск <strong>любой</strong> книги будет "
 									"занимать не более <strong>%1</strong> операций, "
 									"а добавление - не более <strong>%2</strong> операций.<br/><br/>").arg(t_op).arg(t_op + 1);
 	}
@@ -304,6 +304,7 @@ bool DiagnosticsWindow::finishTest()
 					   text,
 					   QMessageBox::NoButton,
 					   this);
+		mb.setTextFormat(Qt::RichText);
 		mb.addButton(QString::fromUtf8("Конец"), QMessageBox::AcceptRole);
 		if(save) {
 			QPushButton* button = mb.addButton(QString::fromUtf8("Скорпировать результаты"), QMessageBox::HelpRole);
@@ -400,6 +401,7 @@ void DiagnosticsWindow::showSearchResults(unsigned int seares, unsigned int addr
 				   text,
 				   QMessageBox::NoButton,
 				   this);
+	mb.setTextFormat(Qt::RichText);
 	mb.addButton(QString::fromUtf8("Продолжить"), QMessageBox::AcceptRole);	
 	mb.exec();
 }
@@ -433,6 +435,7 @@ bool DiagnosticsWindow::yesNoDialog(const QString& title, const QString& text)
 				   title, text, 
 				   QMessageBox::NoButton,
 				   this);
+	mb.setTextFormat(Qt::RichText);
 	QPushButton* yesButton = mb.addButton(QString::fromUtf8("Да"), QMessageBox::YesRole);
 	mb.addButton(QString::fromUtf8("Нет"), QMessageBox::NoRole);
 	mb.exec();
@@ -444,7 +447,7 @@ QString DiagnosticsWindow::helpText()
 	QString text;
 	if(testnumber == 2) {
 		int t_op = config.targetOperations();
-		text = QString::fromUtf8("Известно, что можно расположить книги в ящиках таким образом, что поиск любой книги будет "
+		text = QString::fromUtf8("Известно, что можно расположить книги в ящиках таким образом, что поиск <strong>любой</strong> книги будет "
 								 "занимать не более <strong>%1</strong> операций, а добавление - не более <strong>%2</strong> операций.<br/><br/>").arg(t_op).arg(t_op + 1);
 		text += QString::fromUtf8("Предлагаем вам усовершенствовать принцип расположения книг в ящиках так, чтобы улучшить "
 								  "полученные результаты поиска и добавления книг.");

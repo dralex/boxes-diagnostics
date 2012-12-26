@@ -41,6 +41,7 @@ CheckTestDialog::CheckTestDialog(Logger& l,
 		ok2Button->setVisible(false);
 		addBoxButton->setVisible(false);
 	} else {
+		typeLabel->setText(QString::fromUtf8("<p align=\"center\"><span style=\" font-size:20pt; font-weight:600;\">Добавление новой книги</span></p>"));
 		operationLabel->setText(QString::fromUtf8("Добавьте в библиотеку следующую книгу, затратив меньшее число операций:"));
 		okButton->setText(QString::fromUtf8("до выбранной"));
 	}
@@ -197,7 +198,7 @@ void CheckTestDialog::updateControls()
 		currentIcon->setPixmap(QPixmap());
 		currentLabel->setText(QString::fromUtf8("Ящик пуст"));
 	}
-	operationsCountLabel->setText(QString("<strong>%1</strong>").arg(operations));
+	operationsCountLabel->setText(QString("<span style=\"font-size:20pt; font-weight:600;\">%1</span>").arg(operations));
 
 	closeButton->setEnabled(parent_index.isValid());
 	openButton->setEnabled(current_index.isValid() && current_item->isBox());

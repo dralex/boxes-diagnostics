@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Добавить ящик</string>
   </property>
   <property name="windowIcon">
    <iconset resource="diagn.qrc">

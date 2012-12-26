@@ -1,9 +1,16 @@
-reflect-diagn (1.0) ; urgency=low
+reflect-diagn (1.2) ; urgency=low
+
+  * Correcting "right answer"
+  * Removing several bugs in the Model-View interface
+
+ -- Alexey Fedoseev <aleksey@fedoseev.net>  Wed, 26 Dec 2012 16:00:00 +0400
+
+reflect-diagn (1.1) ; urgency=low
 
   * Improving test introduction.
   * Unique DiagnID field
 
- -- Alexey Fedoseev <aleksey@fedoseev.net>  Mon, 17 Dec 2012 16:00:00 +0400
+ -- Alexey Fedoseev <aleksey@fedoseev.net>  Tue, 25 Dec 2012 16:00:00 +0400
 
 reflect-diagn (1.0) ; urgency=low
 

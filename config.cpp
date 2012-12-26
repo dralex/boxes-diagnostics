@@ -101,6 +101,12 @@ QUrl Config::postAddress()
 
 int Config::targetOperations()
 {
-	double logres = log(double(booksNumber())) / log(2.0);
-	return int(floor(logres)) * 2;
+	if(booksNumber() == 50) {
+		return 7;
+	} else if(booksNumber() == 100) {
+		return 9;
+	} else {
+		double logres = log(double(booksNumber())) / log(2.0);
+		return int(floor(logres)) * 2;
+	}
 }

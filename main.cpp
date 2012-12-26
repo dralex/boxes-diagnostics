@@ -27,7 +27,7 @@
 #include <QUuid>
 #include "diagn-window.h"
 
-const char* version = "1.1";
+const char* version = "1.2";
 
 void printMessage(const QString& msg = "")
 {
