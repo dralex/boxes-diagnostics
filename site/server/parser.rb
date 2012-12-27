@@ -46,10 +46,10 @@ def parse_buffer(buffer)
 			result[:sysinfo] = $1
 		elsif line =~ /^LocalTime: (.*)$/	
 			result[:localtime] = $1.to_i
-		elsif line =~ /^School: (.*)$/
-			result[:school] = $1
-		elsif line =~ /^Class: (.*)$/
-			result[:class] = $1
+		elsif line =~ /^School:(.*)$/
+			result[:school] = $1.strip
+		elsif line =~ /^Class:(.*)$/
+			result[:class] = $1.strip
 		elsif line =~ /^Name: (.*)$/
 			result[:name] = $1
 		elsif line =~ /^Background: (.*)$/
