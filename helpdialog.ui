@@ -38,7 +38,7 @@
            </sizepolicy>
           </property>
           <property name="text">
-           <string>&lt;p&gt;В вашем распоряжении %1 книг.&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;img src=&quot;:/Icons/images/books.png&quot;/&gt;&lt;/p&gt;&lt;p&gt;Для каждой книги заданы имя автора и название (например, %2).&lt;/p&gt;&lt;p&gt;Для хранения книг можно использовать ящики. В ящиках можно также хранить другие ящики:&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;img src=&quot;:/Icons/images/boxes.png&quot;/&gt;&lt;/p&gt;&lt;p&gt;В любой ящик может влезть сколько угодно книг или других ящиков. Число ящиков не ограничено.&lt;/p&gt;&lt;p&gt;Необходимо расположить все книги по ящикам так, чтобы библиотекой можно было удоно пользоваться: искомую книгу можно было найти быстрее всего, а добавление еще одной книги не было бы слишком долгим.</string>
+           <string>&lt;p&gt;В вашем распоряжении %1 книг.&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;img src=&quot;:/Icons/images/books.png&quot;/&gt;&lt;/p&gt;&lt;p&gt;Для каждой книги заданы имя автора и название (например, %2).&lt;/p&gt;&lt;p&gt;Для хранения книг можно использовать ящики. В ящиках можно также хранить другие ящики:&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;img src=&quot;:/Icons/images/boxes.png&quot;/&gt;&lt;/p&gt;&lt;p&gt;В любой ящик может влезть сколько угодно книг или других ящиков. Число ящиков не ограничено.&lt;/p&gt;&lt;p&gt;Необходимо расположить все книги по ящикам так, чтобы библиотекой можно было удобно пользоваться: искомую книгу можно было найти быстрее всего, а добавление еще одной книги не было бы слишком долгим.</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
