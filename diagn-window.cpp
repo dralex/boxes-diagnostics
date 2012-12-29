@@ -62,6 +62,8 @@ void DiagnosticsWindow::secondPart()
 {
 	if(testnumber == 1) {
 
+		timing.start = model->modificationTime().toTime_t();
+
 		timing.edit1end = QDateTime::currentDateTime().toTime_t();
 		logger.write(QString("EditDuration: %1").arg(timing.edit1end - timing.start));
 		logger.write("EditDump:");
@@ -172,15 +174,13 @@ void DiagnosticsWindow::slotNewTest()
 	}
 	firstbook = bl.at(0).toTextString();
 
-	slotHelp();
-
-	testnumber = 1;
-	timing.start = QDateTime::currentDateTime().toTime_t();	
-	logger.write(QString("LocalTime: %1").arg(timing.start));
-	logger.write("EditLog:");
+	logger.write(QString("LocalTime: %1").arg(QDateTime::currentDateTime().toTime_t()));
 
 	model->setBooks(bl);
 
+	slotHelp();
+
+	testnumber = 1;
 	createWindow(model->rootIndex());
 }
 

@@ -5,35 +5,38 @@ end
 
 def parse_buffer(buffer)
 	result = {:appversion => nil,
-		  :sysinfo => nil,
-		  :localtime => nil,
-		  :school => nil,
-		  :class => nil,
-		  :name => nil,
-		  :background => nil,
-		  :editduration => nil,
-		  :searchduration => nil,
-		  :searchoper => nil,
-		  :addduration => nil,
-		  :addoper => nil,
-		  :edit2duration => nil,
-		  :search2duration => nil,
-		  :search2oper => nil,
-		  :add2duration => nil,
-		  :add2oper => nil,
-		  :search3duration => nil,
-		  :search3oper => nil,
-		  :editlog => nil,
-		  :editdump => nil,
-		  :searchlog => nil,
-		  :addlog => nil,
-		  :edit2log => nil,
-		  :edit2dump => nil,
-		  :search2log => nil,
-		  :add2log => nil,
-		  :search3log => nil,
-		  :comments => nil,
-		  :diagnid => nil}
+		:sysinfo => nil,
+		:localtime => nil,
+		:school => nil,
+		:class => nil,
+		:name => nil,
+		:background => nil,
+		:editduration => nil,
+		:searchduration => nil,
+		:searchoper => nil,
+		:addduration => nil,
+		:addoper => nil,
+		:edit2duration => nil,
+		:search2duration => nil,
+		:search2oper => nil,
+		:add2duration => nil,
+		:add2oper => nil,
+		:search3duration => nil,
+		:search3oper => nil,
+		:editlog => nil,
+		:editdump => nil,
+		:searchlog => nil,
+		:addlog => nil,
+		:edit2log => nil,
+		:edit2dump => nil,
+		:search2log => nil,
+		:add2log => nil,
+		:search3log => nil,
+		:comments => nil,
+		:diagnid => nil,
+		:books => nil,
+		:startduration => nil
+	}
 	current_text = nil
 	buffer.each_line { |line|
 		line.strip!
@@ -55,6 +58,8 @@ def parse_buffer(buffer)
 		elsif line =~ /^Background: (.*)$/
 			result[:background] = $1
 			current_text = :background
+		elsif line =~ /^StartDuration: (.*)$/
+			result[:startduration] = $1.to_i
 		elsif line =~ /^EditDuration: (.*)$/
 			result[:editduration] = $1.to_i
 		elsif line =~ /^SearchDuration: (.*)$/
@@ -79,6 +84,9 @@ def parse_buffer(buffer)
 			result[:add2duration] = $1.to_i
 		elsif line =~ /^Add2Operations: (.*)$/
 			result[:add2oper] = $1.to_i
+		elsif line =~ /^Books: (.*)$/
+			result[:books] = "#{$1}\n"
+			current_text = :books
 		elsif line == 'EditLog:'
 			result[:editlog] = ''
 			current_text = :editlog

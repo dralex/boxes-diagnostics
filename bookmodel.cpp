@@ -30,7 +30,7 @@
 #include <QDebug>
 
 BookModel::BookModel(Logger& l, QObject *parent):
-	QAbstractItemModel(parent), logger(l)
+	QAbstractItemModel(parent), logger(l), modified(false)
 																	
 {
 	root = new BookItem();	
@@ -80,6 +80,7 @@ QVariant BookModel::data(const QModelIndex &index, int role) const
 bool BookModel::setData(const QModelIndex & index, const QVariant & value, int role)
 {
 	if(index.isValid() && role == Qt::EditRole && index.column() == 0) {
+		modifyModel();
 		BookItem *item = static_cast<BookItem*>(index.internalPointer());
 		MY_ASSERT(item);
 		MY_ASSERT(!item->isRoot());	
@@ -279,12 +280,15 @@ void BookModel::setBooks(const BooksList& list)
 	for(int i = 0; i < root->childCount(); i++) {
 		BookItem* child = root->child(i);
 		MY_ASSERT(child);
-		logger.write(QString(" %1{%2}").arg(child->getID()).arg(child->getBookDescr().toString()));
+		logger.write(QString(" %1:%2{%3}").arg(i).arg(child->getID()).arg(child->getBookDescr().toString()));
 	}
+	modified = false;
+	modifyTime = QDateTime::currentDateTime();
 }
 
 void BookModel::appendBooks(const QMap<QString, BookDescription>& books)
 {
+	modifyModel();
 	QModelIndex theindex = rootIndex();
 	int start = rowCount(theindex);
 	int end = start + books.size() - 1;
@@ -300,6 +304,7 @@ void BookModel::appendBooks(const QMap<QString, BookDescription>& books)
 
 void BookModel::newBox(const QString& parentdir, const QString& name, int row)
 {
+	modifyModel();
 	QModelIndex theindex = pathToIndex(parentdir);
 	BookItem* parent = indexToItem(theindex);
 	MY_ASSERT(parent);
@@ -312,6 +317,7 @@ void BookModel::newBox(const QString& parentdir, const QString& name, int row)
 
 void BookModel::newBook(const QString& parentdir, int row, const BookDescription& book)
 {
+	modifyModel();
 	QModelIndex theindex = pathToIndex(parentdir);
 	BookItem* parent = indexToItem(theindex);
 	MY_ASSERT(parent);
@@ -325,6 +331,7 @@ void BookModel::newBook(const QString& parentdir, int row, const BookDescription
 
 void BookModel::rename(const QString& path, const QString& name)
 {
+	modifyModel();
 	QModelIndex theindex = pathToIndex(path);
 	MY_ASSERT(theindex.isValid());
 	BookItem* item = indexToItem(theindex);
@@ -336,6 +343,7 @@ void BookModel::rename(const QString& path, const QString& name)
 
 void BookModel::move(const QString& srcpath, const QString& destpath, int row)
 {
+	modifyModel();
 	QModelIndex srcindex = pathToIndex(srcpath);
 	QModelIndex parentindex = parent(srcindex);	
 	QModelIndex dstindex = pathToIndex(destpath);
@@ -375,6 +383,7 @@ void BookModel::move(const QString& srcpath, const QString& destpath, int row)
 
 void BookModel::insert(const QString& srcpath, int oldrow, int newrow)
 {
+	modifyModel();
 	QModelIndex srcindex = pathToIndex(srcpath);
 	QModelIndex parentindex = parent(srcindex);
 	MY_ASSERT(srcindex.isValid());
@@ -421,6 +430,7 @@ void BookModel::removeRowsRecursively(QModelIndex parent, QMap<QString, BookDesc
 
 void BookModel::remove(const QString& path)
 {
+	modifyModel();
 	QModelIndex srcindex = pathToIndex(path);
 	if(!srcindex.isValid()) return ;
 	QModelIndex parentindex = parent(srcindex);	
@@ -586,4 +596,16 @@ void BookModel::dumpRecursively(BookItem* root, const QString& indent)
 	for(int i = 0; i < root->childCount(); i++) {
 		dumpRecursively(root->child(i), newindent);
 	}
+}
+
+void BookModel::modifyModel()
+{
+	if(!modified) {
+		modified = true;
+		QDateTime now = QDateTime::currentDateTime();
+		int dt = modifyTime.secsTo(now);
+		logger.write(QString("StartDuration: %1").arg(dt));
+		modifyTime = now;
+		logger.write("EditLog:");
+	} 
 }

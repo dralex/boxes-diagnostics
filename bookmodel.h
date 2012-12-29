@@ -26,6 +26,7 @@
 
 #include <QAbstractListModel>
 #include <QIcon>
+#include <QDateTime>
 #include "bookitem.h"
 #include "logger.h"
 
@@ -84,6 +85,7 @@ public:
 	// LOGGING
 
 	void dump();
+	const QDateTime& modificationTime() { return modifyTime; }
 
 signals:
 	void dataChanged(const QModelIndex & topLeft, const QModelIndex & bottomRight);
@@ -96,11 +98,14 @@ signals:
 private:
 	void removeRowsRecursively(QModelIndex parent, QMap<QString, BookDescription>& books);
 	void dumpRecursively(BookItem* root, const QString& indent);
+	void modifyModel();
 
 	BookItem*	root;
 	QString		diagnMimeType;
 	QIcon		emptyBoxIcon, fullBoxIcon, bookIcon;
 	Logger&		logger;
+	bool		modified;
+	QDateTime	modifyTime;
 };
 
 #endif

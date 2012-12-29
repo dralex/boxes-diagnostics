@@ -9,6 +9,8 @@ CREATE TABLE diagn_results (
 	class		VARCHAR(32),
 	name		VARCHAR(64),
 	background	TEXT,
+	startduration	SMALLINT,
+	books		TEXT,
 	editlog		LONGTEXT,
 	editdump	TEXT,
 	editduration	SMALLINT,
