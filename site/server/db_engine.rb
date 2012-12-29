@@ -32,6 +32,8 @@ def db_insert(r_addr, d)
 						d[:search3duration], d[:search3log], d[:editdump], d[:edit2dump], r_addr,
 						d[:diagnid], d[:books], d[:startduration])
 			c.commit
+		else
+			puts "DiagnID '#{d[:diagnid]}' already available"
 		end
 	rescue Mysql::Error => e
 		puts e
