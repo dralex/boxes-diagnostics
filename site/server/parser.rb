@@ -3,6 +3,29 @@ def unzip_buffer(zipbuf)
 	return zipbuf
 end
 
+def compare_versions(v1, v2)
+	return 0 if v1 == v2
+	return nil if v1.nil? or v2.nil?
+	return nil unless v1 =~ /(\d+)\.(\d+)/
+	v1major, v1minor = $1, $2
+	return nil unless v2 =~ /(\d+)\.(\d+)/
+	v2major, v2minor = $1, $2
+	p v1major, v2major
+	if v1major < v2major
+		return 1
+	elsif v1major > v2major
+		return -1
+	else
+		if v1minor < v2minor
+			return 1
+		elsif v1minor > v2minor
+			return -1
+		else
+			return 0
+		end
+	end
+end
+
 def parse_buffer(buffer)
 	result = {:appversion => nil,
 		:sysinfo => nil,
@@ -84,7 +107,7 @@ def parse_buffer(buffer)
 			result[:add2duration] = $1.to_i
 		elsif line =~ /^Add2Operations: (.*)$/
 			result[:add2oper] = $1.to_i
-		elsif line =~ /^Books: (.*)$/
+		elsif line =~ /^Books: (.*)$/ and compare_versions('1.3', result[:appversion]) >= 0
 			result[:books] = "#{$1}\n"
 			current_text = :books
 		elsif line == 'EditLog:'
