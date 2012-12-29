@@ -1,7 +1,7 @@
 CREATE TABLE diagn_results (
 	id		INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	servertime	TIMESTAMP(8) DEFAULT NOW(),
-	diagnid		VARCHAR(64),
+	diagnid		VARCHAR(64), INDEX(diagnid),
 	appversion	VARCHAR(16),
 	sysinfo		VARCHAR(128),
 	remotetime	INT,
