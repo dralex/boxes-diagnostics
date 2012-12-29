@@ -117,7 +117,13 @@ def parse_buffer(buffer)
 		elsif line == 'Comments:'
 			result[:comments] = ''
 			current_text = :comments
+		elsif line =~ /^NetworkError:/
+			next
+		elsif line =~ /^WrongNetworkResult:/
+			current_text = :wrong_result
+			next
 		elsif not current_text.nil?
+			next if current_text == :wrong_result
 			result[current_text] += line + "\n"
 		else 
 			puts "Bad line #{line}"
