@@ -103,6 +103,9 @@ int Config::targetOperations()
 {
 	if(booksNumber() == 50) {
 		return 7;
+
+	} else if(booksNumber() == 75) {
+		return 8;
 	} else if(booksNumber() == 100) {
 		return 9;
 	} else {

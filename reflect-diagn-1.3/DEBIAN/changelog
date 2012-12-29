@@ -1,3 +1,9 @@
+reflect-diagn (1.3) ; urgency=low
+
+  * Default books list is set to 75 books
+
+ -- Alexey Fedoseev <aleksey@fedoseev.net>  Wed, 29 Dec 2012 16:00:00 +0400
+
 reflect-diagn (1.2) ; urgency=low
 
   * Correcting "right answer"
