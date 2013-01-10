@@ -378,7 +378,7 @@ void BookModel::move(const QString& srcpath, const QString& destpath, int row)
 		}
 	}
 	emit boxInserted(item->constructPath());
-	logger.write(QString("Moved %1->%2").arg(item->getID()).arg(dstitem->getID()));
+	logger.write(QString("Moved %1->%2:%3").arg(item->getID()).arg(dstitem->getID()).arg(row));
 }
 
 void BookModel::insert(const QString& srcpath, int oldrow, int newrow)
@@ -409,7 +409,7 @@ void BookModel::insert(const QString& srcpath, int oldrow, int newrow)
 	if(item->isBox()) {
 		emit boxMoved(srcpath, srcpath);
 	}
-	logger.write(QString("Reodered %1 %2->%3").arg(parentitem->getID()).arg(oldrow).arg(newrow));
+	logger.write(QString("Reordered %1 %2->%3").arg(parentitem->getID()).arg(oldrow).arg(newrow));
 }
 
 void BookModel::removeRowsRecursively(QModelIndex parent, QMap<QString, BookDescription>& books)
