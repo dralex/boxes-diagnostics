@@ -592,7 +592,7 @@ void BookModel::dumpRecursively(BookItem* root, const QString& indent)
 		}
 	}
 	logger.write(QString("%1%2%3{%4}{%5}").arg(indent).arg(type).arg(root->getID()).arg(descr).arg(label));
-	QString newindent = indent + "\t";
+	QString newindent = indent + "-";
 	for(int i = 0; i < root->childCount(); i++) {
 		dumpRecursively(root->child(i), newindent);
 	}
