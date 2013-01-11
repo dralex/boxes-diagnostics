@@ -10,7 +10,6 @@ def compare_versions(v1, v2)
 	v1major, v1minor = $1, $2
 	return nil unless v2 =~ /(\d+)\.(\d+)/
 	v2major, v2minor = $1, $2
-	p v1major, v2major
 	if v1major < v2major
 		return 1
 	elsif v1major > v2major
@@ -62,7 +61,7 @@ def parse_buffer(buffer)
 	}
 	current_text = nil
 	buffer.each_line { |line|
-		line.strip!
+		line.gsub!(/\r?\n$/,'')
 		next if line.empty?
 		if line =~ /^AppVersion: (.*)$/
 			result[:appversion] = $1
