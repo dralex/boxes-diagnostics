@@ -313,6 +313,7 @@ void BookModel::newBox(const QString& parentdir, const QString& name, int row)
 	BookItem* boxItem = parent->makeSubBox(name, row);
 	endInsertRows();
 	logger.write(QString("New box %1{%2} at %3:%4").arg(boxItem->getID()).arg(name).arg(parent->getID()).arg(row));
+	logCurrentDuration();
 }
 
 void BookModel::newBook(const QString& parentdir, int row, const BookDescription& book)
@@ -327,6 +328,7 @@ void BookModel::newBook(const QString& parentdir, int row, const BookDescription
 	parent->insertChild(row, bookItem);
 	endInsertRows();
 	logger.write(QString("New book %1{%2} at %3:%4").arg(bookItem->getID()).arg(book.toString()).arg(parent->getID()).arg(row));
+	logCurrentDuration();
 }
 
 void BookModel::rename(const QString& path, const QString& name)
@@ -339,6 +341,7 @@ void BookModel::rename(const QString& path, const QString& name)
 	item->rename(name);
 	emit dataChanged(theindex, theindex);
 	logger.write(QString("Rename %1{%2}").arg(item->getID()).arg(name));
+	logCurrentDuration();
 }
 
 void BookModel::move(const QString& srcpath, const QString& destpath, int row)
@@ -379,6 +382,7 @@ void BookModel::move(const QString& srcpath, const QString& destpath, int row)
 	}
 	emit boxInserted(item->constructPath());
 	logger.write(QString("Moved %1->%2:%3").arg(item->getID()).arg(dstitem->getID()).arg(row));
+	logCurrentDuration();
 }
 
 void BookModel::insert(const QString& srcpath, int oldrow, int newrow)
@@ -410,6 +414,7 @@ void BookModel::insert(const QString& srcpath, int oldrow, int newrow)
 		emit boxMoved(srcpath, srcpath);
 	}
 	logger.write(QString("Reordered %1 %2->%3").arg(parentitem->getID()).arg(oldrow).arg(newrow));
+	logCurrentDuration();
 }
 
 void BookModel::removeRowsRecursively(QModelIndex parent, QMap<QString, BookDescription>& books)
@@ -442,6 +447,7 @@ void BookModel::remove(const QString& path)
 	BookItem* parentitem = indexToItem(parentindex);
 	parentitem->removeChild(remove_index);
 	logger.write(QString("Remove %1").arg(item->getID()));
+	logCurrentDuration();
 	delete item;
 	endRemoveRows();
 	appendBooks(books);
@@ -608,4 +614,13 @@ void BookModel::modifyModel()
 		modifyTime = now;
 		logger.write("EditLog:");
 	} 
+}
+
+void BookModel::logCurrentDuration()
+{
+	if(modified) {
+		QDateTime now = QDateTime::currentDateTime();
+		int dt = modifyTime.secsTo(now);
+		logger.write(QString("T %1").arg(dt));
+	}
 }

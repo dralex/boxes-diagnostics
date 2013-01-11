@@ -98,6 +98,7 @@ signals:
 private:
 	void removeRowsRecursively(QModelIndex parent, QMap<QString, BookDescription>& books);
 	void dumpRecursively(BookItem* root, const QString& indent);
+	void logCurrentDuration();
 	void modifyModel();
 
 	BookItem*	root;
