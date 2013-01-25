@@ -79,16 +79,33 @@ BookDescription Config::bookParameter(const QString& key)
 	return bd;	
 }
 
-BookDescription Config::searchBook(int stage)
+BooksList Config::searchBooks(int stage)
 {
 	QString key = QString("Test/search%1").arg(stage);
-	return bookParameter(key);
+	if(!settings.contains(key)) throwError();
+	QString bookStr = QString::fromUtf8(settings.value(key).toByteArray());
+	BooksList res;
+	foreach(QString bs, bookStr.split("|")) {
+		BookDescription bd;
+		if(!parseBook(bs, bd)) throwError();
+		res.append(bd);
+	}
+	return res;
 }
 
-BookDescription Config::addBook(int stage)
+QString Config::searchBookQuestion(int stage)
+{
+	QString key = QString("Test/search%1question").arg(stage);
+	if (!settings.contains(key)) return "";
+	return QString::fromUtf8(settings.value(key).toByteArray());
+}
+
+BooksList Config::addBook(int stage)
 {
 	QString key = QString("Test/add%1").arg(stage);
-	return bookParameter(key);
+	BooksList bl;
+	bl.append(bookParameter(key));
+	return bl;
 }
 
 QUrl Config::postAddress()
@@ -103,7 +120,6 @@ int Config::targetOperations()
 {
 	if(booksNumber() == 50) {
 		return 7;
-
 	} else if(booksNumber() == 75) {
 		return 8;
 	} else if(booksNumber() == 100) {

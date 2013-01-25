@@ -33,7 +33,8 @@ Q_OBJECT
 public:
 	CheckTestDialog(Logger& logger,
 					BookModel* model,
-					const BookDescription& book, 
+					const QString& question,
+					const BooksList& books, 
 					bool search,
 					QWidget* parent = 0);
 
@@ -58,7 +59,7 @@ private:
 	Logger&			logger;
 	BookModel*		model;
 	bool			do_search;
-	BookDescription search_book;
+	BooksList		search_books;
 	unsigned int	operations;
 	QModelIndex		current_index;
 	QModelIndex		parent_index;

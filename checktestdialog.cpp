@@ -28,15 +28,19 @@
 
 CheckTestDialog::CheckTestDialog(Logger& l,
 								 BookModel* m,
-								 const BookDescription& book, 
+								 const QString& question,
+								 const BooksList& books, 
 								 bool search,
 								 QWidget* parent):
 	QDialog(parent),
-	logger(l), model(m), do_search(search), search_book(book), operations(0), start_time(0)
+	logger(l), model(m), do_search(search), search_books(books), operations(0), start_time(0)
 {
 	setupUi(this);
+	MY_ASSERT((search && books.size() > 0) || books.size() == 1);
 	if(search) {
-		operationLabel->setText(QString::fromUtf8("Найдите следующую книгу, затратив меньшее число операций:"));
+		if (question.isEmpty()) {
+			operationLabel->setText(QString::fromUtf8("Найдите следующую книгу, затратив меньшее число операций:"));
+		}
 		addLabel->setVisible(false);
 		ok2Button->setVisible(false);
 		addBoxButton->setVisible(false);
@@ -47,8 +51,16 @@ CheckTestDialog::CheckTestDialog(Logger& l,
 												"Для поиска подходящего места под новую книгу используйте следующие действия:</span>"));
 		operationLabel->setText(QString::fromUtf8("Добавьте в библиотеку следующую книгу, затратив меньшее число операций:"));
 		okButton->setText(QString::fromUtf8("до выбранной"));
+	}	
+	if (question.isEmpty()) {
+		QStringList bl;
+		foreach(const BookDescription& book, books) {
+			bl.append(book.author_name + " " + book.author_surname + " <strong>" + book.title + "</strong>");			
+		}
+		bookLabel->setText(bl.join("<br/>"));
+	} else {
+		bookLabel->setText(question);
 	}
-	bookLabel->setText(book.author_name + " " + book.author_surname + " <strong>" + book.title + "</strong>");
 	bookView->setModel(m);
 	slotRestart();
 	resize(sizeHint());
@@ -63,7 +75,7 @@ void CheckTestDialog::slotOK()
 		} else {
 			row = 0;
 		}		
-		model->newBook(model->indexToPath(parent_index), row, search_book);
+		model->newBook(model->indexToPath(parent_index), row, search_books.at(0));
 		logger.write("Inserted before");
 		incrementOperations();
 	} else {
@@ -81,7 +93,7 @@ void CheckTestDialog::slotOK2()
 	} else {
 		row = 0;
 	}
-	model->newBook(model->indexToPath(parent_index), row, search_book);
+	model->newBook(model->indexToPath(parent_index), row, search_books.at(0));
 	logger.write("Inserted after");
 	incrementOperations();
 	accept();
@@ -92,7 +104,6 @@ void CheckTestDialog::slotRestart()
 	operations = 0;
 	parent_index = model->rootIndex();
 	current_index = model->index(0, 0, parent_index);
-	bookLabel->setText(search_book.toTextString());
 	if(do_search) {
 		logger.write("Start search") ;
 	} else {
@@ -211,7 +222,7 @@ void CheckTestDialog::updateControls()
 	afterButton->setEnabled(current_index.isValid() && current_index.row() < model->rowCount(parent_index) - 1);
 
 	if(do_search) {
-		bool book_found = !current_item->isBox() && search_book == current_item->getBookDescr();
+		bool book_found = !current_item->isBox() && search_books.contains(current_item->getBookDescr());
 		addLabel->setVisible(book_found);
 		okButton->setEnabled(book_found);
 	}

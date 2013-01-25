@@ -34,8 +34,9 @@ public:
 	
 	BooksList books();
 	int booksNumber();
-	BookDescription searchBook(int stage);
-	BookDescription addBook(int stage);
+	BooksList searchBooks(int stage);
+	QString searchBookQuestion(int stage);
+	BooksList addBook(int stage);
 	int targetOperations();
 
 	QUrl postAddress();
