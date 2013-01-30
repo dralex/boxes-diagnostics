@@ -172,12 +172,16 @@ void CheckTestDialog::slotAddBox()
 	if(dialog.exec() == QDialog::Accepted) {
 		if(!current_index.isValid()) {
 			model->newBox(model->indexToPath(parent_index), dialog.boxName());	
+			current_index = model->index(0, 0, parent_index);
 		} else {
+			int target_row = -1;
 			if(dialog.addBefore()) {
-				model->newBox(model->indexToPath(parent_index), dialog.boxName(), current_index.row());
+				target_row = current_index.row();
 			} else {
-				model->newBox(model->indexToPath(parent_index), dialog.boxName(), current_index.row() + 1);
+				target_row = current_index.row() + 1;				
 			}
+			model->newBox(model->indexToPath(parent_index), dialog.boxName(), target_row);
+			current_index = model->index(target_row, 0, parent_index);
 		}
 		logger.write("Add box");
 		incrementOperations();

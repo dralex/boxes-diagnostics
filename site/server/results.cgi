@@ -49,7 +49,9 @@ def b2str(bookid)
 	if b.size > 2
 		if b.size == 4
 			b[3]
-		else
+		elsif b[0].strip.empty?
+			"#{b[1]} - #{b[2]}"
+		else 
 			"#{b[0]} #{b[1]} - #{b[2]}"
 		end
 	else
@@ -179,9 +181,12 @@ def rebuild_editlog(rbooks, rlog, rdump)
 			
 			book = curdir.delete_at(frompos)
 			inserttree(curdir, topos, book)
+		elsif l =~ /^T\s+(\d+)$/
+			time = $1.to_i
+			history += "Прошло: #{dur2str(time)}\n"
 		elsif l =~ /^Remove\s+(.*)$/
 			removeid = $1.strip
-			history += "Удалить '#{b2str(removeid)}'"
+			history += "Удалить '#{b2str(removeid)}'\n"
 			parent, idx = findtree(tree, removeid)
 			parent.delete_at(idx)
 		elsif l =~ /^Books returned to root:\s+(\d+)$/
@@ -200,13 +205,13 @@ def rebuild_editlog(rbooks, rlog, rdump)
 			history += "Создать ящик '#{$2}' "
 			if $3.strip.empty? 
 				parentdir = tree
-				history += 'в корне'
+				history += "в корне\n"
 			else
 				parentid = $3
 				parentid =~ /^\{(.*)\}/
 				parentid = $1
 				parentdir = findtree(tree, $3)[0]
-				history += "в ящике '#{b2str(boxid)}'"
+				history += "в ящике '#{b2str(boxid)}'\n"
 			end
 			idx = $4.to_i
 			inserttree(parentdir, idx, [boxid] + box)
@@ -296,6 +301,8 @@ def rebuild_searchaddlog(rlog)
 			history += "Поиск отменен\n"
 		elsif l == 'Addition cancelled'
 			history += "Добавление отменено\n"
+		elsif l =~ /^T\s+(\d+)$/
+			next
 		else 
 			history += "#{l}\n"
 		end
@@ -403,6 +410,7 @@ if cgi.has_key? 'id'
 						s += "<p><strong>Дерево на конец редактирования:</strong>"
 						
 						if rebuilded 
+							s += cgi.pre { r[:editdump] } 
 							s += cgi.pre { tree2str(tree) }							
 						else 						
 							s += cgi.pre { r[:editdump] } 
@@ -411,7 +419,7 @@ if cgi.has_key? 'id'
 						s += "<h2>Поиск 1</h2>"
 						
 						if compare_versions('1.5', r[:appversion]) >= 0 
-							s += "<p><strong>Вопрос для поиска:</strong> ЫЫЫ"
+							s += "<p><strong>Вопрос для поиска:</strong> Найдите книгу с названием &quot;Приключения Гекльберри Финна&quot;"
 						else
 							s += "<p><strong>Книга для поиска:</strong> Марк Твен - Приключения Гекльберри Финна"
 						end
@@ -424,7 +432,7 @@ if cgi.has_key? 'id'
 						s += "<h2>Поиск 2</h2>"
 
 						if compare_versions('1.5', r[:appversion]) >= 0 
-							s += "<p><strong>Вопрос для поиска:</strong> ЫЫЫ"
+							s += "<p><strong>Вопрос для поиска:</strong> Найдите книгу Стендаля"
 						else
 							s += "<p><strong>Книга для поиска:</strong> Николай Гоголь - Вечера на хуторе близ Диканьки"
 						end
@@ -438,11 +446,11 @@ if cgi.has_key? 'id'
 
 						s += "<p><strong>Книга для добавления:</strong> "
 						if compare_versions('1.5', r[:appversion]) >= 0 
-							
+							s += "Аркадий и Борис Стругацкие - Жук в муравейнике"
 						else
 							s += "Аркадий и Борис Стругацкие - Жук в муравейнике"
 						end
-
+						
 						s += "<p><strong>Время добавления:</strong> #{dur2str(r[:addduration])}"
 						s += "<p><strong>Число операций:</strong> #{r[:addoper]}"
 						s += '<p><strong>Последовательность добавления:</strong>'
@@ -462,7 +470,7 @@ if cgi.has_key? 'id'
 						s += "<h2>Поиск 3</h2>"
 
 						if compare_versions('1.5', r[:appversion]) >= 0 
-							s += "<p><strong>Вопрос для поиска:</strong> ЫЫЫ"
+							s += "<p><strong>Вопрос для поиска:</strong> Найдите книгу &quot;Золотой теленок&quot;"
 						else
 							s += "<p><strong>Книга для поиска:</strong> Александр Пушкин - Повести Белкина"
 						end
@@ -476,7 +484,7 @@ if cgi.has_key? 'id'
 
 						s += "<p><strong>Книга для добавления:</strong> "
 						if compare_versions('1.5', r[:appversion]) >= 0 
-							
+							s += "Carl Marx - Capital"
 						else
 							s += "Carl Marx - Capital"
 						end
