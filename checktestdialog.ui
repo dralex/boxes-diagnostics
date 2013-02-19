@@ -21,7 +21,7 @@
    <item row="1" column="0">
     <widget class="QLabel" name="operationLabel">
      <property name="text">
-      <string>Найдите книгу по следующему заданию за меньшее число операций:</string>
+      <string>Выполните следующее задание за меньшее число операций:</string>
      </property>
      <property name="wordWrap">
       <bool>true</bool>
@@ -333,25 +333,6 @@
      </item>
     </layout>
    </item>
-   <item row="5" column="0">
-    <widget class="ReadOnlyView" name="bookView">
-     <property name="enabled">
-      <bool>true</bool>
-     </property>
-     <property name="editTriggers">
-      <set>QAbstractItemView::NoEditTriggers</set>
-     </property>
-     <property name="selectionMode">
-      <enum>QAbstractItemView::SingleSelection</enum>
-     </property>
-     <property name="selectionBehavior">
-      <enum>QAbstractItemView::SelectRows</enum>
-     </property>
-     <property name="resizeMode">
-      <enum>QListView::Adjust</enum>
-     </property>
-    </widget>
-   </item>
    <item row="6" column="0">
     <widget class="QLabel" name="actionsLabel">
      <property name="text">
@@ -381,15 +362,27 @@
      </property>
     </widget>
    </item>
+   <item row="5" column="0">
+    <widget class="QListView" name="bookView">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="editTriggers">
+      <set>QAbstractItemView::NoEditTriggers</set>
+     </property>
+     <property name="selectionMode">
+      <enum>QAbstractItemView::SingleSelection</enum>
+     </property>
+     <property name="selectionBehavior">
+      <enum>QAbstractItemView::SelectRows</enum>
+     </property>
+     <property name="resizeMode">
+      <enum>QListView::Adjust</enum>
+     </property>
+    </widget>
+   </item>
   </layout>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>ReadOnlyView</class>
-   <extends>QListView</extends>
-   <header>readonlyview.h</header>
-  </customwidget>
- </customwidgets>
  <resources>
   <include location="diagn.qrc"/>
  </resources>
@@ -554,6 +547,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>bookView</sender>
+   <signal>clicked(QModelIndex)</signal>
+   <receiver>CheckTestDialog</receiver>
+   <slot>slotBookClicked(QModelIndex)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>331</x>
+     <y>276</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>331</x>
+     <y>350</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>slotOpen()</slot>
@@ -566,5 +575,6 @@
   <slot>slotAddBox()</slot>
   <slot>slotOK()</slot>
   <slot>slotOK2()</slot>
+  <slot>slotBookClicked(QModelIndex)</slot>
  </slots>
 </ui>

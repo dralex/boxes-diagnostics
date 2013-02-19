@@ -385,7 +385,7 @@ void DiagnosticsWindow::showSearchResults(unsigned int seares, unsigned int addr
 	if(addres != 11 && addres % 10 == 1) {
 		a_postfix = QString::fromUtf8("ю");
 	} else if((addres < 10 || addres > 20) && ((addres % 10) > 1) && (addres % 10) < 5) {
-	a_postfix = QString::fromUtf8("и");
+		a_postfix = QString::fromUtf8("и");
 	} else {
 		a_postfix = QString::fromUtf8("й");
 	}

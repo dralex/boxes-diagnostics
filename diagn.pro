@@ -1,7 +1,7 @@
 HEADERS = diagn-window.h bookswindow.h bookitem.h bookmodel.h myassert.h newtestdialog.h \
-	checktestdialog.h config.h logger.h readonlyview.h webaccess.h addboxdialog.h helpdialog.h
+	checktestdialog.h config.h logger.h webaccess.h addboxdialog.h helpdialog.h
 SOURCES = main.cpp diagn-window.cpp bookswindow.cpp bookitem.cpp bookmodel.cpp myassert.cpp newtestdialog.cpp \
-	checktestdialog.cpp config.cpp logger.cpp readonlyview.cpp webaccess.cpp addboxdialog.cpp \
+	checktestdialog.cpp config.cpp logger.cpp webaccess.cpp addboxdialog.cpp \
 	helpdialog.cpp
 TARGET = diagn
 QT += network

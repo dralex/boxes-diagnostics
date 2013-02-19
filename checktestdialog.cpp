@@ -188,6 +188,29 @@ void CheckTestDialog::slotAddBox()
 		updateControls();
 	}
 }
+
+void CheckTestDialog::slotBookClicked(QModelIndex index)
+{
+	if(!index.isValid() || current_index == index) {
+		return ;
+	}
+	BookItem* parent_item = model->indexToItem(parent_index);
+	MY_ASSERT(parent_item);
+	BookItem* current_item = model->indexToItem(current_index);
+	MY_ASSERT(current_item);
+	int current_row = current_item->row();
+	BookItem* new_item = model->indexToItem(index);
+	MY_ASSERT(new_item);
+	int new_row = new_item->row();
+	int diff = new_row - current_row;
+	if (diff < 0) diff = -diff;
+	logger.write(QString("Clicked %1{%2}").arg(new_item->getID()).arg(new_item->getLabel()));
+	if (diff < parent_item->childCount() - 1) {
+		incrementOperations(diff);
+	}
+	current_index = index;
+	updateControls();
+}
 	
 void CheckTestDialog::updateControls()
 {
@@ -203,7 +226,7 @@ void CheckTestDialog::updateControls()
 	}	
 
 	bookView->setRootIndex(parent_index);
-	bookView->setReallyCurrentIndex(current_index);
+	bookView->setCurrentIndex(current_index);
 
 	BookItem* current_item = model->indexToItem(current_index);
 	MY_ASSERT(current_item);
@@ -232,9 +255,9 @@ void CheckTestDialog::updateControls()
 	}
 }
 
-void CheckTestDialog::incrementOperations()
+void CheckTestDialog::incrementOperations(int diff)
 {
-	operations++;
+	operations += diff;
 	unsigned int time_diff = QDateTime::currentDateTime().toTime_t() - start_time;
 	logger.write(QString("O %1 %2").arg(operations).arg(time_diff));
 }

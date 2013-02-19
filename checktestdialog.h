@@ -51,10 +51,11 @@ public slots:
 	void slotFirst();
 	void slotLast();
 	void slotAddBox();
+	void slotBookClicked(QModelIndex index);
 
 private:
 	void updateControls();
-	void incrementOperations();
+	void incrementOperations(int diff = 1);
 
 	Logger&			logger;
 	BookModel*		model;
