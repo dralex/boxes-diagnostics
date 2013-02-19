@@ -105,7 +105,7 @@ void DiagnosticsWindow::secondPart()
 		}
 		timing.add1end = QDateTime::currentDateTime().toTime_t();
 		logger.write(QString("AddDuration: %1").arg(timing.add1end - timing.search2end));
-		unsigned int add1oper = dialog2.operationsResult();
+		unsigned int add1oper = dialog3.operationsResult();
 		logger.write(QString("AddOperations: %1").arg(add1oper));
 
 		testnumber = 2;
