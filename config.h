@@ -43,7 +43,7 @@ public:
 
 private:
 	void throwError() {
-		throw QString::fromUtf8("Не доступе файл конфигурации %1").arg(cfgfile);
+		throw QString::fromUtf8("Не доступен файл конфигурации %1").arg(cfgfile);
 	}
 	static bool parseBook(const QString& str, BookDescription& bd);
 	BookDescription bookParameter(const QString& key);
