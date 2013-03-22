@@ -57,7 +57,8 @@ def parse_buffer(buffer)
 		:comments => nil,
 		:diagnid => nil,
 		:books => nil,
-		:startduration => nil
+		:startduration => nil,
+		:language => nil
 	}
 	current_text = nil
 	buffer.each_line { |line|
@@ -77,6 +78,8 @@ def parse_buffer(buffer)
 			result[:class] = $1.strip
 		elsif line =~ /^Name: (.*)$/
 			result[:name] = $1
+		elsif line =~ /^Language: (.*)$/
+			result[:language] = $1
 		elsif line =~ /^Background: (.*)$/
 			result[:background] = $1
 			current_text = :background

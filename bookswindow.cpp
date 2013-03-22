@@ -37,10 +37,10 @@ BooksWindow::BooksWindow(BookModel* m,
 	MY_ASSERT(item);
 	setWindowIcon(model->getItemIcon(item));
 	if(item->isRoot()) {
-		setWindowTitle(QString::fromUtf8("Библиотека"));
+		setWindowTitle(trUtf8("Библиотека"));
 	} else {
 		MY_ASSERT(item->isBox());
-		setWindowTitle(QString::fromUtf8("Ящик: ") + item->getLabel());
+		setWindowTitle(trUtf8("Ящик: %1").arg(item->getLabel()));
 	}
 	root = model->indexToPath(index);
 	booksView->setModel(model);
@@ -78,7 +78,7 @@ void BooksWindow::modifyRoot(const QString& newRoot)
 
 void BooksWindow::modifyLabel(const QString& label)
 {
-	setWindowTitle(QString::fromUtf8("Ящик: ") + label);
+	setWindowTitle(trUtf8("Ящик: %1").arg(label));
 }
 
 QModelIndex BooksWindow::selectedIndex() const

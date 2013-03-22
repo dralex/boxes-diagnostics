@@ -4,6 +4,7 @@ CREATE TABLE diagn_results (
 	diagnid		VARCHAR(64), INDEX(diagnid),
 	appversion	VARCHAR(16),
 	sysinfo		VARCHAR(128),
+	language	VARCHAR(32),
 	remotetime	INT,
 	school		VARCHAR(32),
 	class		VARCHAR(32),

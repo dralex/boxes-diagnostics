@@ -26,7 +26,8 @@
 
 #include <QFile>
 
-class Logger {
+class Logger: public QObject {
+Q_OBJECT
 public:
 	Logger(const QString& logfile);
 	

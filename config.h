@@ -28,7 +28,8 @@
 #include <QSettings>
 #include "book.h"
 
-class Config {
+class Config: public QObject {
+Q_OBJECT
 public:
 	Config(const QString& cfg);
 	

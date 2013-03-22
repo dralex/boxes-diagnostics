@@ -159,8 +159,8 @@ void DiagnosticsWindow::secondPart()
 
 void DiagnosticsWindow::slotNewTest()
 {
-/*	if(testnumber > 0 && !yesNoDialog(QString::fromUtf8("Предупреждение"),
-									  QString::fromUtf8("Вы точно хотите начать новую диагностику и потерять все, что было сделано?"))) 
+/*	if(testnumber > 0 && !yesNoDialog(trUtf8("Предупреждение"),
+									  trUtf8("Вы точно хотите начать новую диагностику и потерять все, что было сделано?"))) 
 									  return ;*/
 
 	NewTestDialog dialog(this);
@@ -179,7 +179,7 @@ void DiagnosticsWindow::slotNewTest()
 
 	BooksList bl = config.books();
 	if(bl.size() == 0) {
-		throw QString::fromUtf8("Не удалось найти список книг.");
+		throw trUtf8("Не удалось найти список книг.");
 	}
 	firstbook = bl.at(0).toTextString();
 
@@ -198,10 +198,10 @@ void DiagnosticsWindow::slotHelp()
 	int t_op = config.targetOperations();
 	QString operstr;
 	if(testnumber > 1) {
-		operstr = QString::fromUtf8("Известно, что можно расположить книги в ящиках "
-									"таким образом, что поиск <strong>любой</strong> книги будет "
-									"занимать не более <strong>%1</strong> операций, "
-									"а добавление - не более <strong>%2</strong> операций.<br/><br/>").arg(t_op).arg(t_op + 1);
+		operstr = trUtf8("Известно, что можно расположить книги в ящиках "
+						 "таким образом, что поиск <strong>любой</strong> книги будет "
+						 "занимать не более <strong>%1</strong> операций, "
+						 "а добавление - не более <strong>%2</strong> операций.<br/><br/>").arg(t_op).arg(t_op + 1);
 	}
 	HelpDialog dialog(testnumber,
 					  config.booksNumber(),
@@ -217,10 +217,10 @@ void DiagnosticsWindow::slotNewBox()
 	if(sw == NULL) return ;
 	bool ok = false;
 	QString name = QInputDialog::getText(this,
-										 QString::fromUtf8("Новый ящик"),
-										 QString::fromUtf8("Надпись на ящике"),
+										 trUtf8("Новый ящик"),
+										 trUtf8("Надпись на ящике"),
 										 QLineEdit::Normal,
-										 QString::fromUtf8(""),
+										 trUtf8(""),
 										 &ok);
 	if(!ok || name.isEmpty()) return ;
 	QModelIndex insert_index = reinterpret_cast<BooksWindow*>(sw)->rootIndex();
@@ -257,8 +257,8 @@ void DiagnosticsWindow::slotRename()
 
 void DiagnosticsWindow::slotFinishEditing()
 {
-	if(yesNoDialog(QString::fromUtf8("Предупреждение"),
-				   QString::fromUtf8("Перейти к следующей части диагностики?"))) {
+	if(yesNoDialog(trUtf8("Предупреждение"),
+				   trUtf8("Перейти к следующей части диагностики?"))) {
 		secondPart();		
 	}
 }
@@ -266,7 +266,7 @@ void DiagnosticsWindow::slotFinishEditing()
 void DiagnosticsWindow::slotSaveResults()
 {
 	QFileDialog dialog(this);
-	dialog.setLabelText(QFileDialog::LookIn, QString::fromUtf8("Выберите папку для сохранения результатов диагностики"));
+	dialog.setLabelText(QFileDialog::LookIn, trUtf8("Выберите папку для сохранения результатов диагностики"));
 	dialog.setFileMode(QFileDialog::Directory);
 	dialog.setViewMode(QFileDialog::List);
 	dialog.setWindowFlags(dialog.windowFlags() & (~Qt::WindowContextHelpButtonHint));
@@ -277,12 +277,12 @@ void DiagnosticsWindow::slotSaveResults()
 	QString directory = fileNames.at(0);
 	if(QFile(logger.logPath()).copy(directory + QDir::separator() + logger.logFile())) {
 		QMessageBox::information(this,
-								 QString::fromUtf8("Завешение диагностики"),
-								 QString::fromUtf8("Результаты диагностики успешно сохранены в папке %1.").arg(directory));
+								 trUtf8("Завешение диагностики"),
+								 trUtf8("Результаты диагностики успешно сохранены в папке %1.").arg(directory));
 	} else {
 		QMessageBox::information(this,
-								 QString::fromUtf8("Завешение диагностики"),
-								 QString::fromUtf8("Не удалось сохранить результаты диагностики в папке %1.").arg(directory));
+								 trUtf8("Завешение диагностики"),
+								 trUtf8("Не удалось сохранить результаты диагностики в папке %1.").arg(directory));
 	}
 }
 
@@ -292,31 +292,31 @@ bool DiagnosticsWindow::finishTest()
 		QApplication::quit();
 		return true;
 	} else if(testnumber <= 2 &&
-	   !yesNoDialog(QString::fromUtf8("Предупреждение"),
-				   QString::fromUtf8("Диагностика еще не завершена. Вы уверены, что хотите закрыть приложение?"))) {
+	   !yesNoDialog(trUtf8("Предупреждение"),
+				   trUtf8("Диагностика еще не завершена. Вы уверены, что хотите закрыть приложение?"))) {
 		return false;
 	} else {
 		QString text;
 		bool save = !sendResults();
 		QMessageBox::Icon icon;
 		if(save) {
-			text = QString::fromUtf8("Произошла ошибка отправления результатов диагностики.<br/><br/>"
+			text = trUtf8("Произошла ошибка отправления результатов диагностики.<br/><br/>"
 									 "Пожалуйста, сохраните файл <strong>%1</strong> и отправьте его организаторам диагностики "
 									 "по адресу <a href='email:diagn@eduscen.ru'>diagn@eduscen.ru</a>.").arg(logger.logPath());
 			icon = QMessageBox::Warning;
 		} else {
-			text = QString::fromUtf8("Данные вашей диагностики успешно отправлены организаторам. Большое спасибо за участие!");
+			text = trUtf8("Данные вашей диагностики успешно отправлены организаторам. Большое спасибо за участие!");
 			icon = QMessageBox::Information;
 		}
 		QMessageBox mb(icon,
-					   QString::fromUtf8("Завешение диагностики"),
+					   trUtf8("Завешение диагностики"),
 					   text,
 					   QMessageBox::NoButton,
 					   this);
 		mb.setTextFormat(Qt::RichText);
-		mb.addButton(QString::fromUtf8("Конец"), QMessageBox::AcceptRole);
+		mb.addButton(trUtf8("Конец"), QMessageBox::AcceptRole);
 		if(save) {
-			QPushButton* button = mb.addButton(QString::fromUtf8("Скорпировать результаты"), QMessageBox::HelpRole);
+			QPushButton* button = mb.addButton(trUtf8("Скорпировать результаты"), QMessageBox::HelpRole);
 			connect(button, SIGNAL(clicked()), this, SLOT(slotSaveResults()));
 		}
 		mb.exec();
@@ -327,8 +327,8 @@ bool DiagnosticsWindow::finishTest()
 
 void DiagnosticsWindow::slotRootClosed()
 {	
-	if(yesNoDialog(QString::fromUtf8("Предупреждение"),
-				   QString::fromUtf8("Закончить редактирование библиотеки?"))) {
+	if(yesNoDialog(trUtf8("Предупреждение"),
+				   trUtf8("Закончить редактирование библиотеки?"))) {
 		secondPart();		
 	} else {
 		createWindow(model->rootIndex());
@@ -383,35 +383,35 @@ void DiagnosticsWindow::showSearchResults(unsigned int seares, unsigned int addr
 {
 	QString text, s_postfix, a_postfix;
 	if(addres != 11 && addres % 10 == 1) {
-		a_postfix = QString::fromUtf8("ю");
+		a_postfix = trUtf8("ю");
 	} else if((addres < 10 || addres > 20) && ((addres % 10) > 1) && (addres % 10) < 5) {
-		a_postfix = QString::fromUtf8("и");
+		a_postfix = trUtf8("и");
 	} else {
-		a_postfix = QString::fromUtf8("й");
+		a_postfix = trUtf8("й");
 	}
 	if(seares != 11 && seares % 10 == 1) {
-		s_postfix = QString::fromUtf8("ю");
+		s_postfix = trUtf8("ю");
 	} else if((seares < 10 || seares > 20) && (seares % 10 > 1) && (seares % 10) < 5) {
-		s_postfix = QString::fromUtf8("и");
+		s_postfix = trUtf8("и");
 	} else {
-		s_postfix = QString::fromUtf8("й");
+		s_postfix = trUtf8("й");
 	}
 	if(seares2 != 0) {
-		text = QString::fromUtf8("Вы смогли отыскать книги за <strong>%1</strong> и <strong>%2</strong> операций,"
+		text = trUtf8("Вы смогли отыскать книги за <strong>%1</strong> и <strong>%2</strong> операций,"
 								 " а добавить за <strong>%3</strong> операци%4.<br/><br/>").arg(seares).arg(seares2).arg(addres).arg(a_postfix);
 	} else {
-		text = QString::fromUtf8("Вы смогли отыскать книгу за <strong>%1</strong> операци%2,"
+		text = trUtf8("Вы смогли отыскать книгу за <strong>%1</strong> операци%2,"
 								 " а добавить за <strong>%3</strong> операци%4.<br/><br/>").arg(seares).arg(s_postfix).arg(addres).arg(a_postfix);
 	}
 	text += helpText();
 
 	QMessageBox mb(QMessageBox::Information,
-				   QString::fromUtf8("Результат поиска и добавления книг"),
+				   trUtf8("Результат поиска и добавления книг"),
 				   text,
 				   QMessageBox::NoButton,
 				   this);
 	mb.setTextFormat(Qt::RichText);
-	mb.addButton(QString::fromUtf8("Продолжить"), QMessageBox::AcceptRole);	
+	mb.addButton(trUtf8("Продолжить"), QMessageBox::AcceptRole);	
 	mb.exec();
 }
 
@@ -445,8 +445,8 @@ bool DiagnosticsWindow::yesNoDialog(const QString& title, const QString& text)
 				   QMessageBox::NoButton,
 				   this);
 	mb.setTextFormat(Qt::RichText);
-	QPushButton* yesButton = mb.addButton(QString::fromUtf8("Да"), QMessageBox::YesRole);
-	mb.addButton(QString::fromUtf8("Нет"), QMessageBox::NoRole);
+	QPushButton* yesButton = mb.addButton(trUtf8("Да"), QMessageBox::YesRole);
+	mb.addButton(trUtf8("Нет"), QMessageBox::NoRole);
 	mb.exec();
 	return mb.clickedButton() == (QAbstractButton*)yesButton;
 }
@@ -456,12 +456,12 @@ QString DiagnosticsWindow::helpText()
 	QString text;
 	if(testnumber == 2) {
 		int t_op = config.targetOperations();
-		text = QString::fromUtf8("Известно, что можно расположить книги в ящиках таким образом, что поиск <strong>любой</strong> книги будет "
+		text = trUtf8("Известно, что можно расположить книги в ящиках таким образом, что поиск <strong>любой</strong> книги будет "
 								 "занимать не более <strong>%1</strong> операций, а добавление - не более <strong>%2</strong> операций.<br/><br/>").arg(t_op).arg(t_op + 1);
-		text += QString::fromUtf8("Предлагаем вам усовершенствовать принцип расположения книг в ящиках так, чтобы улучшить "
+		text += trUtf8("Предлагаем вам усовершенствовать принцип расположения книг в ящиках так, чтобы улучшить "
 								  "полученные результаты поиска и добавления книг.");
 	} else if(testnumber == 3) {
-		text = QString::fromUtf8("Диагностика завершена. Нажмите кнопку, чтобы оформить результаты диагностики.");
+		text = trUtf8("Диагностика завершена. Нажмите кнопку, чтобы оформить результаты диагностики.");
 	}
 	return text;
 }

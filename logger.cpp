@@ -29,7 +29,7 @@ Logger::Logger(const QString& l):
 	file(logpath)
 {
 	if(!file.open(QFile::WriteOnly | QFile::Truncate)) {
-		throw QString::fromUtf8("Не могу создать журнал диагностики %1").arg(l);
+		throw trUtf8("Не могу создать журнал диагностики %1").arg(l);
 	}
 }
 	
@@ -45,12 +45,12 @@ QByteArray Logger::closeAndRead()
 	QByteArray res;
 	file.close();
 	if(!file.open(QFile::ReadOnly)) {
-		throw QString::fromUtf8("Не могу открыть журнал диагностики %1").arg(logfile);
+		throw trUtf8("Не могу открыть журнал диагностики %1").arg(logfile);
 	}
 	res = file.readAll();
 	file.close();
 	if(!file.open(QFile::Append)) {
-		throw QString::fromUtf8("Не могу открыть журнал диагностики %1 для дальнейшей записи").arg(logfile);
+		throw trUtf8("Не могу открыть журнал диагностики %1 для дальнейшей записи").arg(logfile);
 	}
 	return res;
 }

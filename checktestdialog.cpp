@@ -39,18 +39,18 @@ CheckTestDialog::CheckTestDialog(Logger& l,
 	MY_ASSERT((search && books.size() > 0) || books.size() == 1);
 	if(search) {
 		if (question.isEmpty()) {
-			operationLabel->setText(QString::fromUtf8("Найдите следующую книгу, затратив меньшее число операций:"));
+			operationLabel->setText(trUtf8("Найдите следующую книгу, затратив меньшее число операций:"));
 		}
 		addLabel->setVisible(false);
 		ok2Button->setVisible(false);
 		addBoxButton->setVisible(false);
 	} else {
-		addLabel->setText(QString::fromUtf8("<span style=\"font-size:14pt; font-weight:600;\">Добавить книгу:</span>"));
-		typeLabel->setText(QString::fromUtf8("<span style=\"font-size:20pt; font-weight:600;\">Добавление новой книги</span>"));
-		actionsLabel->setText(QString::fromUtf8("<span style=\"font-size:14pt; font-weight:600;\">"
+		addLabel->setText(trUtf8("<span style=\"font-size:14pt; font-weight:600;\">Добавить книгу:</span>"));
+		typeLabel->setText(trUtf8("<span style=\"font-size:20pt; font-weight:600;\">Добавление новой книги</span>"));
+		actionsLabel->setText(trUtf8("<span style=\"font-size:14pt; font-weight:600;\">"
 												"Для поиска подходящего места под новую книгу используйте следующие действия:</span>"));
-		operationLabel->setText(QString::fromUtf8("Добавьте в библиотеку следующую книгу, затратив меньшее число операций:"));
-		okButton->setText(QString::fromUtf8("до выбранной"));
+		operationLabel->setText(trUtf8("Добавьте в библиотеку следующую книгу, затратив меньшее число операций:"));
+		okButton->setText(trUtf8("до выбранной"));
 	}	
 	if (question.isEmpty()) {
 		QStringList bl;
@@ -218,7 +218,7 @@ void CheckTestDialog::updateControls()
 	MY_ASSERT(parent_item);
 	currentBoxIcon->setPixmap(model->getItemIcon(parent_item).pixmap(48, 48));
 	if(!parent_index.isValid()) {
-		currentBoxLabel->setText(QString::fromUtf8("библиотекой"));
+		currentBoxLabel->setText(trUtf8("библиотекой"));
 		closeButton->setEnabled(false);
 	} else {
 		currentBoxLabel->setText(parent_item->getLabel());
@@ -237,7 +237,7 @@ void CheckTestDialog::updateControls()
 	} else {
 		logger.write("Current empty box");
 		currentIcon->setPixmap(QPixmap());
-		currentLabel->setText(QString::fromUtf8("Ящик пуст"));
+		currentLabel->setText(trUtf8("Ящик пуст"));
 	}
 	operationsCountLabel->setText(QString("<span style=\"font-size:20pt; font-weight:600;\">%1</span>").arg(operations));
 

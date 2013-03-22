@@ -42,7 +42,7 @@ def db_fetch(id)
 					  'searchduration, addlog, addoper, addduration, edit2log, edit2duration,' +
 					  'search2log, search2oper, search2duration, add2log, add2oper, add2duration,' +
 					  'comments, search3oper, search3duration, search3log, editdump, edit2dump, ' + 
-					  "remoteaddr, diagnid, books, startduration from diagn_results where id = #{id}")
+					  "remoteaddr, diagnid, books, startduration, language from diagn_results where id = #{id}")
 		row = res.fetch_row
 		r[:id] = row[0]
 		r[:servertime] = row[1]
@@ -79,6 +79,7 @@ def db_fetch(id)
 		r[:diagnid] = row[32]
 		r[:books] = row[33]
 		r[:startduration] = row[34]
+		r[:language] = row[35]
 	rescue Mysql::Error => e
 		return e.to_s
 	ensure
@@ -103,15 +104,15 @@ def db_insert(r_addr, d)
 							'searchduration, addlog, addoper, addduration, edit2log, edit2duration,' +
 							'search2log, search2oper, search2duration, add2log, add2oper, add2duration,' +
 							'comments, search3oper, search3duration, search3log, editdump, edit2dump, ' + 
-							'remoteaddr, diagnid, books, startduration) ' +
-							'values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)')
+							'remoteaddr, diagnid, books, startduration, language) ' +
+							'values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)')
 			req.execute(d[:appversion], d[:sysinfo], d[:localtime], d[:school], d[:class], d[:name],
 						d[:background], d[:editlog], d[:editduration], d[:searchlog], d[:searchoper],
 						d[:searchduration], d[:addlog], d[:addoper], d[:addduration], d[:edit2log],
 						d[:edit2duration], d[:search2log], d[:search2oper], d[:search2duration],
 						d[:add2log], d[:add2oper], d[:add2duration], d[:comments], d[:search3oper],
 						d[:search3duration], d[:search3log], d[:editdump], d[:edit2dump], r_addr,
-						d[:diagnid], d[:books], d[:startduration])
+						d[:diagnid], d[:books], d[:startduration], d[:language])
 			c.commit
 		else
 			puts "DiagnID '#{d[:diagnid]}' already available"

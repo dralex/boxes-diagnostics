@@ -21,53 +21,29 @@
  *
  ******************************************************************************/
 
-#include <QMessageBox>
-#include <QApplication>
 #include <QDateTime>
 #include <QUuid>
+#include <QTranslator>
 #include "diagn-window.h"
+#include "main.h"
 
 const char* version = "1.5";
 
-void printMessage(const QString& msg = "")
-{
-	if(!msg.isEmpty()) {
-		QMessageBox::critical(0, QString::fromUtf8("Диагностика работы за компьютером"),
-							  QString::fromUtf8("Ошибка при загрузке программы диагностики: %1").arg(msg));	
-	} else {
-		QMessageBox::critical(0, QString::fromUtf8("Диагностика работы за компьютером"),
-							  QString::fromUtf8("Неизвестная ошибка при загрузке программы диагностики."));
-	}
-}
-
-class DashboardApplication: public QApplication {
-public:
-	DashboardApplication(int & argc, char ** argv):
-		QApplication(argc, argv) 
-		{}
-	virtual bool notify(QObject * receiver, QEvent * e)
-		{
-			try {
-				return QApplication::notify(receiver, e);
-			} catch(const QString& error) {
-				printMessage(error);
-				quit();
-			} catch(...) {
-				printMessage();
-				quit();
-			}
-			return false;
-		}
-};
-
 int main(int argc, char *argv[])
 {
-	DashboardApplication app(argc, argv);
+	DiagnApplication app(argc, argv);
+#ifdef DIAGN_ENGLISH
+	QTranslator translator;
+	if(translator.load("diagn_en")) {
+		app.installTranslator(&translator);
+	}
+#endif
 	qsrand(QDateTime::currentDateTime().toTime_t());	
 	try {
 		QString logfile = QString("diagn-%1%2.log").arg(QDateTime::currentDateTime().toTime_t()).arg(qrand() % 10000);
 		Logger logger(logfile);
 		logger.write(QString("AppVersion: %1").arg(version));
+		logger.write(QString("Language: %1").arg(app.language()));
 		logger.write(QString("DiagnID: %1 %2").arg(QUuid::createUuid().toString()).arg(logfile));
 #ifdef Q_WS_WIN
 		logger.write("SysInfo: MS Windows");
@@ -81,9 +57,9 @@ int main(int argc, char *argv[])
 		int res = app.exec();
 		return res;
 	} catch(const QString& error) {
-		printMessage(error);
+		app.printMessage(error);
 	} catch(...) {
-		printMessage();
+		app.printMessage();
 	}
 	return 1;
 }

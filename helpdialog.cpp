@@ -34,7 +34,7 @@ HelpDialog::HelpDialog(int testnumber,
 	infoLabel->setText(infoLabel->text().arg(booknumber).arg(abook));
 	actionLabel->setText(actionLabel->text() + " " + operstr);
 	if(testnumber > 0) {
-		okButton->setText(QString::fromUtf8("Продолжить"));
+		okButton->setText(trUtf8("Продолжить"));
 	}
 	resize(sizeHint());
 }
