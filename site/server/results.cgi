@@ -353,12 +353,13 @@ if cgi.has_key? 'id'
 						s += "<h2>Программа</h2>"
 						s += "<ul><li><strong>Версия:</strong> #{r[:appversion]}</li>"
 						s += "<li><strong>Операционная система:</strong> #{r[:sysinfo]}</li>"
-						s += "<li><strong>Адрес:</strong> #{r[:remoteaddr]}</li></ul>"
+						s += "<li><strong>Адрес:</strong> #{r[:remoteaddr]}</li>"
 						if r[:language] == nil
 							s += "<li><strong>Язык:</strong> Русский (старый)</li>"
 						else
 							s += "<li><strong>Язык:</strong> #{r[:language]}</li>"
 						end
+						s += "</ul>"
 
 						s += "<h2>Участник</h2>"
 						s += "<ul><li><strong>Школа:</strong> #{r[:school]}</li>"
