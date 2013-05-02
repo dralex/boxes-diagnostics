@@ -20,5 +20,4 @@ win32 {
     TARGET = reflect-diagn
 }
 TRANSLATIONS = diagn_en.ts
-DEFINES += DIAGN_ENGLISH
-
+# DEFINES += DIAGN_ENGLISH
