@@ -391,7 +391,7 @@ For instance, opening a non-empty box costs 2 operations: 1 for opening the box 
         <location filename="diagn-window.cpp" line="201"/>
         <location filename="diagn-window.cpp" line="459"/>
         <source>Известно, что можно расположить книги в ящиках таким образом, что поиск &lt;strong&gt;любой&lt;/strong&gt; книги будет занимать не более &lt;strong&gt;%1&lt;/strong&gt; операций, а добавление - не более &lt;strong&gt;%2&lt;/strong&gt; операций.&lt;br/&gt;&lt;br/&gt;</source>
-        <translation type="unfinished">It&apos;s known that the books can be located in boxes in the way that any book can be found with no more than &lt;strong&gt;%1&lt;/strong&gt; operations and that a new book can be inserted with no more than &lt;strong&gt;%2&lt;/strong&gt; operations.&lt;br/&gt;&lt;br/&gt;</translation>
+        <translation>It&apos;s known that the books can be located in boxes in the way that any book can be found with no more than &lt;strong&gt;%1&lt;/strong&gt; operations and that a new book can be inserted with no more than &lt;strong&gt;%2&lt;/strong&gt; operations.&lt;br/&gt;&lt;br/&gt;</translation>
     </message>
     <message utf8="true">
         <location filename="diagn-window.cpp" line="220"/>
@@ -612,7 +612,7 @@ For instance, opening a non-empty box costs 2 operations: 1 for opening the box 
     <message utf8="true">
         <location filename="newtestdialog.ui" line="77"/>
         <source>Кратко опишите свой уровень владения компьютером, как часто работаете, для чего обычно используете компьютер:</source>
-        <translation>Please describe shortly your actual computer literacy, skills and the level of knowledge, including: how often do you use computer, what applications do you use, etc.:</translation>
+        <translation>Please describe shortly your actual computer literacy, skills and the level of knowledge, including: how often do you use computer, what applications do you prefer, etc.:</translation>
     </message>
 </context>
 </TS>
