@@ -22,6 +22,7 @@
  ******************************************************************************/
 
 #include <QMap>
+#include <algorithm>
 #include "bookitem.h"
 #include "myassert.h"
 
@@ -192,4 +193,49 @@ QString BookItem::constructPath() const
 QString BookItem::generateID()
 {
 	return QUuid::createUuid().toString();
+}
+
+bool listsIntersect(const QList<const BookItem*>& a,
+					const QList<const BookItem*>& b)
+{
+	for(int i = 0; i < std::min(a.size(), b.size()); i++) {
+		if(a.at(a.size() - i - 1) != b.at(b.size() - i - 1)) return false;
+	}
+	return true;
+}
+
+QList<const BookItem*> BookItem::pathTo(const BookItem* toitem) const
+{
+	QList<const BookItem*> result;
+	QList<const BookItem*> from_path_to_root = pathToRoot();
+	QList<const BookItem*> to_path_to_root = toitem->pathToRoot();
+	int find_index = -1;
+	for(int i = 0; i < from_path_to_root.size(); i++) {
+		const BookItem* current = from_path_to_root.at(i);
+		find_index = to_path_to_root.indexOf(current);
+		if(find_index != -1) {
+			break;
+		} else {
+			result.append(current);
+		}
+	}
+	if(!listsIntersect(from_path_to_root, to_path_to_root)) {
+		find_index--;
+	}
+	for(int i = find_index; i >= 0; i--) {
+		result.append(to_path_to_root.at(i));
+	}
+	return result;
+}
+
+QList<const BookItem*> BookItem::pathToRoot() const
+{
+	QList<const BookItem*> result;
+	result.append(this);
+	const BookItem* parent = parent_item;
+	while(parent) {
+		result.append(parent);
+		parent = parent->parent_item;
+	} 
+	return result;
 }

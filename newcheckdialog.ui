@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>NewCheckDialog</class>
+ <widget class="QDialog" name="NewCheckDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>664</width>
+    <height>572</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Подсчет числа операций</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="diagn.qrc">
+    <normaloff>:/Icons/images/full-box.png</normaloff>:/Icons/images/full-box.png</iconset>
+  </property>
+  <layout class="QGridLayout" name="gridLayout_3">
+   <item row="7" column="0">
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QLabel" name="addLabel">
+       <property name="text">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;Книга найдена!&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+       <property name="textFormat">
+        <enum>Qt::RichText</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="okButton">
+       <property name="text">
+        <string>Готово</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="ok2Button">
+       <property name="text">
+        <string>после выбранной</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="2" column="0">
+    <widget class="QFrame" name="frame">
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <layout class="QGridLayout" name="gridLayout">
+      <item row="1" column="0">
+       <widget class="QLabel" name="bookLabel">
+        <property name="text">
+         <string/>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+        <property name="wordWrap">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="QLabel" name="operationLabel">
+     <property name="text">
+      <string>Выполните следующее задание:</string>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="6" column="0">
+    <widget class="QLabel" name="operationLabel_3">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="text">
+      <string>Каждый просмотр ящика или книги, а также открытие или добавление ящика затрачивает 1 операцию.</string>
+     </property>
+     <property name="textFormat">
+      <enum>Qt::PlainText</enum>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="0">
+    <widget class="QTreeView" name="bookView">
+     <property name="editTriggers">
+      <set>QAbstractItemView::NoEditTriggers</set>
+     </property>
+     <property name="indentation">
+      <number>20</number>
+     </property>
+     <attribute name="headerVisible">
+      <bool>false</bool>
+     </attribute>
+    </widget>
+   </item>
+   <item row="4" column="0">
+    <layout class="QHBoxLayout" name="horizontalLayout_5">
+     <item>
+      <spacer name="horizontalSpacer_2">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="addBoxButton">
+       <property name="text">
+        <string>Добавить новый ящик</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="0" column="0">
+    <widget class="QLabel" name="typeLabel">
+     <property name="text">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:20pt; font-weight:600;&quot;&gt;Поиск книги&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+     <property name="textFormat">
+      <enum>Qt::RichText</enum>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources>
+  <include location="diagn.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>okButton</sender>
+   <signal>clicked()</signal>
+   <receiver>NewCheckDialog</receiver>
+   <slot>slotOK()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>430</x>
+     <y>228</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>241</x>
+     <y>126</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>addBoxButton</sender>
+   <signal>clicked()</signal>
+   <receiver>NewCheckDialog</receiver>
+   <slot>slotAddBox()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>473</x>
+     <y>121</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>275</x>
+     <y>234</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>ok2Button</sender>
+   <signal>clicked()</signal>
+   <receiver>NewCheckDialog</receiver>
+   <slot>slotOK2()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>588</x>
+     <y>500</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>337</x>
+     <y>262</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>bookView</sender>
+   <signal>clicked(QModelIndex)</signal>
+   <receiver>NewCheckDialog</receiver>
+   <slot>slotBookClicked(QModelIndex)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>331</x>
+     <y>248</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>331</x>
+     <y>269</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>bookView</sender>
+   <signal>expanded(QModelIndex)</signal>
+   <receiver>NewCheckDialog</receiver>
+   <slot>slotBoxExpanded(QModelIndex)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>331</x>
+     <y>248</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>331</x>
+     <y>269</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>bookView</sender>
+   <signal>collapsed(QModelIndex)</signal>
+   <receiver>NewCheckDialog</receiver>
+   <slot>slotBoxCollapsed(QModelIndex)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>331</x>
+     <y>248</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>331</x>
+     <y>269</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>slotLast()</slot>
+  <slot>slotAddBox()</slot>
+  <slot>slotOK()</slot>
+  <slot>slotOK2()</slot>
+  <slot>slotBookClicked(QModelIndex)</slot>
+  <slot>slotBoxExpanded(QModelIndex)</slot>
+  <slot>slotBoxCollapsed(QModelIndex)</slot>
+ </slots>
+</ui>

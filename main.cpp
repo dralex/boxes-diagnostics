@@ -27,7 +27,7 @@
 #include "diagn-window.h"
 #include "main.h"
 
-const char* version = "1.5";
+const char* version = "1.6";
 
 int main(int argc, char *argv[])
 {

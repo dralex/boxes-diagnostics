@@ -60,6 +60,9 @@ public:
 
 	static QString		path_separator;
 
+	QList<const BookItem*> pathTo(const BookItem*) const;
+	QList<const BookItem*> pathToRoot() const;
+
 private:
 
 	void removeChildren(const QStringList& list);

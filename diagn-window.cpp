@@ -30,7 +30,7 @@
 #include "diagn-window.h"
 #include "book.h"
 #include "myassert.h"
-#include "checktestdialog.h"
+#include "newcheckdialog.h"
 #include "webaccess.h"
 #include "helpdialog.h"
 
@@ -70,10 +70,10 @@ void DiagnosticsWindow::secondPart()
 		model->dump();
 
 		logger.write("SearchLog:");
-		CheckTestDialog dialog(logger, model,
-							   config.searchBookQuestion(1),
-							   config.searchBooks(1),
-							   true, this);
+		NewCheckDialog dialog(logger, model,
+							  config.searchBookQuestion(1),
+							  config.searchBooks(1),
+							  true, this);
 		if(dialog.exec() != QDialog::Accepted) {
 			logger.write("Search cancelled");
 			if(finishTest()) return ;
@@ -84,10 +84,10 @@ void DiagnosticsWindow::secondPart()
 		logger.write(QString("SearchOperations: %1").arg(search1oper));
 
 		logger.write("Search2Log:");
-		CheckTestDialog dialog2(logger, model,
-								config.searchBookQuestion(2),
-								config.searchBooks(2),
-								true, this);
+		NewCheckDialog dialog2(logger, model,
+							   config.searchBookQuestion(2),
+							   config.searchBooks(2),
+							   true, this);
 		if(dialog2.exec() != QDialog::Accepted) {
 			logger.write("Search cancelled");
 			if(finishTest()) return ;
@@ -98,7 +98,7 @@ void DiagnosticsWindow::secondPart()
 		logger.write(QString("Search2Operations: %1").arg(search2oper));
 
 		logger.write("AddLog:");
-		CheckTestDialog dialog3(logger, model, "", config.addBook(1), false, this);
+		NewCheckDialog dialog3(logger, model, "", config.addBook(1), false, this);
 		if(dialog3.exec() != QDialog::Accepted) {
 			logger.write("Addition cancelled");
 			if(finishTest()) return ;
@@ -122,7 +122,7 @@ void DiagnosticsWindow::secondPart()
 		model->dump();
 
 		logger.write("Search3Log:");
-		CheckTestDialog dialog(logger, model,
+		NewCheckDialog dialog(logger, model,
 							   config.searchBookQuestion(3),
 							   config.searchBooks(3),
 							   true, this);
@@ -136,7 +136,7 @@ void DiagnosticsWindow::secondPart()
 		logger.write(QString("Search3Operations: %1").arg(search3oper));
 
 		logger.write("Add2Log:");
-		CheckTestDialog dialog2(logger, model, "", config.addBook(2), false, this);
+		NewCheckDialog dialog2(logger, model, "", config.addBook(2), false, this);
 		if(dialog2.exec() != QDialog::Accepted) {
 			logger.write("Addition cancelled");
 			if(finishTest()) return ;
