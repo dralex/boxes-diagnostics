@@ -283,6 +283,10 @@ def rebuild_searchaddlog(rlog)
 			history += "Текущий элемент: #{$1}\n"
 		elsif l =~ /^Clicked\s+\{.*\}\{(.*)\}$/
 			history += "Выбран элемент: #{$1}\n"
+		elsif l =~ /^Expanded\s+\{.*\}\{(.*)\}$/
+			history += "Раскрыт ящик: #{$1}\n"
+		elsif l =~ /^Collapsed\s+\{.*\}\{(.*)\}$/
+			history += "Свернут ящик: #{$1}\n"
 		elsif l =~ /^New book\s+\{.*\}\{(.*)\}\s+at\s+(\{.*\})?:\d+/
 			history += "Книга для добавления: #{$1}\n"
 		elsif l =~ /New box\s+\{.*\}\{(.*)\}\s+at\s+(\{.*\})?:\d+/
