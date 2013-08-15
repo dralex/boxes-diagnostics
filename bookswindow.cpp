@@ -74,6 +74,9 @@ void BooksWindow::modifyRoot(const QString& newRoot)
 	QModelIndex index = model->pathToIndex(root);
 	MY_ASSERT(index.isValid());
 	booksView->setRootIndex(index);
+	BookItem* item = model->indexToItem(index);
+	MY_ASSERT(item);
+	setWindowIcon(model->getItemIcon(item));
 }
 
 void BooksWindow::modifyLabel(const QString& label)

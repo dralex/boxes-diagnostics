@@ -61,13 +61,32 @@ NewCheckDialog::NewCheckDialog(Logger& l,
 		bookLabel->setText(question);
 	}
 	bookView->setModel(m);
-	slotRestart();
+	operations = 0;
+	current_index = model->index(0, 0, model->rootIndex());
+	if(do_search) {
+		logger.write("Start search") ;
+	} else {
+		logger.write("Start add");
+	}
+	logger.write("O 0");
+	start_time = QDateTime::currentDateTime().toTime_t();
+	updateControls();
 }
 
 void NewCheckDialog::slotOK()
 {
-	int diff = calculateDistance(model->index(0, 0, model->rootIndex()), current_index);
-	incrementOperations(diff);	
+	int diff = 0;
+	QString title, message, path;
+	QModelIndex start_index = model->index(0, 0, model->rootIndex());
+	QList<QPair<QString,int> > path_list = calculatePath(start_index, current_index);
+	for(int i = 0; i < path_list.size(); i++) {
+		QPair<QString,int> pair = path_list.at(i);
+		diff += pair.second;
+		path += pair.first;
+	}
+
+	incrementOperations(diff);
+
 	if(!do_search) {
 		QModelIndex index;
 		int row;
@@ -83,16 +102,40 @@ void NewCheckDialog::slotOK()
 		model->newBook(model->indexToPath(index), row, search_books.at(0));
 		logger.write("Inserted before");
 		incrementOperations();
+		title = trUtf8("Результат добавления");
+		message = trUtf8("Книга была добавлена в следующее место:<br/>"
+						 "%3<br/>Итого: %1 %2.").arg(operations).arg(operationsNoun(operations, true)).arg(path);
 	} else {
-		logger.write("Found");
+		logger.write("Found");	
+		title = trUtf8("Результат поиска");
+		message = trUtf8("Книга была найдена следующим путем:<br/>"
+						 "%3<br/>Итого: %1 %2.").arg(operations).arg(operationsNoun(operations, true)).arg(path);
 	}
+	QMessageBox mb(QMessageBox::Information,
+				   title,
+				   message,
+				   QMessageBox::NoButton,
+				   this);
+	mb.setTextFormat(Qt::RichText);
+	mb.addButton(trUtf8("Продолжить"), QMessageBox::AcceptRole);	
+	mb.exec();
 	accept();
 }
 
 void NewCheckDialog::slotOK2()
 {
-	int diff = calculateDistance(model->index(0, 0, model->rootIndex()), current_index);
-	incrementOperations(diff);	
+	int diff = 0;
+	QString title, message, path;
+	QModelIndex start_index = model->index(0, 0, model->rootIndex());
+	QList<QPair<QString,int> > path_list = calculatePath(start_index, current_index);
+	for(int i = 0; i < path_list.size(); i++) {
+		QPair<QString,int> pair = path_list.at(i);
+		diff += pair.second;
+		path += pair.first;
+	}
+
+	incrementOperations(diff);
+
 	MY_ASSERT(!do_search);
 	QModelIndex index;
 	int row;
@@ -108,23 +151,19 @@ void NewCheckDialog::slotOK2()
 	model->newBook(model->indexToPath(index), row, search_books.at(0));
 	logger.write("Inserted after");
 	incrementOperations();
+	title = trUtf8("Результат добавления");
+	message = trUtf8("Книга была добавлена в следующее место:<br/>"
+					 "%3<br/>Итого: %1 %2.").arg(operations).arg(operationsNoun(operations, true)).arg(path);
+	QMessageBox mb(QMessageBox::Information,
+				   title,
+				   message,
+				   QMessageBox::NoButton,
+				   this);
+	mb.setTextFormat(Qt::RichText);
+	mb.addButton(trUtf8("Продолжить"), QMessageBox::AcceptRole);	
+	mb.exec();
 	accept();
 }
-
-void NewCheckDialog::slotRestart()
-{
-	operations = 0;
-	current_index = model->index(0, 0, model->rootIndex());
-	if(do_search) {
-		logger.write("Start search") ;
-	} else {
-		logger.write("Start add");
-	}
-	logger.write("O 0");
-	start_time = QDateTime::currentDateTime().toTime_t();
-	updateControls();
-}
-
 
 void NewCheckDialog::slotAddBox()
 {
@@ -189,7 +228,7 @@ void NewCheckDialog::updateControls()
 	if(current_index.isValid()) {
 		logger.write(QString("Current %1{%2}").arg(current_item->getID()).arg(current_item->getLabel()));
 	} else {
-		logger.write("Current empty box");
+		logger.write("Current nothing selected");
 	}
 
 	int diff = calculateDistance(model->index(0, 0, model->rootIndex()), current_index);
@@ -197,13 +236,17 @@ void NewCheckDialog::updateControls()
 		bool book_found = !current_item->isBox() && search_books.contains(current_item->getBookDescr());
 		if(book_found) {
 			addLabel->setText(trUtf8("<span style=\"font-size:14pt; font-weight:600;\">"
-									 "Книга найдена за %1 опер.!</span>").arg(diff));
+									 "Книга найдена за %1 %2!</span>")
+							  .arg(diff)
+							  .arg(operationsNoun(diff, true)));
 		}
 		addLabel->setVisible(book_found);
 		okButton->setEnabled(book_found);
 	} else {
 		addLabel->setText(trUtf8("<span style=\"font-size:14pt; font-weight:600;\">"
-								 "Добавить книгу (потребуется %1 опер.):</span>").arg(diff + 1));
+								 "Добавить книгу (потребуется %1 %2):</span>")
+						  .arg(diff + 1)
+						  .arg(operationsNoun(diff + 1, true)));
 	}
 }
 
@@ -214,10 +257,11 @@ void NewCheckDialog::incrementOperations(int diff)
 	logger.write(QString("O %1 %2").arg(operations).arg(time_diff));
 }
 
-int  NewCheckDialog::calculateDistance(QModelIndex from, QModelIndex to)
+QList<QPair<QString,int> > NewCheckDialog::calculatePath(QModelIndex from, QModelIndex to) const
 {
-	if(!from.isValid() || !to.isValid() || from == to) {
-		return 0;
+	QList<QPair<QString,int> > res;
+	if(!from.isValid() || !to.isValid()) {
+		return res;
 	}
 
 	BookItem* from_item = model->indexToItem(from);
@@ -228,18 +272,70 @@ int  NewCheckDialog::calculateDistance(QModelIndex from, QModelIndex to)
 	QList<const BookItem*> path = from_item->pathTo(to_item);
 	MY_ASSERT(path.size() >= 0);
 
-	int diff = 0;
 	const BookItem* prev = NULL;
 	for(int i = 0; i < path.size(); i++) {
 		const BookItem* b = path.at(i);
+		QString label;
+		if(b->isBox()) {
+			label = trUtf8("Ящик ") + b->getLabel();
+		} else {
+			label = b->getLabel();
+		}
+		QString str;
+		int diff = 0;
 		if(prev != NULL) {
 			if(prev->parent() == b->parent()) {
-				diff += abs(b->row() - prev->row());
+				diff = abs(b->row() - prev->row());
+				str = trUtf8("+%3 %4 за переход<br/><strong>%1) %2</strong><br/>")
+					.arg(i + 1)
+					.arg(label)
+					.arg(diff)
+					.arg(operationsNoun(diff, false));
 			} else {
-				diff += 2 + b->row();
+				diff = 2 + b->row();
+				if(b->row() == 0) {
+					str = trUtf8("+1 операция за открытие и +1 за переход<br/><strong>%1) %2</strong><br/>")
+						.arg(i + 1)
+						.arg(label);
+				} else {
+					str = trUtf8("+1 операция за открытие и +%3 за переход<br/><strong>%1) %2</strong><br/>")
+						.arg(i + 1)
+						.arg(label)
+						.arg(b->row() + 1);
+				}
 			}
+		} else {
+			str = trUtf8("начинаем с<br/><strong>%1) %2</strong><br/>")
+				.arg(i + 1)
+				.arg(label);
 		}
+		res.append(QPair<QString,int>(str, diff));
 		prev = b;
 	}
+	return res;
+}
+
+int NewCheckDialog::calculateDistance(QModelIndex from, QModelIndex to) const
+{
+	int diff = 0;
+	QList<QPair<QString,int> > path = calculatePath(from, to);
+	for(int i = 0; i < path.size(); i++) {
+		diff += path.at(i).second;
+	}
 	return diff;
+}
+
+QString NewCheckDialog::operationsNoun(int o, bool rod) const
+{
+	if ((o % 10 == 1) && o != 11) {
+		if (rod) {
+			return trUtf8("операция");
+		} else {
+			return trUtf8("операцию");
+		}
+	} else if (((o % 10 == 2) || (o % 10 == 3) || (o % 10 == 4)) && (o < 10 || o > 20)) {
+		return trUtf8("операции");
+	} else {
+		return trUtf8("операций");
+	}
 }

@@ -43,7 +43,6 @@ public:
 public slots:
 	void slotOK();
 	void slotOK2();
-	void slotRestart();
 	void slotAddBox();
 	void slotBookClicked(QModelIndex index);
 	void slotBoxExpanded(QModelIndex index);
@@ -52,8 +51,9 @@ public slots:
 private:
 	void incrementOperations(int diff = 1);
 	void updateControls();
-	int  calculateDistance(QModelIndex from,
-						   QModelIndex to);
+	QList<QPair<QString,int> > calculatePath(QModelIndex from, QModelIndex to) const;
+	int calculateDistance(QModelIndex from, QModelIndex to) const;
+	QString operationsNoun(int o, bool rod) const;
 
 	Logger&			logger;
 	BookModel*		model;
