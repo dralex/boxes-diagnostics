@@ -15,9 +15,10 @@ def db_list()
 					  " (IF(startduration is NULL, 0, startduration) + " +
 					  "editduration + IF(searchduration is NULL, 0, searchduration) + " + 
 					  "IF(search2duration is NULL, 0, search2duration) + " +
+					  "IF(search3duration is NULL, 0, search3duration) + " +
 					  "IF(addduration is NULL, 0, addduration) + " +
 					  "IF(edit2duration is NULL, 0, edit2duration) + " +
-					  "IF(search3duration is NULL, 0, search3duration) + " +
+					  "IF(search4duration is NULL, 0, search4duration) + " +
 					  "IF(add2duration is NULL, 0, add2duration))" + 
 					  " as totaltime, isnull(add2duration) as broken from diagn_results order by servertime")
 		res.num_rows.times {
@@ -41,7 +42,8 @@ def db_fetch(id)
 					  'class, name, background, editlog, editduration, searchlog, searchoper,' +
 					  'searchduration, addlog, addoper, addduration, edit2log, edit2duration,' +
 					  'search2log, search2oper, search2duration, add2log, add2oper, add2duration,' +
-					  'comments, search3oper, search3duration, search3log, editdump, edit2dump, ' + 
+					  'comments, search3oper, search3duration, search3log, search4oper, search4duration,' + 
+					  'search4log, searchargs, search2args, search3args, search4args, addargs, add2args, editdump, edit2dump, ' + 
 					  "remoteaddr, diagnid, books, startduration, language from diagn_results where id = #{id}")
 		row = res.fetch_row
 		r[:id] = row[0]
@@ -73,13 +75,22 @@ def db_fetch(id)
 		r[:search3oper] = row[26]
 		r[:search3duration] = row[27]
 		r[:search3log] = row[28]
-		r[:editdump] = row[29]
-		r[:edit2dump] = row[30]
-		r[:remoteaddr] = row[31]
-		r[:diagnid] = row[32]
-		r[:books] = row[33]
-		r[:startduration] = row[34]
-		r[:language] = row[35]
+		r[:search4oper] = row[29]
+		r[:search4duration] = row[30]
+		r[:search4log] = row[31]
+		r[:searchargs] = row[32]
+		r[:search2args] = row[33]
+		r[:search3args] = row[34]
+		r[:search4args] = row[35]
+		r[:addargs] = row[36]
+		r[:add2args] = row[37]
+		r[:editdump] = row[38]
+		r[:edit2dump] = row[39]
+		r[:remoteaddr] = row[40]
+		r[:diagnid] = row[41]
+		r[:books] = row[42]
+		r[:startduration] = row[43]
+		r[:language] = row[44]
 	rescue Mysql::Error => e
 		return e.to_s
 	ensure
@@ -103,15 +114,16 @@ def db_insert(r_addr, d)
 							'class, name, background, editlog, editduration, searchlog, searchoper,' +
 							'searchduration, addlog, addoper, addduration, edit2log, edit2duration,' +
 							'search2log, search2oper, search2duration, add2log, add2oper, add2duration,' +
-							'comments, search3oper, search3duration, search3log, editdump, edit2dump, ' + 
+							'comments, search3oper, search3duration, search3log, search4oper, search4duration, search4log, editdump, edit2dump, ' + 
 							'remoteaddr, diagnid, books, startduration, language) ' +
-							'values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)')
+							'values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)')
 			req.execute(d[:appversion], d[:sysinfo], d[:localtime], d[:school], d[:class], d[:name],
 						d[:background], d[:editlog], d[:editduration], d[:searchlog], d[:searchoper],
 						d[:searchduration], d[:addlog], d[:addoper], d[:addduration], d[:edit2log],
 						d[:edit2duration], d[:search2log], d[:search2oper], d[:search2duration],
 						d[:add2log], d[:add2oper], d[:add2duration], d[:comments], d[:search3oper],
-						d[:search3duration], d[:search3log], d[:editdump], d[:edit2dump], r_addr,
+						d[:search3duration], d[:search3log], d[:search4oper], d[:search4duration], d[:search4log],
+						d[:editdump], d[:edit2dump], r_addr,
 						d[:diagnid], d[:books], d[:startduration], d[:language])
 			c.commit
 		else

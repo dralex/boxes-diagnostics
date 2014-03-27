@@ -69,11 +69,10 @@ void DiagnosticsWindow::secondPart()
 		logger.write("EditDump:");
 		model->dump();
 
-		logger.write("SearchLog:");
 		NewCheckDialog dialog(logger, model,
 							  config.searchBookQuestion(1),
 							  config.searchBooks(1),
-							  true, this);
+							  true, 1, this);
 		if(dialog.exec() != QDialog::Accepted) {
 			logger.write("Search cancelled");
 			if(finishTest()) return ;
@@ -81,13 +80,14 @@ void DiagnosticsWindow::secondPart()
 		timing.search1end = QDateTime::currentDateTime().toTime_t();
 		logger.write(QString("SearchDuration: %1").arg(timing.search1end - timing.edit1end));
 		unsigned int search1oper = dialog.operationsResult();
+		unsigned int maxoper = search1oper;
+		int maxnumber = 1;
 		logger.write(QString("SearchOperations: %1").arg(search1oper));
 
-		logger.write("Search2Log:");
 		NewCheckDialog dialog2(logger, model,
 							   config.searchBookQuestion(2),
 							   config.searchBooks(2),
-							   true, this);
+							   true, 2, this);
 		if(dialog2.exec() != QDialog::Accepted) {
 			logger.write("Search cancelled");
 			if(finishTest()) return ;
@@ -95,22 +95,42 @@ void DiagnosticsWindow::secondPart()
 		timing.search2end = QDateTime::currentDateTime().toTime_t();
 		logger.write(QString("Search2Duration: %1").arg(timing.search2end - timing.search1end));
 		unsigned int search2oper = dialog2.operationsResult();
+		if (search2oper > maxoper) {
+			maxoper = search2oper;
+			maxnumber = 2;
+		}
 		logger.write(QString("Search2Operations: %1").arg(search2oper));
 
-		logger.write("AddLog:");
-		NewCheckDialog dialog3(logger, model, "", config.addBook(1), false, this);
+		NewCheckDialog dialog3(logger, model,
+							   config.searchBookQuestion(3),
+							   config.searchBooks(3),
+							   true, 3, this);
 		if(dialog3.exec() != QDialog::Accepted) {
+			logger.write("Search cancelled");
+			if(finishTest()) return ;
+		}
+		timing.search3end = QDateTime::currentDateTime().toTime_t();
+		logger.write(QString("Search3Duration: %1").arg(timing.search3end - timing.search2end));
+		unsigned int search3oper = dialog3.operationsResult();
+		if (search3oper > maxoper) {
+			maxoper = search3oper;
+			maxnumber = 3;
+		}
+		logger.write(QString("Search3Operations: %1").arg(search3oper));
+
+		NewCheckDialog dialog4(logger, model, "", config.addBook(1), false, 1, this);
+		if(dialog4.exec() != QDialog::Accepted) {
 			logger.write("Addition cancelled");
 			if(finishTest()) return ;
 		}
 		timing.add1end = QDateTime::currentDateTime().toTime_t();
-		logger.write(QString("AddDuration: %1").arg(timing.add1end - timing.search2end));
-		unsigned int add1oper = dialog3.operationsResult();
+		logger.write(QString("AddDuration: %1").arg(timing.add1end - timing.search3end));
+		unsigned int add1oper = dialog4.operationsResult();
 		logger.write(QString("AddOperations: %1").arg(add1oper));
 
 		testnumber = 2;
-
-		showSearchResults(search1oper, add1oper, search2oper);
+		
+		showSearchResults(maxoper, add1oper, config.searchBooks(maxnumber).at(0).toTextString());
 
 		logger.write("Edit2Log:");
 
@@ -121,34 +141,32 @@ void DiagnosticsWindow::secondPart()
 		logger.write("Edit2Dump:");
 		model->dump();
 
-		logger.write("Search3Log:");
 		NewCheckDialog dialog(logger, model,
-							   config.searchBookQuestion(3),
-							   config.searchBooks(3),
-							   true, this);
+							  config.searchBookQuestion(3),
+							  config.searchBooks(3),
+							  true, 4, this);
 		if(dialog.exec() != QDialog::Accepted) {
 			logger.write("Search cancelled");
 			if(finishTest()) return ;
 		}
-		timing.search3end = QDateTime::currentDateTime().toTime_t();
-		logger.write(QString("Search3Duration: %1").arg(timing.search3end - timing.edit2end));
-		unsigned int search3oper = dialog.operationsResult();
-		logger.write(QString("Search3Operations: %1").arg(search3oper));
+		timing.search4end = QDateTime::currentDateTime().toTime_t();
+		logger.write(QString("Search4Duration: %1").arg(timing.search4end - timing.edit2end));
+		unsigned int search4oper = dialog.operationsResult();
+		logger.write(QString("Search4Operations: %1").arg(search4oper));
 
-		logger.write("Add2Log:");
-		NewCheckDialog dialog2(logger, model, "", config.addBook(2), false, this);
+		NewCheckDialog dialog2(logger, model, "", config.addBook(2), false, 2, this);
 		if(dialog2.exec() != QDialog::Accepted) {
 			logger.write("Addition cancelled");
 			if(finishTest()) return ;
 		}
 		timing.add2end = QDateTime::currentDateTime().toTime_t();
-		logger.write(QString("Add2Duration: %1").arg(timing.add2end - timing.search3end));
+		logger.write(QString("Add2Duration: %1").arg(timing.add2end - timing.search4end));
 		unsigned int add2oper = dialog2.operationsResult();
 		logger.write(QString("Add2Operations: %1").arg(add2oper));
 
 		testnumber = 3;
 
-		showSearchResults(search3oper, add2oper);
+		showSearchResults(search4oper, add2oper);
 
 		finishTest();
 		
@@ -379,7 +397,7 @@ void DiagnosticsWindow::boxRenamed(const QString& path, const QString& label)
 	}
 }
 
-void DiagnosticsWindow::showSearchResults(unsigned int seares, unsigned int addres, unsigned int seares2)
+void DiagnosticsWindow::showSearchResults(unsigned int seares, unsigned int addres, const QString& sbookname)
 {
 	QString text, s_postfix, a_postfix;
 	if(addres != 11 && addres % 10 == 1) {
@@ -396,12 +414,12 @@ void DiagnosticsWindow::showSearchResults(unsigned int seares, unsigned int addr
 	} else {
 		s_postfix = trUtf8("й");
 	}
-	if(seares2 != 0) {
-		text = trUtf8("Вы смогли отыскать книги за <strong>%1</strong> и <strong>%2</strong> операций,"
-								 " а добавить за <strong>%3</strong> операци%4.<br/><br/>").arg(seares).arg(seares2).arg(addres).arg(a_postfix);
-	} else {
+	if(sbookname.isEmpty()) {
 		text = trUtf8("Вы смогли отыскать книгу за <strong>%1</strong> операци%2,"
-								 " а добавить за <strong>%3</strong> операци%4.<br/><br/>").arg(seares).arg(s_postfix).arg(addres).arg(a_postfix);
+					  " а добавить за <strong>%3</strong> операци%4.<br/><br/>").arg(seares).arg(s_postfix).arg(addres).arg(a_postfix);
+	} else {
+		text = trUtf8("Больше всего операций потребовалось на поиск книги %1 (<strong>%2</strong> операци%3),"
+					  " а добавить книгу удалось за <strong>%4</strong> операци%5.<br/><br/>").arg(sbookname).arg(seares).arg(s_postfix).arg(addres).arg(a_postfix);
 	}
 	text += helpText();
 

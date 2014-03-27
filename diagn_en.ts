@@ -43,7 +43,7 @@
     </message>
     <message utf8="true">
         <location filename="bookswindow.cpp" line="43"/>
-        <location filename="bookswindow.cpp" line="81"/>
+        <location filename="bookswindow.cpp" line="84"/>
         <source>Ящик: %1</source>
         <translation>The box: %1</translation>
     </message>
@@ -51,196 +51,138 @@
 <context>
     <name>CheckTestDialog</name>
     <message utf8="true">
-        <location filename="checktestdialog.ui" line="14"/>
         <source>Подсчет числа операций</source>
-        <translation>Calculating numeber of operations required</translation>
+        <translation type="obsolete">Calculating numeber of operations required</translation>
     </message>
     <message utf8="true">
-        <location filename="checktestdialog.ui" line="24"/>
         <source>Выполните следующее задание за меньшее число операций:</source>
-        <translation>Process this task with the minimal number of operations:</translation>
+        <translation type="obsolete">Process this task with the minimal number of operations:</translation>
     </message>
     <message utf8="true">
-        <location filename="checktestdialog.ui" line="36"/>
         <source>Число затраченных операций: </source>
-        <translation>Number of operations: </translation>
-    </message>
-    <message>
-        <location filename="checktestdialog.ui" line="49"/>
-        <source>0</source>
-        <translation></translation>
+        <translation type="obsolete">Number of operations: </translation>
     </message>
     <message utf8="true">
-        <location filename="checktestdialog.ui" line="85"/>
         <source>Вы сейчас работаете с</source>
-        <translation>You are working with</translation>
+        <translation type="obsolete">You are working with</translation>
     </message>
     <message utf8="true">
-        <location filename="checktestdialog.ui" line="98"/>
         <source>Иконка</source>
-        <translation>Icon</translation>
+        <translation type="obsolete">Icon</translation>
     </message>
     <message utf8="true">
-        <location filename="checktestdialog.ui" line="111"/>
         <source>Ящик ааа</source>
-        <translation>Box aaa</translation>
+        <translation type="obsolete">Box aaa</translation>
     </message>
     <message utf8="true">
-        <location filename="checktestdialog.ui" line="128"/>
         <source>Начать заново</source>
-        <translation>Restart</translation>
+        <translation type="obsolete">Restart</translation>
     </message>
     <message utf8="true">
-        <location filename="checktestdialog.ui" line="148"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;Книга найдена!&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;The book found!&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation type="obsolete">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;The book found!&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message utf8="true">
-        <location filename="checktestdialog.ui" line="158"/>
         <source>Готово</source>
-        <translation>OK</translation>
+        <translation type="obsolete">OK</translation>
     </message>
     <message utf8="true">
-        <location filename="checktestdialog.ui" line="165"/>
         <source>после выбранной</source>
-        <translation>after selection</translation>
+        <translation type="obsolete">after selection</translation>
     </message>
     <message utf8="true">
-        <location filename="checktestdialog.ui" line="176"/>
         <source>Закрыть текущий ящик</source>
-        <translation>Close the selected box</translation>
+        <translation type="obsolete">Close the selected box</translation>
     </message>
     <message utf8="true">
-        <location filename="checktestdialog.ui" line="179"/>
         <source>Закрыть ящик</source>
-        <translation>Close box</translation>
+        <translation type="obsolete">Close box</translation>
     </message>
     <message utf8="true">
-        <location filename="checktestdialog.ui" line="188"/>
         <source>Перейти к первой книге</source>
-        <translation>Go to the first item</translation>
-    </message>
-    <message>
-        <location filename="checktestdialog.ui" line="191"/>
-        <source>|&lt;</source>
-        <translation></translation>
+        <translation type="obsolete">Go to the first item</translation>
     </message>
     <message utf8="true">
-        <location filename="checktestdialog.ui" line="198"/>
         <source>Перейти к предыдущей книге</source>
-        <translation>Go to the previous item</translation>
-    </message>
-    <message>
-        <location filename="checktestdialog.ui" line="201"/>
-        <source>&lt;</source>
-        <translation></translation>
+        <translation type="obsolete">Go to the previous item</translation>
     </message>
     <message utf8="true">
-        <location filename="checktestdialog.ui" line="224"/>
         <source>Книга иконка</source>
-        <translation>Book Icon</translation>
+        <translation type="obsolete">Book Icon</translation>
     </message>
     <message utf8="true">
-        <location filename="checktestdialog.ui" line="240"/>
         <source>Книга ААА</source>
-        <translation>Book AAA</translation>
+        <translation type="obsolete">Book AAA</translation>
     </message>
     <message utf8="true">
-        <location filename="checktestdialog.ui" line="254"/>
         <source>Перейти к следующей книге</source>
-        <translation>Go to the next item</translation>
-    </message>
-    <message>
-        <location filename="checktestdialog.ui" line="257"/>
-        <source>&gt;</source>
-        <translation></translation>
+        <translation type="obsolete">Go to the next item</translation>
     </message>
     <message utf8="true">
-        <location filename="checktestdialog.ui" line="264"/>
         <source>Перейти к последней книге</source>
-        <translation>Go to the last item</translation>
-    </message>
-    <message>
-        <location filename="checktestdialog.ui" line="267"/>
-        <source>&gt;|</source>
-        <translation></translation>
+        <translation type="obsolete">Go to the last item</translation>
     </message>
     <message utf8="true">
-        <location filename="checktestdialog.ui" line="276"/>
         <source>Открыть выбранный ящик</source>
-        <translation>Open the selected box</translation>
+        <translation type="obsolete">Open the selected box</translation>
     </message>
     <message utf8="true">
-        <location filename="checktestdialog.ui" line="279"/>
         <source>Открыть ящик</source>
-        <translation>Open box</translation>
+        <translation type="obsolete">Open box</translation>
     </message>
     <message utf8="true">
-        <location filename="checktestdialog.ui" line="294"/>
         <source>Каждый просмотр ящика или книги, а также открытие или добавление ящика затрачивает 1 операцию.
 Например, открытие ящика с книгами занимает 2 операции, так как само открытие занимает 1 операцию и просмотр первой или последней книги занимает 1 операцию.</source>
-        <translation>Every action (looking at book, opening and closing a box) costs 1 operation.
+        <translation type="obsolete">Every action (looking at book, opening and closing a box) costs 1 operation.
 For instance, opening a non-empty box costs 2 operations: 1 for opening the box and 1 for looking at the first book.</translation>
     </message>
     <message utf8="true">
-        <location filename="checktestdialog.ui" line="310"/>
         <source>Содержимое:</source>
-        <translation>Contents:</translation>
+        <translation type="obsolete">Contents:</translation>
     </message>
     <message utf8="true">
-        <location filename="checktestdialog.ui" line="330"/>
         <source>Добавить новый ящик</source>
-        <translation>Add a new box</translation>
+        <translation type="obsolete">Add a new box</translation>
     </message>
     <message utf8="true">
-        <location filename="checktestdialog.ui" line="339"/>
         <source>&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;Для поиска книги используйте следующие действия:&lt;/span&gt;</source>
-        <translation>&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;Use this actions to find the target book:&lt;/span&gt;</translation>
+        <translation type="obsolete">&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;Use this actions to find the target book:&lt;/span&gt;</translation>
     </message>
     <message utf8="true">
-        <location filename="checktestdialog.ui" line="355"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:20pt; font-weight:600;&quot;&gt;Поиск книги&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:20pt; font-weight:600;&quot;&gt;Book search&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation type="obsolete">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:20pt; font-weight:600;&quot;&gt;Book search&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message utf8="true">
-        <location filename="checktestdialog.cpp" line="42"/>
         <source>Найдите следующую книгу, затратив меньшее число операций:</source>
-        <translation>Find this book with the minimal number of operations:</translation>
+        <translation type="obsolete">Find this book with the minimal number of operations:</translation>
     </message>
     <message utf8="true">
-        <location filename="checktestdialog.cpp" line="48"/>
         <source>&lt;span style=&quot;font-size:14pt; font-weight:600;&quot;&gt;Добавить книгу:&lt;/span&gt;</source>
-        <translation>&lt;span style=&quot;font-size:14pt; font-weight:600;&quot;&gt;Insert the book:&lt;/span&gt;</translation>
+        <translation type="obsolete">&lt;span style=&quot;font-size:14pt; font-weight:600;&quot;&gt;Insert the book:&lt;/span&gt;</translation>
     </message>
     <message utf8="true">
-        <location filename="checktestdialog.cpp" line="49"/>
         <source>&lt;span style=&quot;font-size:20pt; font-weight:600;&quot;&gt;Добавление новой книги&lt;/span&gt;</source>
-        <translation>&lt;span style=&quot;font-size:20pt; font-weight:600;&quot;&gt;Insert book&lt;/span&gt;</translation>
+        <translation type="obsolete">&lt;span style=&quot;font-size:20pt; font-weight:600;&quot;&gt;Insert book&lt;/span&gt;</translation>
     </message>
     <message utf8="true">
-        <location filename="checktestdialog.cpp" line="50"/>
         <source>&lt;span style=&quot;font-size:14pt; font-weight:600;&quot;&gt;Для поиска подходящего места под новую книгу используйте следующие действия:&lt;/span&gt;</source>
-        <translation>&lt;span style=&quot;font-size:14pt; font-weight:600;&quot;&gt;Use this actions to find the proper place for a new book:&lt;/span&gt;</translation>
+        <translation type="obsolete">&lt;span style=&quot;font-size:14pt; font-weight:600;&quot;&gt;Use this actions to find the proper place for a new book:&lt;/span&gt;</translation>
     </message>
     <message utf8="true">
-        <location filename="checktestdialog.cpp" line="52"/>
         <source>Добавьте в библиотеку следующую книгу, затратив меньшее число операций:</source>
-        <translation>Insert this book into the library with the minimal number of operations:</translation>
+        <translation type="obsolete">Insert this book into the library with the minimal number of operations:</translation>
     </message>
     <message utf8="true">
-        <location filename="checktestdialog.cpp" line="53"/>
         <source>до выбранной</source>
-        <translation>before selected</translation>
+        <translation type="obsolete">before selected</translation>
     </message>
     <message utf8="true">
-        <location filename="checktestdialog.cpp" line="221"/>
         <source>библиотекой</source>
-        <translation>the library</translation>
+        <translation type="obsolete">the library</translation>
     </message>
     <message utf8="true">
-        <location filename="checktestdialog.cpp" line="240"/>
         <source>Ящик пуст</source>
-        <translation>The box is empty</translation>
+        <translation type="obsolete">The box is empty</translation>
     </message>
 </context>
 <context>
@@ -383,145 +325,150 @@ For instance, opening a non-empty box costs 2 operations: 1 for opening the box 
         <translation>Rename the box/book</translation>
     </message>
     <message utf8="true">
-        <location filename="diagn-window.cpp" line="182"/>
+        <location filename="diagn-window.cpp" line="200"/>
         <source>Не удалось найти список книг.</source>
         <translation>Cannot locate the books list.</translation>
     </message>
     <message utf8="true">
-        <location filename="diagn-window.cpp" line="201"/>
-        <location filename="diagn-window.cpp" line="459"/>
+        <location filename="diagn-window.cpp" line="219"/>
+        <location filename="diagn-window.cpp" line="477"/>
         <source>Известно, что можно расположить книги в ящиках таким образом, что поиск &lt;strong&gt;любой&lt;/strong&gt; книги будет занимать не более &lt;strong&gt;%1&lt;/strong&gt; операций, а добавление - не более &lt;strong&gt;%2&lt;/strong&gt; операций.&lt;br/&gt;&lt;br/&gt;</source>
         <translation>It&apos;s known that the books can be located in boxes in the way that any book can be found with no more than &lt;strong&gt;%1&lt;/strong&gt; operations and that a new book can be inserted with no more than &lt;strong&gt;%2&lt;/strong&gt; operations.&lt;br/&gt;&lt;br/&gt;</translation>
     </message>
     <message utf8="true">
-        <location filename="diagn-window.cpp" line="220"/>
+        <location filename="diagn-window.cpp" line="238"/>
         <source>Новый ящик</source>
         <translation>New box</translation>
     </message>
     <message utf8="true">
-        <location filename="diagn-window.cpp" line="221"/>
+        <location filename="diagn-window.cpp" line="239"/>
         <source>Надпись на ящике</source>
         <translation>Box title</translation>
     </message>
     <message utf8="true">
-        <location filename="diagn-window.cpp" line="260"/>
-        <location filename="diagn-window.cpp" line="295"/>
-        <location filename="diagn-window.cpp" line="330"/>
+        <location filename="diagn-window.cpp" line="278"/>
+        <location filename="diagn-window.cpp" line="313"/>
+        <location filename="diagn-window.cpp" line="348"/>
         <source>Предупреждение</source>
         <translation>Warning</translation>
     </message>
     <message utf8="true">
-        <location filename="diagn-window.cpp" line="261"/>
+        <location filename="diagn-window.cpp" line="279"/>
         <source>Перейти к следующей части диагностики?</source>
         <translation>Move to the next step of the diagnistics?</translation>
     </message>
     <message utf8="true">
-        <location filename="diagn-window.cpp" line="269"/>
+        <location filename="diagn-window.cpp" line="287"/>
         <source>Выберите папку для сохранения результатов диагностики</source>
         <translation>Choose the distanation folder for the diagnostics results</translation>
     </message>
     <message utf8="true">
-        <location filename="diagn-window.cpp" line="280"/>
-        <location filename="diagn-window.cpp" line="284"/>
-        <location filename="diagn-window.cpp" line="312"/>
+        <location filename="diagn-window.cpp" line="298"/>
+        <location filename="diagn-window.cpp" line="302"/>
+        <location filename="diagn-window.cpp" line="330"/>
         <source>Завешение диагностики</source>
         <translation>Diagnistics completed</translation>
     </message>
     <message utf8="true">
-        <location filename="diagn-window.cpp" line="281"/>
+        <location filename="diagn-window.cpp" line="299"/>
         <source>Результаты диагностики успешно сохранены в папке %1.</source>
         <translation>The diagnostics results successfully saved to the directory %1.</translation>
     </message>
     <message utf8="true">
-        <location filename="diagn-window.cpp" line="285"/>
+        <location filename="diagn-window.cpp" line="303"/>
         <source>Не удалось сохранить результаты диагностики в папке %1.</source>
         <translation>Cannot save the diagnostics results to the directory %1.</translation>
     </message>
     <message utf8="true">
-        <location filename="diagn-window.cpp" line="296"/>
+        <location filename="diagn-window.cpp" line="314"/>
         <source>Диагностика еще не завершена. Вы уверены, что хотите закрыть приложение?</source>
         <translation>The diagnistics wasn&apos;t completed. Do you really want to close the application?</translation>
     </message>
     <message utf8="true">
-        <location filename="diagn-window.cpp" line="303"/>
+        <location filename="diagn-window.cpp" line="321"/>
         <source>Произошла ошибка отправления результатов диагностики.&lt;br/&gt;&lt;br/&gt;Пожалуйста, сохраните файл &lt;strong&gt;%1&lt;/strong&gt; и отправьте его организаторам диагностики по адресу &lt;a href=&apos;email:diagn@eduscen.ru&apos;&gt;diagn@eduscen.ru&lt;/a&gt;.</source>
         <translation>The error occured while sending the diagnistics results.&lt;br/&gt;&lt;br/&gt;Please save the file &lt;strong&gt;%1&lt;/strong&gt; and send it to the program authors by e-mail &lt;a href=&apos;email:diagn@eduscen.ru&apos;&gt;diagn@eduscen.ru&lt;/a&gt;.</translation>
     </message>
     <message utf8="true">
-        <location filename="diagn-window.cpp" line="308"/>
+        <location filename="diagn-window.cpp" line="326"/>
         <source>Данные вашей диагностики успешно отправлены организаторам. Большое спасибо за участие!</source>
         <translation>The diagnostics results were successfully sent to the program authors. Thank you for the participation!</translation>
     </message>
     <message utf8="true">
-        <location filename="diagn-window.cpp" line="317"/>
+        <location filename="diagn-window.cpp" line="335"/>
         <source>Конец</source>
         <translation>Finish</translation>
     </message>
     <message utf8="true">
-        <location filename="diagn-window.cpp" line="319"/>
+        <location filename="diagn-window.cpp" line="337"/>
         <source>Скорпировать результаты</source>
         <translation>Copy results</translation>
     </message>
     <message utf8="true">
-        <location filename="diagn-window.cpp" line="331"/>
+        <location filename="diagn-window.cpp" line="349"/>
         <source>Закончить редактирование библиотеки?</source>
         <translation>Do you really want to finish editing?</translation>
     </message>
     <message utf8="true">
-        <location filename="diagn-window.cpp" line="386"/>
-        <location filename="diagn-window.cpp" line="393"/>
+        <location filename="diagn-window.cpp" line="404"/>
+        <location filename="diagn-window.cpp" line="411"/>
         <source>ю</source>
-        <translation>s</translation>
+        <translation></translation>
     </message>
     <message utf8="true">
-        <location filename="diagn-window.cpp" line="388"/>
-        <location filename="diagn-window.cpp" line="395"/>
+        <location filename="diagn-window.cpp" line="406"/>
+        <location filename="diagn-window.cpp" line="413"/>
         <source>и</source>
         <translation>s</translation>
     </message>
     <message utf8="true">
-        <location filename="diagn-window.cpp" line="390"/>
-        <location filename="diagn-window.cpp" line="397"/>
+        <location filename="diagn-window.cpp" line="408"/>
+        <location filename="diagn-window.cpp" line="415"/>
         <source>й</source>
         <translation>s</translation>
     </message>
     <message utf8="true">
-        <location filename="diagn-window.cpp" line="400"/>
         <source>Вы смогли отыскать книги за &lt;strong&gt;%1&lt;/strong&gt; и &lt;strong&gt;%2&lt;/strong&gt; операций, а добавить за &lt;strong&gt;%3&lt;/strong&gt; операци%4.&lt;br/&gt;&lt;br/&gt;</source>
-        <translation>You found the books with &lt;strong&gt;%1&lt;/strong&gt; and &lt;strong&gt;%2&lt;/strong&gt; operations and inserted the new book with &lt;strong&gt;%3&lt;/strong&gt; operation%4.&lt;br/&gt;&lt;br/&gt;</translation>
+        <translation type="obsolete">You found the books with &lt;strong&gt;%1&lt;/strong&gt; and &lt;strong&gt;%2&lt;/strong&gt; operations and inserted the new book with &lt;strong&gt;%3&lt;/strong&gt; operation%4.&lt;br/&gt;&lt;br/&gt;</translation>
     </message>
     <message utf8="true">
-        <location filename="diagn-window.cpp" line="403"/>
+        <location filename="diagn-window.cpp" line="418"/>
         <source>Вы смогли отыскать книгу за &lt;strong&gt;%1&lt;/strong&gt; операци%2, а добавить за &lt;strong&gt;%3&lt;/strong&gt; операци%4.&lt;br/&gt;&lt;br/&gt;</source>
         <translation>You found the book with &lt;strong&gt;%1&lt;/strong&gt; operation%2 and inserted the new book with &lt;strong&gt;%3&lt;/strong&gt; operation%4.&lt;br/&gt;&lt;br/&gt;</translation>
     </message>
     <message utf8="true">
-        <location filename="diagn-window.cpp" line="409"/>
+        <location filename="diagn-window.cpp" line="421"/>
+        <source>Больше всего операций потребовалось на поиск книги %1 (&lt;strong&gt;%2&lt;/strong&gt; операци%3), а добавить книгу удалось за &lt;strong&gt;%4&lt;/strong&gt; операци%5.&lt;br/&gt;&lt;br/&gt;</source>
+        <oldsource>Больше всего операций потребовалось на поиск книги %1 (&lt;strong&gt;%2&lt;/strong&gt; операци%3), а добавить книгу удалось за &lt;strong&gt;%3&lt;/strong&gt; операци%4.&lt;br/&gt;&lt;br/&gt;</oldsource>
+        <translation>You have consumed the maximum number of operations while searching the book %1 (&lt;strong&gt;%2&lt;/strong&gt; operation%3). You have inserted the new book with &lt;strong&gt;%4&lt;/strong&gt; operation%5.&lt;br/&gt;&lt;br/&gt;</translation>
+    </message>
+    <message utf8="true">
+        <location filename="diagn-window.cpp" line="427"/>
         <source>Результат поиска и добавления книг</source>
         <translation>The search/insertion result</translation>
     </message>
     <message utf8="true">
-        <location filename="diagn-window.cpp" line="414"/>
+        <location filename="diagn-window.cpp" line="432"/>
         <source>Продолжить</source>
         <translation>Continue</translation>
     </message>
     <message utf8="true">
-        <location filename="diagn-window.cpp" line="448"/>
+        <location filename="diagn-window.cpp" line="466"/>
         <source>Да</source>
         <translation>Yes</translation>
     </message>
     <message utf8="true">
-        <location filename="diagn-window.cpp" line="449"/>
+        <location filename="diagn-window.cpp" line="467"/>
         <source>Нет</source>
         <translation>No</translation>
     </message>
     <message utf8="true">
-        <location filename="diagn-window.cpp" line="461"/>
+        <location filename="diagn-window.cpp" line="479"/>
         <source>Предлагаем вам усовершенствовать принцип расположения книг в ящиках так, чтобы улучшить полученные результаты поиска и добавления книг.</source>
         <translation>You could improve the way you organized books and boxes to otain better operations results.</translation>
     </message>
     <message utf8="true">
-        <location filename="diagn-window.cpp" line="464"/>
+        <location filename="diagn-window.cpp" line="482"/>
         <source>Диагностика завершена. Нажмите кнопку, чтобы оформить результаты диагностики.</source>
         <translation>The diagnistics is completed. Press the button to process the results.</translation>
     </message>
@@ -575,6 +522,157 @@ For instance, opening a non-empty box costs 2 operations: 1 for opening the box 
         <location filename="logger.cpp" line="53"/>
         <source>Не могу открыть журнал диагностики %1 для дальнейшей записи</source>
         <translation>Cannot open the log file %1 for appending</translation>
+    </message>
+</context>
+<context>
+    <name>NewCheckDialog</name>
+    <message utf8="true">
+        <location filename="newcheckdialog.ui" line="14"/>
+        <source>Подсчет числа операций</source>
+        <translation>Calculating number of operations required</translation>
+    </message>
+    <message utf8="true">
+        <location filename="newcheckdialog.ui" line="39"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;Книга найдена!&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;The book was found!&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message utf8="true">
+        <location filename="newcheckdialog.ui" line="49"/>
+        <source>Готово</source>
+        <translation>OK</translation>
+    </message>
+    <message utf8="true">
+        <location filename="newcheckdialog.ui" line="56"/>
+        <source>после выбранной</source>
+        <translation>after selection</translation>
+    </message>
+    <message utf8="true">
+        <location filename="newcheckdialog.ui" line="90"/>
+        <source>Выполните следующее задание:</source>
+        <translation>Please do the following:</translation>
+    </message>
+    <message utf8="true">
+        <location filename="newcheckdialog.ui" line="106"/>
+        <source>Каждый просмотр ящика или книги, а также открытие или добавление ящика затрачивает 1 операцию.</source>
+        <translation>Every view of a box or a book as well as open box or add book action consume 1 operation.</translation>
+    </message>
+    <message utf8="true">
+        <location filename="newcheckdialog.ui" line="147"/>
+        <source>Добавить новый ящик</source>
+        <translation>Add a new box</translation>
+    </message>
+    <message utf8="true">
+        <location filename="newcheckdialog.ui" line="156"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:20pt; font-weight:600;&quot;&gt;Поиск книги&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:20pt; font-weight:600;&quot;&gt;Book search&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message utf8="true">
+        <location filename="newcheckdialog.cpp" line="44"/>
+        <source>Найдите следующую книгу, затратив меньшее число операций:</source>
+        <translation>Find this book with the minimal number of operations:</translation>
+    </message>
+    <message utf8="true">
+        <location filename="newcheckdialog.cpp" line="50"/>
+        <source>&lt;span style=&quot;font-size:14pt; font-weight:600;&quot;&gt;Добавить книгу:&lt;/span&gt;</source>
+        <translation>&lt;span style=&quot;font-size:14pt; font-weight:600;&quot;&gt;Insert the book:&lt;/span&gt;</translation>
+    </message>
+    <message utf8="true">
+        <location filename="newcheckdialog.cpp" line="51"/>
+        <source>&lt;span style=&quot;font-size:20pt; font-weight:600;&quot;&gt;Добавление новой книги&lt;/span&gt;</source>
+        <translation>&lt;span style=&quot;font-size:20pt; font-weight:600;&quot;&gt;Insert book&lt;/span&gt;</translation>
+    </message>
+    <message utf8="true">
+        <location filename="newcheckdialog.cpp" line="52"/>
+        <source>Добавьте в библиотеку следующую книгу, затратив меньшее число операций:</source>
+        <translation>Insert this book into the library with the minimal number of operations:</translation>
+    </message>
+    <message utf8="true">
+        <location filename="newcheckdialog.cpp" line="53"/>
+        <source>до выбранной</source>
+        <translation>before selected</translation>
+    </message>
+    <message utf8="true">
+        <location filename="newcheckdialog.cpp" line="120"/>
+        <location filename="newcheckdialog.cpp" line="169"/>
+        <source>Результат добавления</source>
+        <translation>Insertion results</translation>
+    </message>
+    <message utf8="true">
+        <location filename="newcheckdialog.cpp" line="121"/>
+        <location filename="newcheckdialog.cpp" line="170"/>
+        <source>Книга была добавлена в следующее место:&lt;br/&gt;%3&lt;br/&gt;Итого: %1 %2.</source>
+        <translation>The book was placed here:&lt;br/&gt;%3&lt;br/&gt;Total: %1 %2.</translation>
+    </message>
+    <message utf8="true">
+        <location filename="newcheckdialog.cpp" line="125"/>
+        <source>Результат поиска</source>
+        <translation>Search results</translation>
+    </message>
+    <message utf8="true">
+        <location filename="newcheckdialog.cpp" line="126"/>
+        <source>Книга была найдена следующим путем:&lt;br/&gt;%3&lt;br/&gt;Итого: %1 %2.</source>
+        <translation>The book was found this way:&lt;br/&gt;%3&lt;br/&gt;Total: %1 %2.</translation>
+    </message>
+    <message utf8="true">
+        <location filename="newcheckdialog.cpp" line="135"/>
+        <location filename="newcheckdialog.cpp" line="178"/>
+        <source>Продолжить</source>
+        <translation>Continue</translation>
+    </message>
+    <message utf8="true">
+        <location filename="newcheckdialog.cpp" line="253"/>
+        <source>&lt;span style=&quot;font-size:14pt; font-weight:600;&quot;&gt;Книга найдена за %1 %2!&lt;/span&gt;</source>
+        <translation>&lt;span style=&quot;font-size:14pt; font-weight:600;&quot;&gt;The book was found with %1 %2!&lt;/span&gt;</translation>
+    </message>
+    <message utf8="true">
+        <location filename="newcheckdialog.cpp" line="261"/>
+        <source>&lt;span style=&quot;font-size:14pt; font-weight:600;&quot;&gt;Добавить книгу (потребуется %1 %2):&lt;/span&gt;</source>
+        <translation>&lt;span style=&quot;font-size:14pt; font-weight:600;&quot;&gt;Insert book (%1 %2 required):&lt;/span&gt;</translation>
+    </message>
+    <message utf8="true">
+        <location filename="newcheckdialog.cpp" line="327"/>
+        <source>Ящик </source>
+        <translation>Box</translation>
+    </message>
+    <message utf8="true">
+        <location filename="newcheckdialog.cpp" line="336"/>
+        <source>+%3 %4 за переход&lt;br/&gt;&lt;strong&gt;%1) %2&lt;/strong&gt;&lt;br/&gt;</source>
+        <translation>+%3 %4 for the shift&lt;br/&gt;&lt;strong&gt;%1) %2&lt;/strong&gt;&lt;br/&gt;</translation>
+    </message>
+    <message utf8="true">
+        <location filename="newcheckdialog.cpp" line="344"/>
+        <source>+1 операция за открытие и +1 за переход&lt;br/&gt;&lt;strong&gt;%1) %2&lt;/strong&gt;&lt;br/&gt;</source>
+        <translation>+1 operation for the box opening и +1 operation for the shift&lt;br/&gt;&lt;strong&gt;%1) %2&lt;/strong&gt;&lt;br/&gt;</translation>
+    </message>
+    <message utf8="true">
+        <location filename="newcheckdialog.cpp" line="348"/>
+        <source>+1 операция за открытие и +%3 за переход&lt;br/&gt;&lt;strong&gt;%1) %2&lt;/strong&gt;&lt;br/&gt;</source>
+        <translation>+1 operatoin for the box opening and +%3 for the shift&lt;br/&gt;&lt;strong&gt;%1) %2&lt;/strong&gt;&lt;br/&gt;</translation>
+    </message>
+    <message utf8="true">
+        <location filename="newcheckdialog.cpp" line="355"/>
+        <source>начинаем с&lt;br/&gt;&lt;strong&gt;%1) %2&lt;/strong&gt;&lt;br/&gt;</source>
+        <translation>starting from &lt;br/&gt;&lt;strong&gt;%1) %2&lt;/strong&gt;&lt;br/&gt;</translation>
+    </message>
+    <message utf8="true">
+        <location filename="newcheckdialog.cpp" line="412"/>
+        <source>операция</source>
+        <translation>operation</translation>
+    </message>
+    <message utf8="true">
+        <location filename="newcheckdialog.cpp" line="414"/>
+        <source>операцию</source>
+        <translation>operation</translation>
+    </message>
+    <message utf8="true">
+        <location filename="newcheckdialog.cpp" line="417"/>
+        <source>операции</source>
+        <translation>operations</translation>
+    </message>
+    <message utf8="true">
+        <location filename="newcheckdialog.cpp" line="419"/>
+        <source>операций</source>
+        <translation>operations</translation>
     </message>
 </context>
 <context>

@@ -64,7 +64,7 @@ private:
 	void createWindow(QModelIndex root);
 	bool yesNoDialog(const QString& title, const QString& text);
 	QString helpText();
-	void showSearchResults(unsigned int seares, unsigned int addres, unsigned int seares2 = 0);
+	void showSearchResults(unsigned int seares, unsigned int addres, const QString& sbookname = "");
 	bool sendResults();
 
 	static const char* configFile;
@@ -80,9 +80,10 @@ private:
 		unsigned int edit1end;
 		unsigned int search1end;
 		unsigned int search2end;
+		unsigned int search3end;
 		unsigned int add1end;
 		unsigned int edit2end;
-		unsigned int search3end;
+		unsigned int search4end;
 		unsigned int add2end;
 
 		TestTiming()

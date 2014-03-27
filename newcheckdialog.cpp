@@ -32,6 +32,7 @@ NewCheckDialog::NewCheckDialog(Logger& l,
 							   const QString& question,
 							   const BooksList& books, 
 							   bool search,
+							   int number,
 							   QWidget* parent):
 	QDialog(parent),
 	logger(l), model(m), do_search(search), search_books(books), operations(0), start_time(0)
@@ -51,21 +52,35 @@ NewCheckDialog::NewCheckDialog(Logger& l,
 		operationLabel->setText(trUtf8("Добавьте в библиотеку следующую книгу, затратив меньшее число операций:"));
 		okButton->setText(trUtf8("до выбранной"));
 	}	
-	if (question.isEmpty()) {
-		QStringList bl;
+	current_index = model->index(0, 0, model->rootIndex());
+	QStringList books_log, books_label;
+	if (books.size() > 0) {
 		foreach(const BookDescription& book, books) {
-			bl.append(book.author_name + " " + book.author_surname + " <strong>" + book.title + "</strong>");			
-		}
-		bookLabel->setText(bl.join("<br/>"));
+			books_label.append(book.author_name + " " + book.author_surname + " <strong>" + book.title + "</strong>");
+			books_log.append(book.toTextString());
+		}			
+		if (question.isEmpty()) {			
+			bookLabel->setText(books_label.join("<br/>"));
+		} else {			
+			bookLabel->setText(question);
+		}		
 	} else {
-		bookLabel->setText(question);
+		QPair<QModelIndex, int> book_pair = findDistantBook(current_index);
+		BookItem* item = model->indexToItem(book_pair.first);
+		BookDescription book = item->getBookDescr();
+		books_log.append(book.toTextString());
+		bookLabel->setText(book.author_name + " " + book.author_surname + " <strong>" + book.title + "</strong>");
 	}
 	bookView->setModel(m);
 	operations = 0;
-	current_index = model->index(0, 0, model->rootIndex());
+	QString number_str = (number == 1 ? QString(""): QString("%1").arg(number));
 	if(do_search) {
+		logger.write(QString("Search%1Args: %2").arg(number_str).arg(books_log.join(", ")));
+		logger.write(QString("Search%1Log:").arg(number_str));		
 		logger.write("Start search") ;
 	} else {
+		logger.write(QString("Add%1Args: %2").arg(number_str).arg(books_log.join(", ")));
+		logger.write(QString("Add%1Log:").arg(number_str));
 		logger.write("Start add");
 	}
 	logger.write("O 0");
@@ -78,7 +93,7 @@ void NewCheckDialog::slotOK()
 	int diff = 0;
 	QString title, message, path;
 	QModelIndex start_index = model->index(0, 0, model->rootIndex());
-	QList<QPair<QString,int> > path_list = calculatePath(start_index, current_index);
+	QList<QPair<QString,int> > path_list = calculatePathNames(start_index, current_index);
 	for(int i = 0; i < path_list.size(); i++) {
 		QPair<QString,int> pair = path_list.at(i);
 		diff += pair.second;
@@ -127,7 +142,7 @@ void NewCheckDialog::slotOK2()
 	int diff = 0;
 	QString title, message, path;
 	QModelIndex start_index = model->index(0, 0, model->rootIndex());
-	QList<QPair<QString,int> > path_list = calculatePath(start_index, current_index);
+	QList<QPair<QString,int> > path_list = calculatePathNames(start_index, current_index);
 	for(int i = 0; i < path_list.size(); i++) {
 		QPair<QString,int> pair = path_list.at(i);
 		diff += pair.second;
@@ -257,7 +272,39 @@ void NewCheckDialog::incrementOperations(int diff)
 	logger.write(QString("O %1 %2").arg(operations).arg(time_diff));
 }
 
-QList<QPair<QString,int> > NewCheckDialog::calculatePath(QModelIndex from, QModelIndex to) const
+QList<int> NewCheckDialog::calculatePath(QModelIndex from, QModelIndex to) const
+{
+	QList<int> res;
+	if(!from.isValid() || !to.isValid()) {
+		return res;
+	}
+
+	BookItem* from_item = model->indexToItem(from);
+	MY_ASSERT(from_item);
+	BookItem* to_item = model->indexToItem(to);
+	MY_ASSERT(to_item);
+
+	QList<const BookItem*> path = from_item->pathTo(to_item);
+	MY_ASSERT(path.size() >= 0);
+
+	const BookItem* prev = NULL;
+	for(int i = 0; i < path.size(); i++) {
+		const BookItem* b = path.at(i);
+		int diff = 0;
+		if(prev != NULL) {
+			if(prev->parent() == b->parent()) {
+				diff = abs(b->row() - prev->row());
+			} else {
+				diff = 2 + b->row();
+			}
+		}
+		res.append(diff);
+		prev = b;
+	}
+	return res;
+}
+
+QList<QPair<QString,int> > NewCheckDialog::calculatePathNames(QModelIndex from, QModelIndex to) const
 {
 	QList<QPair<QString,int> > res;
 	if(!from.isValid() || !to.isValid()) {
@@ -318,11 +365,44 @@ QList<QPair<QString,int> > NewCheckDialog::calculatePath(QModelIndex from, QMode
 int NewCheckDialog::calculateDistance(QModelIndex from, QModelIndex to) const
 {
 	int diff = 0;
-	QList<QPair<QString,int> > path = calculatePath(from, to);
+	QList<int> path = calculatePath(from, to);
 	for(int i = 0; i < path.size(); i++) {
-		diff += path.at(i).second;
+		diff += path.at(i);
 	}
 	return diff;
+}
+
+QPair<QModelIndex, int> NewCheckDialog::findDistantBook(QModelIndex start, int max_distance)
+{
+	QModelIndex result = start;
+	QModelIndex parent = start.parent();
+	if(!parent.isValid()) {
+		parent = start;
+	}
+	BookItem* parent_item = model->indexToItem(parent);
+	MY_ASSERT(parent_item);
+	for(int i = start.row() + 1; i < parent_item->childCount(); i++) {
+		QModelIndex child = model->index(i, 0, parent);
+		MY_ASSERT(child.isValid());
+		BookItem* child_item = model->indexToItem(child);
+		MY_ASSERT(child_item);
+		if (child_item->isBox()) {
+			if (child_item->childCount() > 0) {
+				QPair<QModelIndex, int> p = findDistantBook(model->index(0, 0, child), 0);				
+				if(p.second > 0) {
+					result = p.first;
+					max_distance = calculateDistance(start, result);
+				}
+			}
+		} else {
+			int distance = calculateDistance(start, child);
+			if (distance > max_distance) {
+				result = child;
+				max_distance = distance;
+			}
+		}
+	}
+	return QPair<QModelIndex, int>(result, max_distance);
 }
 
 QString NewCheckDialog::operationsNoun(int o, bool rod) const

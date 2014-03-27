@@ -1,0 +1,10 @@
+Package: reflect-diagn
+Priority: optional
+Section: misc
+Version: 1.6
+Architecture: amd64
+Installed-Size: 415
+Homepage: http://www.eduscen.ru/diagn/
+Maintainer: Alexey Fedoseev <aleksey@fedoseev.net>
+Depends: libqtcore4, libqtgui4, libqt4-network
+Description: ReflectDiagn is a diagnostic program for testing childrens' ability for reflection in a formal system.

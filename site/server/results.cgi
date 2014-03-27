@@ -376,20 +376,20 @@ if cgi.has_key? 'id'
 						s += "<li><strong>Время загрузки данных (сервер):</strong> #{r[:servertime]}</li>"
 						s += "<li><strong>Продолжительность:</strong></ul>"
 						s += ("<table width='80%' border='1'><tr><th>Начало</th><th>Редактирование 1</th>" + 
-							  "<th>Поиск 1</th><th>Поиск 2</th><th>Добавление 1</th>" +
-							  "<th>Редактирование 2</th><th>Поиск 3</th><th>Добавление 2</th><th>Всего</th></tr>")
+							  "<th>Поиск 1</th><th>Поиск 2</th><th>Поиск 3</th><th>Добавление 1</th>" +
+							  "<th>Редактирование 2</th><th>Поиск 4</th><th>Добавление 2</th><th>Всего</th></tr>")
 						s += ("<tr><td>#{dur2str(r[:startduration])}</td><td>#{dur2str(r[:editduration])}</td><td>#{dur2str(r[:searchduration])}</td>" +
-							  "<td>#{dur2str(r[:search2duration])}</td><td>#{dur2str(r[:addduration])}</td><td>#{dur2str(r[:edit2duration])}</td>" +
-							  "<td>#{dur2str(r[:search3duration])}</td><td>#{dur2str(r[:add2duration])}</td><td><strong>" + 
-							  dur2str(r[:startduration].to_i + r[:editduration].to_i + r[:searchduration].to_i + r[:search2duration].to_i +
-									  r[:addduration].to_i + r[:edit2duration].to_i + r[:search3duration].to_i + r[:add2duration].to_i) + "</strong></td>")
+							  "<td>#{dur2str(r[:search2duration])}</td><td>#{dur2str(r[:search3duration])}</td><td>#{dur2str(r[:addduration])}</td><td>#{dur2str(r[:edit2duration])}</td>" +
+							  "<td>#{dur2str(r[:search4duration])}</td><td>#{dur2str(r[:add2duration])}</td><td><strong>" + 
+							  dur2str(r[:startduration].to_i + r[:editduration].to_i + r[:searchduration].to_i + r[:search2duration].to_i + r[:search3duration].to_i +
+									  r[:addduration].to_i + r[:edit2duration].to_i + r[:search4duration].to_i + r[:add2duration].to_i) + "</strong></td>")
 						s += '</table>'
 						
 						s += "<h2>Число операций</h2>"
-						s += ("<table width='50%' border='1'><tr><th>Поиск 1</th><th>Поиск 2</th><th>Добавление 1</th>" +
-							  "<th>Поиск 3</th><th>Добавление 2</th></tr>")
-						s += ("<tr><td>#{r[:searchoper]}</td><td>#{r[:search2oper]}</td><td>#{r[:addoper]}</td>" +
-							  "<td>#{r[:search3oper]}</td><td>#{r[:add2oper]}</td>")
+						s += ("<table width='50%' border='1'><tr><th>Поиск 1</th><th>Поиск 2</th><th>Поиск 3</th><th>Добавление 1</th>" +
+							  "<th>Поиск 4</th><th>Добавление 2</th></tr>")
+						s += ("<tr><td>#{r[:searchoper]}</td><td>#{r[:search2oper]}</td><td>#{r[:search3oper]}</td><td>#{r[:addoper]}</td>" +
+							  "<td>#{r[:search4oper]}</td><td>#{r[:add2oper]}</td>")
 						s += '</table>'
 
 						books = rebuild_books(r[:books], r[:editlog])
@@ -429,8 +429,10 @@ if cgi.has_key? 'id'
 						end
 
 						s += "<h2>Поиск 1</h2>"
-						
-						if compare_versions('1.5', r[:appversion]) >= 0 
+
+						if compare_versions('1.6', r[:appversion]) >= 0
+							s += "<p><strong>Книги для поиска:</strong> #{r[:searchargs]}"
+						elsif compare_versions('1.5', r[:appversion]) == 0 
 							s += "<p><strong>Вопрос для поиска:</strong> Найдите книгу с названием &quot;Приключения Гекльберри Финна&quot;"
 						else
 							s += "<p><strong>Книга для поиска:</strong> Марк Твен - Приключения Гекльберри Финна"
@@ -442,8 +444,10 @@ if cgi.has_key? 'id'
 						s += cgi.pre { rebuild_searchaddlog(r[:searchlog]) }
 
 						s += "<h2>Поиск 2</h2>"
-
-						if compare_versions('1.5', r[:appversion]) >= 0 
+						
+						if compare_versions('1.6', r[:appversion]) >= 0
+							s += "<p><strong>Книги для поиска:</strong> #{r[:searchargs]}"
+						elsif compare_versions('1.5', r[:appversion]) == 0 
 							s += "<p><strong>Вопрос для поиска:</strong> Найдите книгу Стендаля"
 						else
 							s += "<p><strong>Книга для поиска:</strong> Николай Гоголь - Вечера на хуторе близ Диканьки"
@@ -453,11 +457,22 @@ if cgi.has_key? 'id'
 						s += "<p><strong>Число операций:</strong> #{r[:search2oper]}"
 						s += '<p><strong>Последовательность поиска:</strong>'
 						s += cgi.pre { rebuild_searchaddlog(r[:search2log]) }
-						
+
+						if compare_versions('1.6', r[:appversion]) >= 0
+							s += "<h2>Поиск 3</h2>"
+							s += "<p><strong>Книги для поиска:</strong> #{r[:search3args]}"
+							s += "<p><strong>Время поиска:</strong> #{dur2str(r[:search3duration])}"
+							s += "<p><strong>Число операций:</strong> #{r[:search3oper]}"
+							s += '<p><strong>Последовательность поиска:</strong>'
+							s += cgi.pre { rebuild_searchaddlog(r[:search3log]) }
+						end						
+
 						s += "<h2>Добавление 1</h2>"						
 
 						s += "<p><strong>Книга для добавления:</strong> "
-						if compare_versions('1.5', r[:appversion]) >= 0 
+						if compare_versions('1.6', r[:appversion]) >= 0
+							s += "#{r[:searchargs]}"
+						elsif compare_versions('1.5', r[:appversion]) == 0 
 							s += "Аркадий и Борис Стругацкие - Жук в муравейнике"
 						else
 							s += "Аркадий и Борис Стругацкие - Жук в муравейнике"
@@ -479,23 +494,32 @@ if cgi.has_key? 'id'
 						s += "<p><strong>Дерево на конец редактирования:</strong>"
 						s += cgi.pre { r[:edit2dump] } 
 
-						s += "<h2>Поиск 3</h2>"
-
-						if compare_versions('1.5', r[:appversion]) >= 0 
-							s += "<p><strong>Вопрос для поиска:</strong> Найдите книгу &quot;Золотой теленок&quot;"
+						if compare_versions('1.6', r[:appversion]) >= 0
+							s += "<h2>Поиск 4</h2>"
+							s += "<p><strong>Книги для поиска:</strong> #{r[:search4args]}"
+							s += "<p><strong>Время поиска:</strong> #{dur2str(r[:search4duration])}"
+							s += "<p><strong>Число операций:</strong> #{r[:search4oper]}"
+							s += '<p><strong>Последовательность поиска:</strong>'
+							s += cgi.pre { rebuild_searchaddlog(r[:search4log]) }
 						else
-							s += "<p><strong>Книга для поиска:</strong> Александр Пушкин - Повести Белкина"
+							s += "<h2>Поиск 3</h2>"							
+							if compare_versions('1.5', r[:appversion]) >= 0 
+								s += "<p><strong>Вопрос для поиска:</strong> Найдите книгу &quot;Золотой теленок&quot;"
+							else
+								s += "<p><strong>Книга для поиска:</strong> Александр Пушкин - Повести Белкина"
+							end
+							s += "<p><strong>Время поиска:</strong> #{dur2str(r[:search3duration])}"
+							s += "<p><strong>Число операций:</strong> #{r[:search3oper]}"
+							s += '<p><strong>Последовательность поиска:</strong>'
+							s += cgi.pre { rebuild_searchaddlog(r[:search3log]) }
 						end
-
-						s += "<p><strong>Время поиска:</strong> #{dur2str(r[:search3duration])}"
-						s += "<p><strong>Число операций:</strong> #{r[:search3oper]}"
-						s += '<p><strong>Последовательность поиска:</strong>'
-						s += cgi.pre { rebuild_searchaddlog(r[:search3log]) }
 						
 						s += "<h2>Добавление 2</h2>"						
 
 						s += "<p><strong>Книга для добавления:</strong> "
-						if compare_versions('1.5', r[:appversion]) >= 0 
+						if compare_versions('1.6', r[:appversion]) >= 0
+							s += "#{r[:searchargs]}"
+						elsif compare_versions('1.5', r[:appversion]) == 0 
 							s += "Carl Marx - Capital"
 						else
 							s += "Carl Marx - Capital"

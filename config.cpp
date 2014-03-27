@@ -85,6 +85,9 @@ BooksList Config::searchBooks(int stage)
 	if(!settings.contains(key)) throwError();
 	QString bookStr = QString::fromUtf8(settings.value(key).toByteArray());
 	BooksList res;
+	if(bookStr.trimmed() == "DISTANT") {
+		return res;
+	}
 	foreach(QString bs, bookStr.split("|")) {
 		BookDescription bd;
 		if(!parseBook(bs, bd)) throwError();

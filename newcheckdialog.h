@@ -32,11 +32,12 @@ class NewCheckDialog: public QDialog, public Ui::NewCheckDialog {
 Q_OBJECT
 public:
 	NewCheckDialog(Logger& logger,
-					BookModel* model,
-					const QString& question,
-					const BooksList& books,
-					bool search,
-					QWidget* parent = 0);
+				   BookModel* model,
+				   const QString& question,
+				   const BooksList& books,
+				   bool search,
+				   int number,
+				   QWidget* parent = 0);
 
 	unsigned int operationsResult() const { return operations; }
 
@@ -51,8 +52,10 @@ public slots:
 private:
 	void incrementOperations(int diff = 1);
 	void updateControls();
-	QList<QPair<QString,int> > calculatePath(QModelIndex from, QModelIndex to) const;
+	QList<int> calculatePath(QModelIndex from, QModelIndex to) const;
+	QList<QPair<QString,int> > calculatePathNames(QModelIndex from, QModelIndex to) const;
 	int calculateDistance(QModelIndex from, QModelIndex to) const;
+	QPair<QModelIndex, int> findDistantBook(QModelIndex start, int max_distance = 0);
 	QString operationsNoun(int o, bool rod) const;
 
 	Logger&			logger;
